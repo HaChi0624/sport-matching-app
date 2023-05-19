@@ -1,6 +1,5 @@
 import Head from 'next/head'
-import styles from '@/styles/Home.module.css'
-import Link from 'next/link'
+import Header from "../pages/posts/header"
 
 
 export default function Home() {
@@ -13,7 +12,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       
-      <Link href="/posts/signUp">SignUp</Link>
+      <Header />
+      
     </>
   )
 }
