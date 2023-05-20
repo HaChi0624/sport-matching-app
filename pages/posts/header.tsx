@@ -19,7 +19,7 @@ import React from "react";
 const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
-    <HStack>
+    <HStack bgColor={'red.100'}>
       <Box>アプリ名</Box>
       <Spacer />
       <Button  colorScheme='teal' onClick={onOpen}>
@@ -37,6 +37,9 @@ const Header = () => {
 
           <DrawerBody>
             <Input placeholder='Type here...' />
+            <p>Some contents...</p>
+            <p>Some contents...</p>
+            <p>Some contents...</p>
           </DrawerBody>
 
           <DrawerFooter>
