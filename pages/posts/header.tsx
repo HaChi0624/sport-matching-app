@@ -18,19 +18,17 @@ import React from "react";
 
 const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const btnRef = React.useRef()
   return (
     <HStack>
       <Box>アプリ名</Box>
       <Spacer />
-      <Button ref={btnRef} colorScheme='teal' onClick={onOpen}>
+      <Button  colorScheme='teal' onClick={onOpen}>
         Open
       </Button>
       <Drawer
         isOpen={isOpen}
         placement='right'
         onClose={onClose}
-        finalFocusRef={btnRef}
       >
         <DrawerOverlay />
         <DrawerContent>
