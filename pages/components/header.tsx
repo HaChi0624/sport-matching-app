@@ -20,7 +20,7 @@ const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <HStack bgColor={'red.100'}>
-      <Box>アプリ名</Box>
+      <Box>Sport Matching App</Box>
       <Spacer />
       <Button  colorScheme='teal' onClick={onOpen}>
         Open
