@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Header from "./components/header"
+import ProfileCards from './components/profileCards'
 
 
 export default function Home() {
@@ -13,7 +14,7 @@ export default function Home() {
       </Head>
       
       <Header />
-      
+      <ProfileCards />
     </>
   )
 }
