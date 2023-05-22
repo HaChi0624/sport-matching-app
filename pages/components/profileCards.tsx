@@ -4,13 +4,11 @@ import { Box, VStack } from "@chakra-ui/react";
 
 const ProfileCards = () => {
   return (
-    <VStack w="390px" h="500px" m="0 auto" border="1px">
+    <VStack w="390px" h="600px" pt="20px" m="0 auto" border="1px">
       <Box
-        w="200px"
-        h="200px"
-        borderRadius="50%"
+        w="300px"
+        h="400px"
         border="1px"
-        objectFit="cover"
         overflow="hidden"
       >
         <FileInput />

@@ -6,6 +6,7 @@ export const useProfileCards = () => {
   const imageContainerRef = useRef<HTMLDivElement>(null);
   const [objectURL, setObjectURL] = useState("");
 
+  //DOMの読み込みをしてからnew Image()の実行
   useEffect(() => {
     fileImage = new Image();
   }, []);
