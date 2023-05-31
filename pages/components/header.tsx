@@ -1,4 +1,3 @@
-import Link from "next/link";
 import {
   Box,
   Button,
@@ -12,8 +11,10 @@ import {
   HStack,
   Input,
   Spacer,
+  Stack,
   VStack,
   useDisclosure,
+  Link,
 } from "@chakra-ui/react";
 import React from "react";
 
@@ -21,7 +22,7 @@ const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <HStack bgColor="teal.100">
-      <Box>Sport Matching App</Box>
+      <Link href="/">Sport Matching App</Link>
       <Spacer />
       <Button colorScheme="teal" onClick={onOpen}>
         メニュー
@@ -33,24 +34,17 @@ const Header = () => {
           <DrawerHeader>メニュー</DrawerHeader>
 
           <DrawerBody>
-            {/* <Input placeholder='Type here...' /> */}
-            <VStack>
+            <Stack>
               <Link href="/">ホーム</Link>
               <Link href="/components/profileCards">プロフィール</Link>
-              <Link href="/components/">探す</Link>
-              <Link href="/components/">友達</Link>
-              <Link href="/components/">チャット</Link>
-              <Link href="/components/">設定</Link>
-              <Link href="/components/">ログアウト</Link>
-            </VStack>
+              <Link href="/posts/search">探す</Link>
+              <Link href="/posts/friendsList">友達</Link>
+              <Link href="/posts/chat">チャット</Link>
+              <Link href="/posts/columns">コラム</Link>
+              <Link href="/posts/settings">設定</Link>
+              <Link href="/posts/">ログアウト</Link>
+            </Stack>
           </DrawerBody>
-
-          <DrawerFooter>
-            <Button variant="outline" mr={3} onClick={onClose}>
-              Cancel
-            </Button>
-            <Button colorScheme="blue">Save</Button>
-          </DrawerFooter>
         </DrawerContent>
       </Drawer>
     </HStack>
