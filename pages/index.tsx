@@ -1,8 +1,8 @@
-import Head from 'next/head'
-import Header from "./components/header"
-import ProfileCards from './components/profileCards'
-import Footer from './components/footer'
-
+import Head from "next/head";
+import Header from "./components/header";
+import ProfileCards from "./components/profileCards";
+import Footer from "./components/footer";
+import { Box, Button, Container, Flex, HStack, Link, Stack } from "@chakra-ui/react";
 
 export default function Home() {
   return (
@@ -13,8 +13,23 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <p>ほーむ画面</p>
+      <Container>
+        <HStack justifyContent="spacebetween" bgColor='teal.200'>
+          <Link href="/components/profileCards">プロフィール</Link>
+          <Link href="/posts/search">探す</Link>
+          <Link href="/posts/friendsList">友達</Link>
+          <Link href="/posts/chat">チャット</Link>
+        </HStack>
+        <Stack mb="20px">
+          <Box>新着情報</Box>
+          <Box h="300px" border="1px">アップデート、コラム</Box>
+        </Stack>
+        <Stack mb="20px">
+          <Box>SNS</Box>
+          <Box h="200px" border="1px"></Box>
+        </Stack>
+      </Container>
       <Footer />
     </>
-  )
+  );
 }
