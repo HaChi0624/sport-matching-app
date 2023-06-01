@@ -14,8 +14,8 @@ const ProfileCards = () => {
         <FileInput />
       </Box>
       <Box>名前</Box>
-      <Box>好きな球団</Box>
       <Box>好きな選手</Box>
+      <Box>ひとこと</Box>
     </VStack>
   );
 };
