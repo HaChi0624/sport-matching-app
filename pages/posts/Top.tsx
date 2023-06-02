@@ -2,7 +2,7 @@ import { Box, Container, HStack, Stack } from "@chakra-ui/react";
 import Link from "next/link";
 import Footer from "../components/footer";
 
-const Home = () => {
+const Top = () => {
   return (
     <>
       <Container>
@@ -28,4 +28,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Top;
