@@ -22,10 +22,10 @@ const LogIn = () => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      router.push("/posts/top");
     } catch (error) {
       alert("サインイン認証に失敗しました。authfunction.tsx");
     }
-    router.push("/");
   };
 
   const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>) =>
@@ -62,7 +62,7 @@ const LogIn = () => {
         </Box>
       </form>
       <Box>
-        <Link href="/posts/signUp">ユーザ登録がお済み出ない方はこちらへ</Link>
+        <Link href="/posts/auth/signUp">ユーザ登録がお済み出ない方はこちらへ</Link>
       </Box>
     </Box>
   );
