@@ -14,7 +14,7 @@ import {
   useDisclosure,
   Link,
 } from "@chakra-ui/react";
-import { useAuth } from "@/firebase/authFunctions";
+import { signOut, useAuth } from "@/firebase/authFunctions";
 
 const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -25,7 +25,7 @@ const Header = () => {
     <HStack bgColor="teal.100">
       <Link href="/">Sport Matching App</Link>
       <Spacer />
-      <Box>ようこそ {currentUser !== null ? "ゲスト" : "m.t"}さん！</Box>
+      <Box>ようこそ {currentUser !== null ? "m.t" : "ゲスト"}さん！</Box>
       <Button colorScheme="teal" onClick={onOpen}>
         メニュー
       </Button>
@@ -45,7 +45,7 @@ const Header = () => {
               <Link href="/posts/columns">コラム</Link>
               <Link href="/posts/settings">設定</Link>
               {/* <Link href="/posts/">ログアウト</Link> */}
-              <Box>{currentUser !== null ? (<Link href="/posts/logIn">ログイン</Link>) : (<Link href="/posts/logOut">ログアウト</Link>)}</Box>
+              <Box>{currentUser !== null ? (<Button onClick={signOut}>ログアウト</Button>) : (<Link href="/posts/auth/logIn">ログイン</Link>)}</Box>
             </Stack>
           </DrawerBody>
         </DrawerContent>

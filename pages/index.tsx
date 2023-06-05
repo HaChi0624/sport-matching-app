@@ -15,9 +15,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* {currentUser !== null ? <LogIn /> : <Top />} */}
+      {currentUser !== null ? <LogIn /> : <Top />}
       {/* <LogIn /> */}
-      <Top />
+      {/* <Top /> */}
     </>
   );
 }

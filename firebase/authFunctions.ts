@@ -6,6 +6,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import router, { Router } from "next/router";
 
 //import しようとしたけど上手くいかなかった
 /**
@@ -36,6 +37,7 @@ import {
 export const signOut = async () => {
   try {
     await auth.signOut();
+    router.push("/");
   } catch (error) {
     alert("サインアウトに失敗しました。");
   }
