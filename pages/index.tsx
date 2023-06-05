@@ -1,6 +1,8 @@
 import Head from "next/head";
 import { useAuth } from "@/firebase/authFunctions";
 import LogIn from "./posts/logIn";
+import Top from "./posts/Top";
+import { RecoilRoot } from "recoil";
 
 export default function Home() {
   const currentUser = useAuth();
@@ -13,7 +15,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {currentUser !== null ? <Home /> : <LogIn />}
+      {/* {currentUser !== null ? <LogIn /> : <Top />} */}
+      {/* <LogIn /> */}
+        <Top />
     </>
   );
 }

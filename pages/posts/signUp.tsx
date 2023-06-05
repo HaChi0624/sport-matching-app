@@ -1,3 +1,8 @@
+import { FormEvent, useState } from "react";
+import { auth } from "@/firebase/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import router from "next/router";
+import Link from "next/link";
 import {
   FormControl,
   FormLabel,
@@ -6,25 +11,37 @@ import {
   Box,
   Text,
 } from "@chakra-ui/react";
-import Link from "next/link";
 
 const SignUp = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    await createUserWithEmailAndPassword(auth, email, password);
+    router.push("/");
+  };
+  
+  const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.currentTarget.value);
+  };
+  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.currentTarget.value);
+  };
   return (
     <>
-      {/* <Header /> */}
       <Box width="40%" margin="0 auto" paddingTop="100">
         <Text fontSize="3xl" marginBottom="3">
           ユーザ登録
         </Text>
-        {/* <form onSubmit={handleSubmit}> */}
-        <form>
+        <form onSubmit={handleSubmit}>
           <FormControl>
             <FormLabel>メールアドレス</FormLabel>
             <Input
               name="email"
               type="email"
               placeholder="email"
-              //   onChange={handleChangeEmail}
+              onChange={handleChangeEmail}
             />
           </FormControl>
           <FormControl>
@@ -33,16 +50,14 @@ const SignUp = () => {
               name="password"
               type="password"
               placeholder="password"
-              //   onChange={handleChangePassword}
+              onChange={handleChangePassword}
             />
           </FormControl>
           <Box marginTop="3">
-            <Button onClick={() => alert("登録されました")}>登録</Button>
+            <Button type="submit">登録(ホーム画面へ)</Button>
           </Box>
         </form>
-        {/* <Button onClick={() => router.push("/")}>todoリストへ</Button> */}
       </Box>
-      <Link href="/">top</Link>
     </>
   );
 };

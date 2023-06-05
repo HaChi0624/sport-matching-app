@@ -6,29 +6,26 @@ import {
   DrawerBody,
   DrawerCloseButton,
   DrawerContent,
-  DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
   HStack,
-  Input,
   Spacer,
   Stack,
-  VStack,
   useDisclosure,
   Link,
 } from "@chakra-ui/react";
-import { login, useUser } from "@/firebase/googleAuth";
+import { useAuth } from "@/firebase/authFunctions";
 
 const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   //追加
-  const user = useUser();
+  const currentUser = useAuth();
 
   return (
     <HStack bgColor="teal.100">
       <Link href="/">Sport Matching App</Link>
       <Spacer />
-      <Box>ようこそ {user !== null ? "ゲスト" : "m.t"}さん！</Box>
+      <Box>ようこそ {currentUser !== null ? "ゲスト" : "m.t"}さん！</Box>
       <Button colorScheme="teal" onClick={onOpen}>
         メニュー
       </Button>
@@ -48,7 +45,7 @@ const Header = () => {
               <Link href="/posts/columns">コラム</Link>
               <Link href="/posts/settings">設定</Link>
               {/* <Link href="/posts/">ログアウト</Link> */}
-              <Box>{user !== null ? "ログイン" : "ログアウト"}</Box>
+              <Box>{currentUser !== null ? (<Link href="/posts/logIn">ログイン</Link>) : (<Link href="/posts/logOut">ログアウト</Link>)}</Box>
             </Stack>
           </DrawerBody>
         </DrawerContent>
