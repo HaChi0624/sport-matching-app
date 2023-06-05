@@ -13,8 +13,8 @@ import type { AppProps } from "next/app";
 // import "@/styles/globals.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import { RecoilRoot } from "recoil";
-import Header from "../components/header";
 import { useAuth } from "@/firebase/authFunctions";
+import CommonLayout from "@/components/commonLayout";
 
 type Props = {
   children: JSX.Element;
@@ -23,7 +23,7 @@ type Props = {
 const Auth = ({ children }: Props): JSX.Element => {
   const currentUser = useAuth();
 
-  return currentUser ? children : <p>isLoading...</p> ;
+  return currentUser ? children : <p>isLoading...</p>;
 };
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -31,7 +31,9 @@ export default function App({ Component, pageProps }: AppProps) {
     <RecoilRoot>
       <ChakraProvider>
         <Auth>
-          <Component {...pageProps} />
+          <CommonLayout>
+            <Component {...pageProps} />
+          </CommonLayout>
         </Auth>
       </ChakraProvider>
     </RecoilRoot>

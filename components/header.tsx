@@ -37,8 +37,8 @@ const Header = () => {
 
           <DrawerBody>
             <Stack>
-              <Link href="/">ホーム</Link>
-              <Link href="/components/profileCards">プロフィール</Link>
+              <Link href="/posts/top">ホーム</Link>
+              <Link href="/posts/myProfilePage">プロフィール</Link>
               <Link href="/posts/search">探す</Link>
               <Link href="/posts/friendsList">友達</Link>
               <Link href="/posts/chat">チャット</Link>

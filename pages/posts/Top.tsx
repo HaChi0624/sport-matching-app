@@ -1,12 +1,9 @@
 import { Box, Container, HStack, Stack } from "@chakra-ui/react";
 import Link from "next/link";
-import Footer from "../../components/footer";
-import Header from "@/components/header";
 
 const Top = () => {
   return (
     <>
-      <Header />
       <Container>
         <HStack justifyContent="spacebetween" bgColor="teal.200">
           <Link href="/components/profileCards">プロフィール</Link>
@@ -25,7 +22,6 @@ const Top = () => {
           <Box h="200px" border="1px"></Box>
         </Stack>
       </Container>
-      <Footer />
     </>
   );
 };
