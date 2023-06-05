@@ -1,6 +1,6 @@
 import { Box, Container, HStack, Stack } from "@chakra-ui/react";
 import Link from "next/link";
-import Footer from "../components/footer";
+import Footer from "../../components/footer";
 
 const Top = () => {
   return (

@@ -11,7 +11,7 @@ import {
 import Link from "next/link";
 import router from "next/router";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase/firebase"
+import { auth } from "../../../firebase/firebase";
 
 const LogIn = () => {
   const [email, setEmail] = useState("");
@@ -22,9 +22,9 @@ const LogIn = () => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-  } catch (error) {
-      alert('サインイン認証に失敗しました。authfunction.tsx');
-  }
+    } catch (error) {
+      alert("サインイン認証に失敗しました。authfunction.tsx");
+    }
     router.push("/");
   };
 
