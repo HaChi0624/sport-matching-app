@@ -23,7 +23,7 @@ const Header = () => {
 
   return (
     <HStack bgColor="teal.100">
-      <Link href="/">Sport Matching App</Link>
+      <Link href="/posts/top">Sport Matching App</Link>
       <Spacer />
       <Box>ようこそ {currentUser !== null ? "m.t" : "ゲスト"}さん！</Box>
       <Button colorScheme="teal" onClick={onOpen}>
@@ -40,7 +40,7 @@ const Header = () => {
               <Link href="/posts/top">ホーム</Link>
               <Link href="/posts/myProfilePage">プロフィール</Link>
               <Link href="/posts/search">探す</Link>
-              <Link href="/posts/friendsList">友達</Link>
+              <Link href="/posts/friendList">友達</Link>
               <Link href="/posts/chat">チャット</Link>
               <Link href="/posts/columns">コラム</Link>
               <Link href="/posts/settings">設定</Link>
