@@ -2,7 +2,7 @@ import { chakra, Box, Stack, Container } from "@chakra-ui/react";
 
 const Footer = () => {
   return (
-    <chakra.footer bgColor="gray.100">
+    <chakra.footer bgColor="gray.100" w={'100%'} position={'fixed'} bottom={'0'}>
       <Container p='10px'>
         <Box>サイトマップ</Box>
         <Box>リンク</Box>
