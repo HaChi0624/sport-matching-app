@@ -28,4 +28,6 @@ const Calendar = () => {
 
 export default Calendar;
 
-//
+//カレンダーの実装ちょっと厳しそう
+//方法１　pythonに頼る
+//方法２　
