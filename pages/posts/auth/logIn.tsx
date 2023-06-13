@@ -22,7 +22,7 @@ const LogIn = () => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      router.push("/posts/top");
+      router.push("/posts/Top");
     } catch (error) {
       alert("サインイン認証に失敗しました。authfunction.tsx");
     }
