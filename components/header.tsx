@@ -25,6 +25,7 @@ const Header = () => {
     <HStack bgColor="teal.100">
       <Link href="/posts/top">Sport Matching App</Link>
       <Spacer />
+      {/* 機能してない */}
       <Box>ようこそ {currentUser !== null ? "m.t" : "ゲスト"}さん！</Box>
       <Button colorScheme="teal" onClick={onOpen}>
         メニュー
@@ -37,7 +38,7 @@ const Header = () => {
 
           <DrawerBody>
             <Stack>
-              <Link href="/posts/top">ホーム</Link>
+              <Link href="/posts/Top">ホーム</Link>
               <Link href="/posts/myProfilePage">プロフィール</Link>
               <Link href="/posts/search">探す</Link>
               <Link href="/posts/friendList">友達</Link>

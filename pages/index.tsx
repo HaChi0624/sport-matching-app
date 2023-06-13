@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useAuth } from "@/firebase/authFunctions";
 import LogIn from "./posts/auth/logIn";
-import Top from "./posts/top"
+import Top from "@/pages/posts/Top"
 import { RecoilRoot } from "recoil";
 
 export default function Home() {
