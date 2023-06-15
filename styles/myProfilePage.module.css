@@ -4,11 +4,11 @@
 }
 .box1 {
     background-color: rgb(242, 239, 234);
-    padding-bottom: 16px;
+    padding: 4px 0px 12px;
 }
 .box2 {
     background-color: rgb(225, 218, 218);
-    padding-bottom: 16px;
+    padding: 4px 0px 12px;
 }
 .text {
     font-size: 20px;

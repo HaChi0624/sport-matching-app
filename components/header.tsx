@@ -21,6 +21,9 @@ const Header = () => {
   //追加
   const currentUser = useAuth();
 
+  //サインアウト確認
+  console.log(currentUser)
+
   return (
     <HStack bgColor="teal.100">
       <Link href="/posts/top">Sport Matching App</Link>
