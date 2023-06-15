@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { useRecoilState, useResetRecoilState } from "recoil";
 import { signInUserState } from "../store/auth";
-import { auth } from "./firebase";
+import { auth, db } from "./firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import router, { Router } from "next/router";
+import { doc, setDoc } from "firebase/firestore";
 
 //import しようとしたけど上手くいかなかった
 /**
@@ -23,13 +24,35 @@ import router, { Router } from "next/router";
 /**
  * ユーザー登録する
  */
-// export const signUp = async (email: string, password: string) => {
-//     try {
-//         await createUserWithEmailAndPassword(auth, email, password);
-//     } catch (error) {
-//         alert('ユーザー登録に失敗しました。');
-//     }
-// };
+export const signUp = async (
+  userName: string,
+  email: string,
+  password: string
+) => {
+  try {
+    await createUserWithEmailAndPassword(auth, email, password).then(
+      (result) => {
+        //userが戻り値として返ってくるので、それをuserに代入
+        const user = result.user; //userに値が入っていれば
+
+        if (user) {
+          //userの中にあるuidをuidに代入
+          const uid = user.uid;
+
+          //firestoreのusersというコレクションに、uidをドキュメントIDとしてもつ、 userInitialDataを登録する
+          setDoc(doc(db, "users", uid), {
+            uid: uid,
+            email: email,
+            userName: userName,
+          });
+          console.log("ユーザーが作成されました!");
+        }
+      }
+    );
+  } catch (error) {
+    console.error("ユーザー作成エラー:", error);
+  }
+};
 
 /**
  * サインアウトする
