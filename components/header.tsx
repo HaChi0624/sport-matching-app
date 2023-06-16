@@ -15,21 +15,23 @@ import {
   Link,
 } from "@chakra-ui/react";
 import { signOut, useAuth } from "@/firebase/authFunctions";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/firebase/firebase";
 
 const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  //追加
+  //uidの取得
   const currentUser = useAuth();
-
+  // getDoc(doc(db, "users", currentUser.uid));
   //サインアウト確認
-  console.log(currentUser)
+  // console.log(currentUser)
 
   return (
     <HStack bgColor="teal.100">
       <Link href="/posts/top">Sport Matching App</Link>
       <Spacer />
       {/* 機能してない */}
-      <Box>ようこそ {currentUser !== null ? "m.t" : "ゲスト"}さん！</Box>
+      <Box>ようこそ {currentUser.uid}さん！</Box>
       <Button colorScheme="teal" onClick={onOpen}>
         メニュー
       </Button>
@@ -49,7 +51,13 @@ const Header = () => {
               <Link href="/posts/columns">コラム</Link>
               <Link href="/posts/settings">設定</Link>
               {/* <Link href="/posts/">ログアウト</Link> */}
-              <Box>{currentUser !== null ? (<Button onClick={signOut}>ログアウト</Button>) : (<Link href="/posts/auth/logIn">ログイン</Link>)}</Box>
+              <Box>
+                {currentUser !== null ? (
+                  <Button onClick={signOut}>ログアウト</Button>
+                ) : (
+                  <Link href="/posts/auth/logIn">ログイン</Link>
+                )}
+              </Box>
             </Stack>
           </DrawerBody>
         </DrawerContent>

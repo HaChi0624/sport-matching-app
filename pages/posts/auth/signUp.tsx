@@ -11,17 +11,23 @@ import {
   Box,
   Text,
 } from "@chakra-ui/react";
+import { signUp } from "@/firebase/authFunctions";
 
 const SignUp = () => {
+  const [userName, setUserName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await createUserWithEmailAndPassword(auth, email, password);
-    router.push("/");
+    // await createUserWithEmailAndPassword(auth, email, password);
+    await signUp(userName,email, password);
+    router.push("/pages/posts/Top");
   };
-  
+
+  const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserName(e.currentTarget.value);
+  };
   const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.currentTarget.value);
   };
@@ -35,6 +41,15 @@ const SignUp = () => {
           ユーザ登録
         </Text>
         <form onSubmit={handleSubmit}>
+          <FormControl>
+            <FormLabel>名前</FormLabel>
+            <Input
+              name="name"
+              type="name"
+              placeholder="name"
+              onChange={handleChangeName}
+            />
+          </FormControl>
           <FormControl>
             <FormLabel>メールアドレス</FormLabel>
             <Input
