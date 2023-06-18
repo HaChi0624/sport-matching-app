@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -20,18 +20,36 @@ import { db } from "@/firebase/firebase";
 
 const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [userName, setUserName] = useState('');
   //uidの取得
   const currentUser = useAuth();
-  // getDoc(doc(db, "users", currentUser.uid));
-  //サインアウト確認
-  // console.log(currentUser)
+  
+  //名前の取得
+  useEffect(() => {
+    if (currentUser) {
+      const fetchUserName = async () => {
+        try {
+          const userSnapshot = await getDoc(doc(db, 'users', currentUser.uid));
+          const userData = userSnapshot.data();
+          if (userData) {
+            setUserName(userData.userName);
+          }
+        } catch (error) {
+          console.error('Error fetching user name:', error);
+        }
+      };
+      fetchUserName();
+    }
+  }, [currentUser]);
+  console.log(userName)
+  console.log(currentUser)
 
   return (
     <HStack bgColor="teal.100">
       <Link href="/posts/top">Sport Matching App</Link>
       <Spacer />
       {/* 機能してない */}
-      <Box>ようこそ {currentUser.uid}さん！</Box>
+      <Box>ようこそ {userName}さん！</Box>
       <Button colorScheme="teal" onClick={onOpen}>
         メニュー
       </Button>
