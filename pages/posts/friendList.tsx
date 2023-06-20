@@ -23,7 +23,7 @@ const friendList = () => {
         <HStack h="20">
           <Image src={goya.src} alt="picture" w="64px" h="64px" />
           <Text>
-            <Link href="/posts/myProfilePage">m.t</Link>
+            <Link href="/posts/friendProfilePage">m.t</Link>
           </Text>
         </HStack>
         <HStack h="20">

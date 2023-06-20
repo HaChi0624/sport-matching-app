@@ -1,3 +1,6 @@
+import { useAuth } from "@/firebase/authFunctions";
+import { db } from "@/firebase/firebase";
+import { getDoc, doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { ChangeEventHandler, useRef, useState, useEffect } from "react";
 
 let fileImage: HTMLImageElement | undefined;
@@ -44,5 +47,56 @@ export const useProfileCards = () => {
       setObjectURL(objectURL);
     }
   };
-  return { handleFiles, imageContainerRef };
+
+  //ユーザー名
+  const currentUser = useAuth();
+  const [userName, setUserName] = useState("");
+  const [favTeam, setFavTeam] = useState("");
+  const [favPlayers, setFavPlayers] = useState("");
+  const [comment, setComment] = useState("");
+  // const favTeam = "東映フライヤーズ";
+  // const favPlayers = "ブーマー、ブラゼル、ブランコ、ブキャナン、ブセニッツ";
+  // const comment =
+  //   "侍ジャパンから野球に興味を持ちました！まだまだ知らないことばかりですが、仲良くしてください！";
+
+  // ユーザ名の取得
+  useEffect(() => {
+    if (currentUser) {
+      const fetchUserName = async () => {
+        try {
+          const userSnapshot = await getDoc(doc(db, "users", currentUser.uid));
+          const userData = userSnapshot.data();
+          if (userData) {
+            setUserName(userData.userName);
+          }
+        } catch (error) {
+          console.error("Error fetching user name:", error);
+        }
+      };
+      fetchUserName();
+    }
+  }, [currentUser]);
+
+  // プロフィールの追加
+  const createProfile = async () => {
+    await setDoc(doc(db, "users", currentUser.uid), {
+      favTeam: favTeam,
+      favPlayers: favPlayers,
+      comment: comment,
+      // createdAt: serverTimestamp(),
+    });
+    setFavTeam("");
+    setFavPlayers("");
+    setComment("");
+  };
+
+  return {
+    handleFiles,
+    imageContainerRef,
+    userName,
+    favTeam,
+    favPlayers,
+    comment,
+    createProfile,
+  };
 };

@@ -3,23 +3,21 @@ import styles from "@/styles/myProfilePage.module.css";
 import goya from "src/goya.png";
 import { useProfileCards } from "@/hooks/useProfileCards";
 
-const myProfilePage = () => {
+const FriendProfilePage = () => {
   const { userName, favTeam, favPlayers, comment } = useProfileCards();
-  
-  // モーダルで編集
 
   return (
     <Container>
       <Text className={styles.title} py={3}>
-        My Profile
+        Friend Profile
       </Text>
       <Box className={styles.box1}>
         <Center>
           <Image src={goya.src} alt="picture" w="240px" h="240px" />
         </Center>
         <Box style={{ display: "flex", justifyContent: "flex-end" }}>
-          <Button  mr="1" bgColor={'rgb(225, 218, 218)'}>
-            編集
+          <Button mr="1" bgColor={'rgb(225, 218, 218)'}>
+            いいね
           </Button>
         </Box>
         <Text className={styles.text}>名前</Text>
@@ -42,4 +40,4 @@ const myProfilePage = () => {
   );
 };
 
-export default myProfilePage;
+export default FriendProfilePage;
