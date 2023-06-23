@@ -2,11 +2,15 @@ import { Box, Container, Text, Image, Center, Button } from "@chakra-ui/react";
 import styles from "@/styles/myProfilePage.module.css";
 import goya from "src/goya.png";
 import { useProfileCards } from "@/hooks/useProfileCards";
+import EditProfModal from "@/components/editProfModal";
 
 const myProfilePage = () => {
   const { userName, favTeam, favPlayers, comment } = useProfileCards();
+
+  //readProfile
   
-  // モーダルで編集
+  console.log("userName: " + userName)
+  console.log("favTeam: " + favTeam)
 
   return (
     <Container>
@@ -18,9 +22,10 @@ const myProfilePage = () => {
           <Image src={goya.src} alt="picture" w="240px" h="240px" />
         </Center>
         <Box style={{ display: "flex", justifyContent: "flex-end" }}>
-          <Button  mr="1" bgColor={'rgb(225, 218, 218)'}>
+          <EditProfModal />
+          {/* <Button onClick={onOpenProfModal}>
             編集
-          </Button>
+          </Button> */}
         </Box>
         <Text className={styles.text}>名前</Text>
         <Box>{userName}</Box>

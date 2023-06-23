@@ -10,46 +10,47 @@ export const useProfileCards = () => {
   const [objectURL, setObjectURL] = useState("");
 
   //DOMの読み込みをしてからnew Image()の実行
-  useEffect(() => {
-    fileImage = new Image();
-  }, []);
+  // useEffect(() => {
+  //   fileImage = new Image();
+  // }, []);
 
-  const resetSelection = () => {
-    if (fileImage) {
-      fileImage.src = "";
-      const imageContainer = imageContainerRef.current;
-      if (imageContainer && fileImage.parentNode === imageContainer) {
-        imageContainer.removeChild(fileImage);
-      }
-    }
-    if (objectURL) {
-      window.URL.revokeObjectURL(objectURL);
-      setObjectURL("");
-    }
-  };
+  // const resetSelection = () => {
+  //   if (fileImage) {
+  //     fileImage.src = "";
+  //     const imageContainer = imageContainerRef.current;
+  //     if (imageContainer && fileImage.parentNode === imageContainer) {
+  //       imageContainer.removeChild(fileImage);
+  //     }
+  //   }
+  //   if (objectURL) {
+  //     window.URL.revokeObjectURL(objectURL);
+  //     setObjectURL("");
+  //   }
+  // };
 
-  const handleFiles: ChangeEventHandler<HTMLInputElement> = (event) => {
-    const files = event.currentTarget.files;
-    resetSelection();
-    if (!files || files?.length === 0) return;
-    const file = files[0];
-    if (!file.type.includes("image/")) {
-      event.currentTarget.value = "";
-      return;
-    }
+  // const handleFiles: ChangeEventHandler<HTMLInputElement> = (event) => {
+  //   const files = event.currentTarget.files;
+  //   resetSelection();
+  //   if (!files || files?.length === 0) return;
+  //   const file = files[0];
+  //   if (!file.type.includes("image/")) {
+  //     event.currentTarget.value = "";
+  //     return;
+  //   }
 
-    const imageContainer = imageContainerRef.current;
-    if (!imageContainer) return;
-    const objectURL = window.URL.createObjectURL(file);
-    if (fileImage) {
-      fileImage.src = objectURL;
-      imageContainer.appendChild(fileImage);
-      setObjectURL(objectURL);
-    }
-  };
+  //   const imageContainer = imageContainerRef.current;
+  //   if (!imageContainer) return;
+  //   const objectURL = window.URL.createObjectURL(file);
+  //   if (fileImage) {
+  //     fileImage.src = objectURL;
+  //     imageContainer.appendChild(fileImage);
+  //     setObjectURL(objectURL);
+  //   }
+  // };
 
-  //ユーザー名
+  //ユーザーid
   const currentUser = useAuth();
+
   const [userName, setUserName] = useState("");
   const [favTeam, setFavTeam] = useState("");
   const [favPlayers, setFavPlayers] = useState("");
@@ -59,7 +60,7 @@ export const useProfileCards = () => {
   // const comment =
   //   "侍ジャパンから野球に興味を持ちました！まだまだ知らないことばかりですが、仲良くしてください！";
 
-  // ユーザ名の取得
+  // プロフィール取得
   useEffect(() => {
     if (currentUser) {
       const fetchUserName = async () => {
@@ -68,6 +69,9 @@ export const useProfileCards = () => {
           const userData = userSnapshot.data();
           if (userData) {
             setUserName(userData.userName);
+            setFavTeam(userData.favTeam);
+            setFavPlayers(userData.favPlayers);
+            setComment(userData.comment);
           }
         } catch (error) {
           console.error("Error fetching user name:", error);
@@ -78,25 +82,27 @@ export const useProfileCards = () => {
   }, [currentUser]);
 
   // プロフィールの追加
-  const createProfile = async () => {
-    await setDoc(doc(db, "users", currentUser.uid), {
-      favTeam: favTeam,
-      favPlayers: favPlayers,
-      comment: comment,
-      // createdAt: serverTimestamp(),
-    });
-    setFavTeam("");
-    setFavPlayers("");
-    setComment("");
-  };
+  // const createProfile = async () => {
+  //   await setDoc(doc(db, "users", currentUser.uid), {
+  //     favTeam: favTeam,
+  //     favPlayers: favPlayers,
+  //     comment: comment,
+  //     // createdAt: serverTimestamp(),
+  //   });
+  //   setFavTeam("");
+  //   setFavPlayers("");
+  //   setComment("");
+  // };
+
+  
 
   return {
-    handleFiles,
-    imageContainerRef,
+    // handleFiles,
+    // imageContainerRef,
     userName,
     favTeam,
     favPlayers,
     comment,
-    createProfile,
+    // createProfile,
   };
 };
