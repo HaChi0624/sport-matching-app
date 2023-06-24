@@ -56,8 +56,8 @@ import {
   
     return (
       <>
-        <Button onClick={onOpen} mr="1" bgColor={"rgb(225, 218, 218)"}>
-          追加
+        <Button onClick={onOpen} mr="1" w={'300px'}>
+          作ってみる！
         </Button>
   
         <Modal isOpen={isOpen} onClose={onClose}>

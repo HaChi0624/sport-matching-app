@@ -14,11 +14,18 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import { FieldValue, doc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
+import {
+  FieldValue,
+  doc,
+  serverTimestamp,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 
 // import { createProfile } from '@/hooks/useProfileCards'
 import { db } from "@/firebase/firebase";
 import { useAuth } from "@/firebase/authFunctions";
+import { useProfileCards } from "@/hooks/useProfileCards";
 
 interface Prof {
   favTeam: string;

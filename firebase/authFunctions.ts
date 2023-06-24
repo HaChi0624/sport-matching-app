@@ -79,10 +79,10 @@ export const useAuth = () => {
   const resetStatus = useResetRecoilState(signInUserState);
 
   useEffect(() => {
-    const unSub = auth.onAuthStateChanged((authUser) => {
-      if (authUser) {
+    const unSub = auth.onAuthStateChanged((user) => {
+      if (user) {
         setSignInUser({
-          uid: authUser.uid,
+          uid: user.uid,
         });
       } else {
         resetStatus();

@@ -81,19 +81,6 @@ export const useProfileCards = () => {
     }
   }, [currentUser]);
 
-  // プロフィールの追加
-  // const createProfile = async () => {
-  //   await setDoc(doc(db, "users", currentUser.uid), {
-  //     favTeam: favTeam,
-  //     favPlayers: favPlayers,
-  //     comment: comment,
-  //     // createdAt: serverTimestamp(),
-  //   });
-  //   setFavTeam("");
-  //   setFavPlayers("");
-  //   setComment("");
-  // };
-
   
 
   return {
@@ -103,6 +90,5 @@ export const useProfileCards = () => {
     favTeam,
     favPlayers,
     comment,
-    // createProfile,
   };
 };
