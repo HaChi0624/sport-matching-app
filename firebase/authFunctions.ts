@@ -91,5 +91,6 @@ export const useAuth = () => {
     return () => unSub();
   }, [setSignInUser, resetStatus]);
 
+  console.log(signInUser)
   return signInUser;
 };

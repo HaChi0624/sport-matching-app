@@ -78,6 +78,7 @@ export const useProfileCards = () => {
         }
       };
       fetchUserName();
+      console.log(currentUser)
     }
   }, [currentUser]);
 

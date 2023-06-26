@@ -27,8 +27,8 @@ const Header = () => {
   const currentUser = useAuth();
 
   
-  // console.log(userName)
-  // console.log(currentUser)
+  console.log(userName)
+  console.log(currentUser)
 
   return (
     <HStack bgColor="teal.100">
