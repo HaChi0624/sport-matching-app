@@ -1,4 +1,5 @@
 import CreateProfModal from "@/components/createProfModal";
+import Footer from "@/components/footer";
 import { Box, Button, Container, HStack, Stack } from "@chakra-ui/react";
 import Link from "next/link";
 
@@ -43,6 +44,7 @@ const Top = () => {
           <Link href="/posts/chat">チャット</Link>
         </HStack>
       </Container>
+      <Footer />
     </>
   );
 };

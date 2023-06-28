@@ -14,22 +14,17 @@ import type { AppProps } from "next/app";
 import { ChakraProvider } from "@chakra-ui/react";
 import { RecoilRoot } from "recoil";
 import { useAuth } from "@/firebase/authFunctions";
-import CommonLayout from "@/components/commonLayout";
 
 import { AuthProvider } from "@/firebase/auth/authProvider";
 import Header from "@/components/header";
-
-
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <RecoilRoot>
       <ChakraProvider>
         <AuthProvider>
-          <CommonLayout>
-            <Header />
-            <Component {...pageProps} />
-          </CommonLayout>
+          <Header />
+          <Component {...pageProps} />
         </AuthProvider>
       </ChakraProvider>
     </RecoilRoot>
