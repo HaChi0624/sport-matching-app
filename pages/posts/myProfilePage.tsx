@@ -2,7 +2,7 @@ import { Box, Container, Text, Image, Center, Button } from "@chakra-ui/react";
 import styles from "@/styles/myProfilePage.module.css";
 import goya from "src/goya.png";
 import { useProfileCards } from "@/hooks/useProfileCards";
-import EditProfModal from "@/components/editProf/editProfModal";
+import EditProfModal from "@/components/editProf/editProf";
 import UserProfileUpdate from "@/components/editProf/photoUpdate";
 
 const myProfilePage = () => {
