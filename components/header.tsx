@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -14,28 +13,23 @@ import {
   useDisclosure,
   Link,
 } from "@chakra-ui/react";
-import { signOut, useAuth } from "@/firebase/authFunctions";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "@/firebase/firebase";
-import { useProfileCards } from "@/hooks/useProfileCards";
+import { signOut } from "@/firebase/authFunctions";
+import { useAuthContext } from "@/firebase/auth/authProvider";
 
 const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  // const [userName, setUserName] = useState('');
-  const { userName } = useProfileCards();
-  //uidの取得
-  const currentUser = useAuth();
+  const { user } = useAuthContext()
 
-  
-  console.log(userName)
-  console.log(currentUser)
+  console.log(user)
 
   return (
-    <HStack bgColor="teal.100">
-      <Link href="/posts/top">Sport Matching App</Link>
+    <HStack bgColor={"rgb(0, 35, 149)"}>
+      <Link href="/posts/top" color={'rgb(255, 255, 255)'} pl='2'>Sport Matching App</Link>
       <Spacer />
       {/* 機能してない */}
-      <Box>ようこそ {userName}さん！</Box>
+      {/* <Box>ようこそ {userName}さん！</Box> */}
+      <Box color={'rgb(255, 255, 255)'}>{user ? 'ログイン中' : 'ログアウト中'}</Box>
+
       <Button colorScheme="teal" onClick={onOpen}>
         メニュー
       </Button>
@@ -54,9 +48,8 @@ const Header = () => {
               <Link href="/posts/chat">チャット</Link>
               <Link href="/posts/columns">コラム</Link>
               <Link href="/posts/settings">設定</Link>
-              {/* <Link href="/posts/">ログアウト</Link> */}
               <Box>
-                {currentUser !== null ? (
+                {user ? (
                   <Button onClick={signOut}>ログアウト</Button>
                 ) : (
                   <Link href="/posts/auth/logIn">ログイン</Link>

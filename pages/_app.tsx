@@ -16,25 +16,21 @@ import { RecoilRoot } from "recoil";
 import { useAuth } from "@/firebase/authFunctions";
 import CommonLayout from "@/components/commonLayout";
 
-type Props = {
-  children: JSX.Element;
-};
+import { AuthProvider } from "@/firebase/auth/authProvider";
+import Header from "@/components/header";
 
-const Auth = ({ children }: Props): JSX.Element => {
-  const currentUser = useAuth();
 
-  return currentUser ? children : <p>isLoading...</p>;
-};
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <RecoilRoot>
       <ChakraProvider>
-        <Auth>
+        <AuthProvider>
           <CommonLayout>
+            <Header />
             <Component {...pageProps} />
           </CommonLayout>
-        </Auth>
+        </AuthProvider>
       </ChakraProvider>
     </RecoilRoot>
   );
