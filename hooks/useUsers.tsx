@@ -1,26 +1,39 @@
 import { db } from "@/firebase/firebase";
-import { collection, doc, onSnapshot } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 type User = {
-  id: string;
+  uid: string;
   userName: string;
+  photoURL: string;
 };
 
 export const useUsers = () => {
   const [users, setUsers] = useState<User[]>([]);
   useEffect(() => {
-    onSnapshot(collection(db, "users"), (snapshot) => {
-      const newUsers: User[] = [];
-      snapshot.docs.map((doc) => {
-        const user = {
-          id: doc.data().uid,
-          userName: doc.data().userName,
-        };
-        newUsers.push({ ...user });
-      });
-      setUsers(newUsers);
-    });
+    const fetchUsers = async () => {
+      try {
+        const userSnapshot = await getDocs(collection(db, "users"));
+        if (userSnapshot) {
+          const newUsers: User[] = [];
+          userSnapshot.forEach((doc) => {
+            const user = {
+              uid: doc.id,
+              userName: doc.data().userName,
+              photoURL: doc.data().photoURL,
+            };
+            if (!newUsers.some((u) => u.uid === user.uid)) {
+              newUsers.push(user);
+            }
+            console.log(doc.id, " => ", doc.data());
+          });
+          setUsers(newUsers);
+        }
+      } catch (error) {
+        console.error("Error fetching user name:", error);
+      }
+    };
+    fetchUsers();
   }, []);
   return { users };
 };

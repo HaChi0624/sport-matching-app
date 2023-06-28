@@ -1,25 +1,25 @@
-import { Box, Container, HStack, Image, Input, Text } from "@chakra-ui/react";
+import { Container, HStack, Image, Input, Text } from "@chakra-ui/react";
 import Link from "next/link";
 import goya from "src/goya.png";
-import favicon from "src/favicon.ico";
 import { useUsers } from "@/hooks/useUsers";
 
 const friendList = () => {
   const { users } = useUsers();
-  // console.log(users)
+  // console.log(users);
   return (
     <>
       <Container>
         <Text fontSize="4xl">友達一覧</Text>
-        <p>どんなリストにするか</p>
-        <p>このページの役割</p>
-        <p>usernameのみ取得</p>
         <Input placeholder="検索" />
         {users.map((user) => (
-          <HStack h="20" key={user.id}>
-            <Image src={goya.src} alt="picture" w="64px" h="64px" />
+          <HStack h="20" key={user.uid}>
+            {user.photoURL ? (
+              <Image src={user.photoURL} alt="picture" w="64px" h="64px" />
+            ) : (
+              <Image src={goya.src} alt="picture" w="64px" h="64px" />
+            )}
             <Text>
-              <Link href={`/posts/friendProfilePage/${user.id}`}>
+              <Link href={`/posts/friendProfilePage/${user.uid}`}>
                 {user.userName}
               </Link>
             </Text>
