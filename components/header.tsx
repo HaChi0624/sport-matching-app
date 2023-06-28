@@ -23,14 +23,14 @@ const Header = () => {
   console.log(user)
 
   return (
-    <HStack bgColor={"rgb(0, 35, 149)"}>
+    <HStack bg={"rgb(0, 75, 149)"}>
       <Link href="/posts/top" color={'rgb(255, 255, 255)'} pl='2'>Sport Matching App</Link>
       <Spacer />
       {/* 機能してない */}
       {/* <Box>ようこそ {userName}さん！</Box> */}
       <Box color={'rgb(255, 255, 255)'}>{user ? 'ログイン中' : 'ログアウト中'}</Box>
 
-      <Button colorScheme="teal" onClick={onOpen}>
+      <Button colorScheme="teal.900" onClick={onOpen}>
         メニュー
       </Button>
       <Drawer isOpen={isOpen} placement="right" onClose={onClose}>

@@ -1,8 +1,8 @@
 import { Box, Container, HStack, Image, Input, Text } from "@chakra-ui/react";
+import Link from "next/link";
 import goya from "src/goya.png";
 import favicon from "src/favicon.ico";
 import { useUsers } from "@/hooks/useUsers";
-import Link from "next/link";
 
 const friendList = () => {
   const { users } = useUsers();
@@ -19,7 +19,9 @@ const friendList = () => {
           <HStack h="20" key={user.id}>
             <Image src={goya.src} alt="picture" w="64px" h="64px" />
             <Text>
-              <Link href={`/posts/friendProfilePage/${user.id}`}>{user.userName}</Link>
+              <Link href={`/posts/friendProfilePage/${user.id}`}>
+                {user.userName}
+              </Link>
             </Text>
           </HStack>
         ))}
