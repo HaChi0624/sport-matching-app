@@ -1,64 +1,30 @@
-import {
-  Box,
-  Button,
-  Drawer,
-  DrawerBody,
-  DrawerCloseButton,
-  DrawerContent,
-  DrawerHeader,
-  DrawerOverlay,
-  HStack,
-  Spacer,
-  Stack,
-  useDisclosure,
-  Link,
-} from "@chakra-ui/react";
-import { signOut } from "@/firebase/authFunctions";
+import { Box, HStack, Spacer, Link } from "@chakra-ui/react";
+import styles from "@/styles/header.module.css";
 import { useAuthContext } from "@/firebase/auth/authProvider";
+import MenuButton from "./menuButton";
 
 const Header = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const { user } = useAuthContext()
+  const { user } = useAuthContext();
 
-  console.log(user)
+  console.log(user);
 
   return (
-    <HStack bg={"rgb(0, 75, 149)"}>
-      <Link href="/posts/top" color={'rgb(255, 255, 255)'} pl='2'>Sport Matching App</Link>
+    // 'rgb(0, 75, 149)'
+    <HStack bg={["red.200", "yellow.500", "green.200", "blue.200"]}>
+      <Link
+        href="/posts/top"
+        color="white"
+        fontWeight={"bold"}
+        ml={["8px", "8px", "16px", "24px"]}
+        fontSize={["18px", "24px", "24px", "24px"]}
+      >
+        Sport Matching App
+      </Link>
       <Spacer />
-      {/* 機能してない */}
-      {/* <Box>ようこそ {userName}さん！</Box> */}
-      <Box color={'rgb(255, 255, 255)'}>{user ? 'ログイン中' : 'ログアウト中'}</Box>
-
-      <Button colorScheme="teal.900" onClick={onOpen}>
-        メニュー
-      </Button>
-      <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
-        <DrawerOverlay />
-        <DrawerContent>
-          <DrawerCloseButton />
-          <DrawerHeader>メニュー</DrawerHeader>
-
-          <DrawerBody>
-            <Stack>
-              <Link href="/posts/Top">ホーム</Link>
-              <Link href="/posts/myProfilePage">プロフィール</Link>
-              <Link href="/posts/search">探す</Link>
-              <Link href="/posts/friendList">友達</Link>
-              <Link href="/posts/chat">チャット</Link>
-              <Link href="/posts/columns">コラム</Link>
-              <Link href="/posts/settings">設定</Link>
-              <Box>
-                {user ? (
-                  <Button onClick={signOut}>ログアウト</Button>
-                ) : (
-                  <Link href="/posts/auth/logIn">ログイン</Link>
-                )}
-              </Box>
-            </Stack>
-          </DrawerBody>
-        </DrawerContent>
-      </Drawer>
+      <HStack>
+        <Box color="white">{user ? "ログイン中" : "ゲスト"}</Box>
+        <MenuButton />
+      </HStack>
     </HStack>
   );
 };

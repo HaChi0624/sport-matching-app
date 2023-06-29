@@ -1,5 +1,6 @@
 import CreateProfModal from "@/components/createProfModal";
 import Footer from "@/components/footer";
+import SnsIcon from "@/components/snsIcon";
 import {
   Box,
   Button,
@@ -14,10 +15,14 @@ import Link from "next/link";
 const Top = () => {
   return (
     <>
-      <Box h="300px" w="100%" bg={"linear-gradient(white, pink)"}>
+      <Box
+        w="100%"
+        h={["300px", "300px", "300px", "400px"]}
+        bg={"linear-gradient(pink,white,aqua)"}
+      >
         見に行きたくなるような写真
       </Box>
-      <Container>
+      <Container maxW={["90%", "90%", "80%", "70%"]}>
         <Stack mt="20px" mb="20px">
           <Box>―新着情報</Box>
           <Box h="300px" border="1px" borderRadius={"10px"}>
@@ -38,48 +43,9 @@ const Top = () => {
         <Stack mb="20px">
           <Box>―SNS</Box>
           <HStack h="100px">
-            <Box
-              h="72px"
-              w="72px"
-              border="1px"
-              borderRadius="full"
-              bg="blue.400"
-              color="white"
-              fontSize={"16px"}
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-            >
-              FaceBook
-            </Box>
-            <Box
-              h="72px"
-              w="72px"
-              border="1px"
-              borderRadius="full"
-              bg="blue.300"
-              color="white"
-              fontSize={"16px"}
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-            >
-              twitter
-            </Box>
-            <Box
-              h="72px"
-              w="72px"
-              border="1px"
-              borderRadius="full"
-              bg="red.500"
-              color="white"
-              fontSize={"16px"}
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-            >
-              Youtube
-            </Box>
+            <SnsIcon bg="blue.400">Facebook</SnsIcon>
+            <SnsIcon bg="blue.300">twitter</SnsIcon>
+            <SnsIcon bg="red.500">Youtube</SnsIcon>
           </HStack>
         </Stack>
         <HStack bgColor="gray.200" borderRadius="10px">
