@@ -55,7 +55,7 @@ export const useProfileCards = () => {
   const [favTeam, setFavTeam] = useState("");
   const [favPlayers, setFavPlayers] = useState("");
   const [comment, setComment] = useState("");
-  const [photoURL, setPhotoURL] = useState(null);
+  const [photoURL, setPhotoURL] = useState("");
   // const favTeam = "東映フライヤーズ";
   // const favPlayers = "ブーマー、ブラゼル、ブランコ、ブキャナン、ブセニッツ";
   // const comment =
@@ -73,18 +73,16 @@ export const useProfileCards = () => {
             setFavTeam(userData.favTeam);
             setFavPlayers(userData.favPlayers);
             setComment(userData.comment);
-            setPhotoURL(userData.photoURL)
+            setPhotoURL(userData.photoURL);
           }
         } catch (error) {
           console.error("Error fetching user name:", error);
         }
       };
       fetchUserName();
-      console.log(currentUser)
+      console.log(currentUser);
     }
   }, [currentUser]);
-
-  
 
   return {
     // handleFiles,

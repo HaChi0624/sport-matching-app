@@ -1,23 +1,26 @@
-// crud
-import { FileInput } from "./FileInput";
-import { Box, VStack } from "@chakra-ui/react";
+import { Box, Text, Image, Center } from "@chakra-ui/react";
+import styles from "@/styles/myProfilePage.module.css";
+import ballIcon from "src/ballIcon.png";
 
-const ProfileCards = () => {
+const ProfileCard = (props: { photoURL: string; userName: string }) => {
+  const { photoURL, userName } = props;
+
   return (
-    <VStack w="390px" h="600px" pt="20px" m="0 auto" border="1px">
-      <Box
-        w="300px"
-        h="400px"
-        border="1px"
-        overflow="hidden"
-      >
-        <FileInput />
+    <>
+      <Box className={styles.box1}>
+        <Center>
+          {photoURL ? (
+            <Image src={photoURL} alt="picture" w="240px" h="240px" />
+          ) : (
+            <Image src={ballIcon.src} alt="picture" w="240px" h="240px" />
+          )}
+        </Center>
+
+        <Text className={styles.text}>名前</Text>
+        <Box>{userName}</Box>
       </Box>
-      <Box>名前</Box>
-      <Box>好きな選手</Box>
-      <Box>ひとこと</Box>
-    </VStack>
+    </>
   );
 };
 
-export default ProfileCards;
+export default ProfileCard;

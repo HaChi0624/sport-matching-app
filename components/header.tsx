@@ -12,7 +12,7 @@ const Header = () => {
     // 'rgb(0, 75, 149)'
     <HStack bg={["red.200", "yellow.500", "green.200", "blue.200"]}>
       <Link
-        href="/posts/top"
+        href="/posts/Top"
         color="white"
         fontWeight={"bold"}
         ml={["8px", "8px", "16px", "24px"]}
