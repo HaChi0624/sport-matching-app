@@ -1,14 +1,4 @@
-import {
-  Box,
-  Container,
-  Heading,
-  Image,
-  Input,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
-import Link from "next/link";
-import ballIcon from "src/ballIcon.png";
+import { Container, Heading, Input, Stack } from "@chakra-ui/react";
 import { useUsers } from "@/hooks/useUsers";
 import ProfileCards from "@/components/profileCards";
 
@@ -16,16 +6,20 @@ const myProfilePage = () => {
   const { users } = useUsers();
   return (
     <>
-      <Container py="16px" w="90%">
+      <Container py="16px" maxW={["90%", "90%", "80%", "70%"]}>
         <Heading fontWeight={"light"} pb="16px">
           相手を探す
         </Heading>
 
         <Input placeholder="検索" />
+        <p>
+          野球名鑑みたいに見せたい。そのために他のページをもう少しカッコよくしてギャップを生みたい。
+        </p>
+
         {users.map((user) => (
           <>
-            <Stack h="20" key={user.uid}>
-              <Box>
+            <Stack h="400px" w="360px" mt="16px" key={user.uid}>
+              {/* <Box>
                 {user.photoURL ? (
                   <Image src={user.photoURL} alt="picture" w="64px" h="64px" />
                 ) : (
@@ -36,9 +30,9 @@ const myProfilePage = () => {
                 <Link href={`/posts/friendProfilePage/${user.uid}`}>
                   {user.userName}
                 </Link>
-              </Text>
+              </Text> */}
+              <ProfileCards userName={user.userName} photoURL={user.photoURL} />
             </Stack>
-            <ProfileCards userName={user.userName} photoURL={user.photoURL} />
           </>
         ))}
       </Container>

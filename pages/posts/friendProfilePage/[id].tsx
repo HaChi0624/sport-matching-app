@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { DocumentReference, doc, getDoc } from "firebase/firestore";
 import { db } from "@/firebase/firebase";
 import Link from "next/link";
+import LikeButton from "@/components/likeButton";
 
 type User = {
   id: string;
@@ -53,9 +54,7 @@ const FriendProfilePage = () => {
           <Image src={goya.src} alt="picture" w="240px" h="240px" />
         </Center>
         <Box style={{ display: "flex", justifyContent: "flex-end" }}>
-          <Button mr="1" bgColor={"rgb(225, 218, 218)"}>
-            いいね
-          </Button>
+          <LikeButton />
         </Box>
         <Text className={styles.text}>名前</Text>
         <Box>{userName}</Box>

@@ -36,6 +36,7 @@ import {
     const [comment, setComment] = useState("");
   
     // 初回作成時のみ使いたい
+    // userName, uidが消えてしまう。追加だけしたい
     const createProfile = async (e: any) => {
       e.preventDefault();
       const newProf = {
