@@ -11,18 +11,22 @@ import {
   Text,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import IMG_1014 from "@/src/IMG_1014.png";
+import { useRouter } from "next/router";
 
 const Top = () => {
+  const router = useRouter();
   return (
     <>
-      <Box
+      <Center
         w="100%"
         h={["300px", "300px", "300px", "400px"]}
-        bg={"linear-gradient(pink,white,aqua)"}
+        bg={"white"}
+        overflow={"hidden"}
       >
-        見に行きたくなるような写真
-      </Box>
-      <Container maxW={["90%", "90%", "80%", "70%"]}>
+        <img src={IMG_1014.src} width="100%" height="300px" object-fit="cover" />
+      </Center>
+      <Container maxW={["90%", "90%", "80%", "60%"]}>
         <Stack mt="20px" mb="20px">
           <Box>―新着情報</Box>
           <Box h="300px" border="1px" borderRadius={"10px"}>
@@ -37,8 +41,10 @@ const Top = () => {
         </Stack>
         <Stack mb="20px">
           <Text>―プロフィールを作ってみよう！</Text>
-          <Text>作成済み→自分のページ、そうでない場合は作成ページへ</Text>
-          <CreateProfModal />
+          {/* <CreateProfModal /> */}
+          <Button onClick={() => router.push("/posts/myProfilePage")} w={"300px"}>
+            作ってみよう！
+          </Button>
         </Stack>
         <Stack mb="20px">
           <Box>―SNS</Box>

@@ -10,13 +10,13 @@ const Header = () => {
 
   return (
     // 'rgb(0, 75, 149)'
-    <HStack bg={["red.200", "yellow.500", "green.200", "blue.200"]}>
+    <HStack bg={["red.200", "yellow.500", "green.200", 'rgb(0, 75, 149)']} h='96px'>
       <Link
         href="/posts/Top"
         color="white"
         fontWeight={"bold"}
         ml={["8px", "8px", "16px", "24px"]}
-        fontSize={["18px", "24px", "24px", "24px"]}
+        fontSize={["20px", "24px", "24px", "24px"]}
       >
         Sport Matching App
       </Link>
