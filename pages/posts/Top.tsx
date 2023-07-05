@@ -13,10 +13,16 @@ import {
 import Link from "next/link";
 import IMG_1014 from "@/src/IMG_1014.png";
 import { useRouter } from "next/router";
+import Slider from "@/components/slider";
 
 const Top = () => {
   const router = useRouter();
   const mainbgcolor = "rgb(0, 75, 149)";
+  const items = [
+    { id: 1, content: 'Slide 1' },
+    { id: 2, content: 'Slide 2' },
+    { id: 3, content: 'Slide 3' },
+  ]
   return (
     <Box bg={mainbgcolor}>
       <Center
@@ -35,7 +41,7 @@ const Top = () => {
       <Container maxW={["90%", "90%", "80%", "60%"]} bg={"white"}>
         <Stack mt="8px" mb="20px">
           <Text fontSize="24px">―新着情報</Text>
-          <Box
+          {/* <Box
             h="300px"
             border="1px"
             borderRadius={"10px"}
@@ -45,7 +51,8 @@ const Top = () => {
             overflowY="scroll"
           >
             アップデート、コラムとか
-          </Box>
+          </Box> */}
+          <Slider/>
         </Stack>
         <Stack mb="20px">
           <Box fontSize="24px">―このサイトの使い方</Box>
