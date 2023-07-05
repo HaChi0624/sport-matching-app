@@ -56,7 +56,6 @@ const Top = () => {
         </Stack>
         <Stack mb="20px">
           <Box fontSize="24px">―このサイトの使い方</Box>
-          <Box>―https://zenn.dev/yuki_tu/articles/f6f8568bede8e2</Box>
           <Button mr="1" w={"300px"}>
             チュートリアル
           </Button>
