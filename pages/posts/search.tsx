@@ -31,7 +31,7 @@ const myProfilePage = () => {
                   {user.userName}
                 </Link>
               </Text> */}
-              <ProfileCards userName={user.userName} photoURL={user.photoURL} />
+              <ProfileCards uid={user.uid} userName={user.userName} photoURL={user.photoURL} />
             </Stack>
           </>
         ))}

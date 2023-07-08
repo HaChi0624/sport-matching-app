@@ -24,10 +24,13 @@ const FriendProfilePage = () => {
   const [comment, setComment] = useState("");
 
   const router = useRouter();
+  // 型アサーションはいいの？
+  const uid :string = router.query.id as string
+
   useEffect(() => {
     const fetchUserName = async () => {
-      if (router.query.id) {
-        const userSnapshot = await getDoc(doc(db, "users", router.query.id));
+      if (uid) {
+        const userSnapshot = await getDoc(doc(db, "users", uid));
         if (userSnapshot.exists()) {
           const userData = userSnapshot.data();
           setUserName(userData.userName);
@@ -39,7 +42,7 @@ const FriendProfilePage = () => {
     };
 
     fetchUserName();
-  }, [router.query.id]);
+  }, [uid]);
 
   // console.log(router.query.id)
 
@@ -54,7 +57,7 @@ const FriendProfilePage = () => {
           <Image src={goya.src} alt="picture" w="240px" h="240px" />
         </Center>
         <Box style={{ display: "flex", justifyContent: "flex-end" }}>
-          <LikeButton />
+          <LikeButton user2Id={uid} user2Name={userName} />
         </Box>
         <Text className={styles.text}>名前</Text>
         <Box>{userName}</Box>
