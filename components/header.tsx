@@ -2,6 +2,7 @@ import { Box, HStack, Spacer, Link } from "@chakra-ui/react";
 import styles from "@/styles/header.module.css";
 import { useAuthContext } from "@/firebase/auth/authProvider";
 import MenuButton from "./menuButton";
+import { BellIcon } from "@chakra-ui/icons";
 
 const Header = () => {
   const { user } = useAuthContext();
@@ -22,6 +23,7 @@ const Header = () => {
       </Link>
       <Spacer />
       <HStack>
+        <BellIcon color="white" boxSize={"32px"} />
         <Box color="white">{user ? "ログイン中" : "ゲスト"}</Box>
         <MenuButton />
       </HStack>
