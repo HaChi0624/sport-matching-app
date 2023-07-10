@@ -19,10 +19,10 @@ const Top = () => {
   const router = useRouter();
   const mainbgcolor = "rgb(0, 75, 149)";
   const items = [
-    { id: 1, content: 'Slide 1' },
-    { id: 2, content: 'Slide 2' },
-    { id: 3, content: 'Slide 3' },
-  ]
+    { id: 1, content: "Slide 1" },
+    { id: 2, content: "Slide 2" },
+    { id: 3, content: "Slide 3" },
+  ];
   return (
     <Box bg={mainbgcolor}>
       <Center
@@ -52,7 +52,7 @@ const Top = () => {
           >
             アップデート、コラムとか
           </Box> */}
-          <Slider/>
+          <Slider />
         </Stack>
         <Stack mb="20px">
           <Box fontSize="24px">―このサイトの使い方</Box>

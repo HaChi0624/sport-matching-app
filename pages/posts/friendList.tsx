@@ -6,6 +6,8 @@ import { useUsers } from "@/hooks/useUsers";
 const friendList = () => {
   const { users } = useUsers();
   // console.log(users);
+
+  // likeのstateがtrueの場合に表示されるようにしたい
   return (
     <>
       <Container>
