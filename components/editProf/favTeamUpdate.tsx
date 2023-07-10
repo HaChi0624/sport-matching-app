@@ -11,7 +11,7 @@ import {
   ModalOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
-import { SlCamera } from "react-icons/sl";
+import { ChevronRightIcon } from "@chakra-ui/icons";
 
 import { useState } from "react";
 import { updateProfile } from "firebase/auth";
@@ -21,56 +21,45 @@ import { auth, db } from "@/firebase/firebase";
 import { useAuth } from "@/firebase/authFunctions";
 
 //プロフィール写真の更新
-const PhotoUpdate = () => {
+const FavTeamUpdate = () => {
   const currentUser = useAuth();
-  const [photoURL, setPhotoURL] = useState("");
+  const [favTeam, setFavTeam] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleUpdateProfile = () => {
     const user = auth.currentUser;
     if (user) {
-      updateProfile(user, {
-        photoURL: photoURL,
-      })
-        .then(() => {
-          updateDoc(doc(db, "users", currentUser.uid), {
-            photoURL: photoURL,
-          });
-          console.log("プロフィールが更新されました");
-        })
-        .catch((error) => {
-          console.error("プロフィールの更新に失敗しました", error);
-        });
+      updateDoc(doc(db, "users", currentUser.uid), {
+        favTeam: favTeam,
+      });
     }
+    onClose();
   };
 
   return (
     <>
       <Button onClick={onOpen} ml="320px">
-        <Icon as={SlCamera} boxSize={"24px"} />
+        <ChevronRightIcon />
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
+          <ModalHeader>好きな球団</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <HStack>
               <input
                 type="text"
-                value={photoURL}
-                onChange={(e) => setPhotoURL(e.target.value)}
-                placeholder="写真のURL"
+                value={favTeam}
+                onChange={(e) => setFavTeam(e.target.value)}
+                placeholder="好きな球団"
               />
-              <Button onClick={handleUpdateProfile}>更新</Button>
             </HStack>
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Close
-            </Button>
+            <Button onClick={handleUpdateProfile}>更新</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
@@ -78,4 +67,4 @@ const PhotoUpdate = () => {
   );
 };
 
-export default PhotoUpdate;
+export default FavTeamUpdate;
