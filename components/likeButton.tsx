@@ -3,7 +3,7 @@ import { Button } from "@chakra-ui/react";
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "@/firebase/firebase";
 import { useAuth } from "@/firebase/authFunctions";
-import { useUsers } from "@/hooks/useUsers";
+import { v4 } from "uuid";
 
 const LikeButton = (props: { user2Id: string; user2Name: string }) => {
   const currentUser = useAuth();
@@ -12,19 +12,20 @@ const LikeButton = (props: { user2Id: string; user2Name: string }) => {
 
   // user2への通知処理を追加したい
   // setlikeだけupdateDocで変えられるように
-  // roomidをuuidで生成したい
+  // 友達解除は別で
   const onClickLike = async () => {
     setLike(!like);
     const docRef = collection(db, "users", currentUser.uid, "friends");
     const querySnapshot = await getDocs(
       query(docRef, where("uid", "==", user2Id))
     );
+    const uuid: string = v4();
     if (querySnapshot.empty) {
       addDoc(docRef, {
         uid: user2Id,
         userName: user2Name,
         like: true,
-        roomId: "roomId",
+        roomId: uuid,
       });
     }
   };
