@@ -7,10 +7,8 @@ const myProfilePage = () => {
   const { userName, favTeam, favPlayers, comment, photoURL } =
     useProfileCards();
 
-  //readProfile
-
-  console.log("userName: " + userName);
-  console.log("favTeam: " + favTeam);
+  // console.log("userName: " + userName);
+  // console.log("favTeam: " + favTeam);
 
   return (
     <Container>

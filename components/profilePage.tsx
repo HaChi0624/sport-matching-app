@@ -7,11 +7,15 @@ import {
   Spacer,
   Button,
 } from "@chakra-ui/react";
-import { ChevronRightIcon, EditIcon } from "@chakra-ui/icons";
+import { ChevronRightIcon } from "@chakra-ui/icons";
 import styles from "@/styles/myProfilePage.module.css";
-import goya from "src/goya.png";
-import EditProfModal from "@/components/editProf/editProf";
-import UserProfileUpdate from "@/components/editProf/photoUpdate";
+
+import PhotoUpdate from "@/components/editProf/photoUpdate";
+import NameUpdate from "./editProf/nameUpdate";
+import FavTeamUpdate from "./editProf/favTeamUpdate";
+import FavPlayersUpdate from "./editProf/favPlayersUpdate";
+import CommentUpdate from "./editProf/commentUpdate";
+
 
 const ProfilePage = (props: {
   photoURL: string;
@@ -25,7 +29,7 @@ const ProfilePage = (props: {
   return (
     <>
       {/* 写真 */}
-      <Box className={styles.box}>
+      <Box >
         <Box>
           <Center>
             {photoURL ? (
@@ -38,9 +42,7 @@ const ProfilePage = (props: {
                 borderRadius={"full"}
               />
             ) : (
-              <Image
-                src={goya.src}
-                alt="picture"
+              <Box
                 w="240px"
                 h="240px"
                 border="1px"
@@ -48,56 +50,48 @@ const ProfilePage = (props: {
               />
             )}
           </Center>
-          <EditIcon ml="320px" boxSize={"24px"} />
+          <PhotoUpdate />
         </Box>
-        <UserProfileUpdate />
+        {/* <UserProfileUpdate /> */}
         {/* <Box style={{ display: "flex", justifyContent: "flex-end" }}>
           <EditProfModal />
         </Box> */}
       </Box>
       {/* 名前 */}
-      <HStack className={styles.box}>
+      <HStack>
         <Box>
-          <Text className={styles.text}>名前</Text>
+          <Text>名前</Text>
           <Box>{userName}</Box>
         </Box>
         <Spacer />
-        <Button>
-          <ChevronRightIcon />
-        </Button>
+        <NameUpdate />
       </HStack>
       {/* 好きな球団 */}
-      <HStack className={styles.box}>
+      <HStack>
         <Box>
-          <Text className={styles.text}>好きな球団</Text>
+          <Text >好きな球団</Text>
           <Box>{favTeam}</Box>
         </Box>
         <Spacer />
-        <Button>
-          <ChevronRightIcon />
-        </Button>
+        <FavTeamUpdate />
       </HStack>
       {/* 好きな選手※5人まで */}
-      <HStack className={styles.box}>
+      <HStack >
         <Box>
-          <Text className={styles.text}>好きな選手※5人まで</Text>
+          <Text className={styles.text}>好きな選手</Text>
           <Box>{favPlayers}</Box>
         </Box>
         <Spacer />
-        <Button>
-          <ChevronRightIcon />
-        </Button>
+        <FavPlayersUpdate />
       </HStack>
       {/* ひとこと */}
-      <HStack className={styles.box}>
+      <HStack>
         <Box>
           <Text className={styles.text}>ひとこと</Text>
           <Box>{comment}</Box>
         </Box>
         <Spacer />
-        <Button>
-          <ChevronRightIcon />
-        </Button>
+        <CommentUpdate />
       </HStack>
     </>
   );

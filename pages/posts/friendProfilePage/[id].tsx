@@ -1,13 +1,15 @@
-import { Box, Container, Text, Image, Center, Button } from "@chakra-ui/react";
+import { Box, Container, Text, Image, Center } from "@chakra-ui/react";
 import styles from "@/styles/myProfilePage.module.css";
 import goya from "src/goya.png";
+
 import { useEffect, useState } from "react";
-import { useProfileCards } from "@/hooks/useProfileCards";
-import { useRouter } from "next/router";
-import { DocumentReference, doc, getDoc } from "firebase/firestore";
-import { db } from "@/firebase/firebase";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/firebase/firebase";
+
 import LikeButton from "@/components/likeButton";
+import { useProfileCards } from "@/hooks/useProfileCards";
 
 type User = {
   id: string;
@@ -25,7 +27,7 @@ const FriendProfilePage = () => {
 
   const router = useRouter();
   // 型アサーションはいいの？
-  const uid :string = router.query.id as string
+  const uid: string = router.query.id as string;
 
   useEffect(() => {
     const fetchUserName = async () => {
@@ -48,7 +50,7 @@ const FriendProfilePage = () => {
 
   return (
     <Container>
-      <Link href='/posts/friendList'>戻る</Link>
+      <Link href="/posts/friendList">戻る</Link>
       <Text className={styles.title} py={3}>
         Friend Profile
       </Text>
