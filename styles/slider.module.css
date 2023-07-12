@@ -1,0 +1,23 @@
+.swiper {
+  width: 100%;
+  height: 100%;
+  padding:0 50px;
+}
+
+.swiper-slide {
+  color: #fff;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  line-height: 300px;
+}
+
+.custom_bullet {
+  background: red;
+  opacity: 0.5;
+} 
+
+.custom_bullet_active {
+  background: blue;
+  opacity: 1;
+} 
