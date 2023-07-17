@@ -24,6 +24,9 @@ const friendList = () => {
               <Link href={`/posts/friendProfilePage/${user.uid}`}>
                 {user.userName}
               </Link>
+              <Link href={`/posts/chat/${user.uid}`}>
+                チャット
+              </Link>
             </Text>
           </HStack>
         ))}
