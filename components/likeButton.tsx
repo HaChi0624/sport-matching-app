@@ -1,9 +1,17 @@
 import { useState } from "react";
 import { Button } from "@chakra-ui/react";
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import { db } from "@/firebase/firebase";
 import { useAuth } from "@/firebase/authFunctions";
-import { v4 } from "uuid";
 
 const LikeButton = (props: { user2Id: string; user2Name: string }) => {
   const currentUser = useAuth();
@@ -19,14 +27,15 @@ const LikeButton = (props: { user2Id: string; user2Name: string }) => {
     const querySnapshot = await getDocs(
       query(docRef, where("uid", "==", user2Id))
     );
-    const uuid: string = v4();
     if (querySnapshot.empty) {
-      addDoc(docRef, {
+      const newDocRef = doc(docRef);
+      await setDoc(newDocRef, {
         uid: user2Id,
         userName: user2Name,
         like: true,
-        roomId: uuid,
       });
+      const newDocId = newDocRef.id;
+      await updateDoc(newDocRef, { roomId: newDocId });
     }
   };
 
