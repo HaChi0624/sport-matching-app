@@ -78,7 +78,7 @@ const FriendChat = () => {
     },
   ]);
 
-  //いらなかったっら消す
+  //いらなかったら消す
   useEffect(() => {
     console.log(currentUser);
   }, [currentUser]);

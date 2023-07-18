@@ -15,9 +15,15 @@ import {
   Image,
   Box,
   Spacer,
+  Accordion,
+  AccordionButton,
+  AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
 } from "@chakra-ui/react";
 import { useUsers } from "@/hooks/useUsers";
 import ProfileCards from "@/components/profileCards";
+import { MinusIcon, AddIcon } from "@chakra-ui/icons";
 
 const myProfilePage = () => {
   const { users } = useUsers();
@@ -29,11 +35,34 @@ const myProfilePage = () => {
         </Heading>
 
         <Input placeholder="検索" />
-        <p>
-          野球名鑑みたいに見せたい。そのために他のページをもう少しカッコよくしてギャップを生みたい。
-        </p>
+        <Accordion allowMultiple>
+          <AccordionItem>
+            {({ isExpanded }) => (
+              <>
+                <h2>
+                  <AccordionButton>
+                    <Box as="span" flex="1" textAlign="left">
+                      詳細検索
+                    </Box>
+                    {isExpanded ? (
+                      <MinusIcon fontSize="12px" />
+                    ) : (
+                      <AddIcon fontSize="12px" />
+                    )}
+                  </AccordionButton>
+                </h2>
+                <AccordionPanel pb={4}>
+                  <Box>好きな球団</Box>
+                  <Box>好きな選手</Box>
+                  <Box>タグ</Box>
+                </AccordionPanel>
+              </>
+            )}
+          </AccordionItem>
+        </Accordion>
 
         <SimpleGrid
+          mt="24px"
           spacing={4}
           templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
         >
@@ -47,7 +76,6 @@ const myProfilePage = () => {
             </Card>
           ))}
         </SimpleGrid>
-        
       </Container>
     </>
   );

@@ -16,7 +16,6 @@ import FavTeamUpdate from "./editProf/favTeamUpdate";
 import FavPlayersUpdate from "./editProf/favPlayersUpdate";
 import CommentUpdate from "./editProf/commentUpdate";
 
-
 const ProfilePage = (props: {
   photoURL: string;
   userName: string;
@@ -29,27 +28,21 @@ const ProfilePage = (props: {
   return (
     <>
       {/* 写真 */}
-      <Box >
+      <Box>
         <Box>
-          <Center>
-            {photoURL ? (
-              <Image
-                src={photoURL}
-                alt="picture"
-                w="240px"
-                h="240px"
-                border="1px"
-                borderRadius={"full"}
-              />
-            ) : (
-              <Box
-                w="240px"
-                h="240px"
-                border="1px"
-                borderRadius={"full"}
-              />
-            )}
-          </Center>
+          {photoURL ? (
+            <Image
+              src={photoURL}
+              alt="picture"
+              w="240px"
+              h="240px"
+              border="1px"
+              borderRadius={"full"}
+            />
+          ) : (
+            <Box w="240px" h="240px" border="1px" borderRadius={"full"} />
+          )}
+
           <PhotoUpdate />
         </Box>
         {/* <UserProfileUpdate /> */}
@@ -69,14 +62,14 @@ const ProfilePage = (props: {
       {/* 好きな球団 */}
       <HStack>
         <Box>
-          <Text >好きな球団</Text>
+          <Text>好きな球団</Text>
           <Box>{favTeam}</Box>
         </Box>
         <Spacer />
         <FavTeamUpdate />
       </HStack>
       {/* 好きな選手※5人まで */}
-      <HStack >
+      <HStack>
         <Box>
           <Text className={styles.text}>好きな選手</Text>
           <Box>{favPlayers}</Box>
