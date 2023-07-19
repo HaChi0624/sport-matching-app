@@ -1,7 +1,9 @@
 import { useAuth } from "@/firebase/authFunctions";
 import { db } from "@/firebase/firebase";
+import { myUidState } from "@/store/myUid";
 import { getDoc, doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { ChangeEventHandler, useRef, useState, useEffect } from "react";
+import { useRecoilValue } from "recoil";
 
 let fileImage: HTMLImageElement | undefined;
 
@@ -49,7 +51,8 @@ export const useProfileCards = () => {
   // };
 
   //ユーザーid
-  const currentUser = useAuth();
+  // const currentUser = useAuth();
+  const myUid = useRecoilValue(myUidState);
 
   const [userName, setUserName] = useState("");
   const [favTeam, setFavTeam] = useState("");
@@ -63,10 +66,10 @@ export const useProfileCards = () => {
 
   // プロフィール取得
   useEffect(() => {
-    if (currentUser) {
+    if (myUid) {
       const fetchUserName = async () => {
         try {
-          const userSnapshot = await getDoc(doc(db, "users", currentUser.uid));
+          const userSnapshot = await getDoc(doc(db, "users", myUid));
           const userData = userSnapshot.data();
           if (userData) {
             setUserName(userData.userName);
@@ -80,9 +83,30 @@ export const useProfileCards = () => {
         }
       };
       fetchUserName();
-      console.log(currentUser);
     }
-  }, [currentUser]);
+  }, [myUid]);
+
+  // useEffect(() => {
+  //   if (currentUser) {
+  //     const fetchUserName = async () => {
+  //       try {
+  //         const userSnapshot = await getDoc(doc(db, "users", currentUser.uid));
+  //         const userData = userSnapshot.data();
+  //         if (userData) {
+  //           setUserName(userData.userName);
+  //           setFavTeam(userData.favTeam);
+  //           setFavPlayers(userData.favPlayers);
+  //           setComment(userData.comment);
+  //           setPhotoURL(userData.photoURL);
+  //         }
+  //       } catch (error) {
+  //         console.error("Error fetching user name:", error);
+  //       }
+  //     };
+  //     fetchUserName();
+  //     console.log(currentUser);
+  //   }
+  // }, [currentUser]);
 
   return {
     // handleFiles,

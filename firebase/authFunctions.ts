@@ -8,6 +8,7 @@ import {
 } from "firebase/auth";
 import router, { Router } from "next/router";
 import { doc, setDoc } from "firebase/firestore";
+import { myUidState } from "@/store/myUid";
 
 //import しようとしたけど上手くいかなかった
 /**
@@ -27,25 +28,27 @@ import { doc, setDoc } from "firebase/firestore";
 export const signUp = async (
   userName: string,
   email: string,
-  password: string
+  password: string,
+  setMyUid: (uid: string) => void
 ) => {
   try {
     await createUserWithEmailAndPassword(auth, email, password).then(
       (result) => {
-        //userが戻り値として返ってくるので、それをuserに代入
-        const user = result.user; //userに値が入っていれば
+        const user = result.user;
+        /** 
+         * const [myUid, setMyUid] = useRecoilState(myUidState);
+         * Error: Invalid hook call.Hooks can only be called inside of the body of a function component.
+         */
 
         if (user) {
-          //userの中にあるuidをuidに代入
           const uid = user.uid;
-
-          //firestoreのusersというコレクションに、uidをドキュメントIDとしてもつ、 userInitialDataを登録する
           setDoc(doc(db, "users", uid), {
             uid: uid,
             email: email,
             userName: userName,
           });
-          console.log("ユーザーが作成されました!");
+          setMyUid(uid);
+          // console.log(myUid)
         }
       }
     );
@@ -91,6 +94,6 @@ export const useAuth = () => {
     return () => unSub();
   }, [setSignInUser, resetStatus]);
 
-  console.log(signInUser)
+  console.log(signInUser);
   return signInUser;
 };
