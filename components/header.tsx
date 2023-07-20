@@ -2,18 +2,26 @@ import { Box, HStack, Spacer, Link, Avatar } from "@chakra-ui/react";
 import { BellIcon } from "@chakra-ui/icons";
 import styles from "@/styles/header.module.css";
 import { useAuthContext } from "@/firebase/auth/authProvider";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 import MenuButton from "./menuButton";
 import { useProfileCards } from "@/hooks/useProfileCards";
 import { userProfState } from "@/store/prof";
 import { myUidState } from "@/store/myUid";
+import { useEffect } from "react";
 
 const Header = () => {
   // const { user } = useAuthContext();
   // const { photoURL } = useProfileCards();
   // const userProf = useRecoilValue(userProfState);
-  const myUid = useRecoilValue(myUidState);
+  const [myUid, setMyUid] = useRecoilState(myUidState);
+  const { user } = useAuthContext();
+
+  useEffect(() => {
+    if (user) {
+      setMyUid(user.uid)
+    }
+  })
 
   // console.log(user);
   console.log(`myUid is ${myUid}`);
