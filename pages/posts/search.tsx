@@ -28,6 +28,7 @@ import { useEffect, useState } from "react";
 import { useUsers } from "@/hooks/useUsers";
 import ProfileCards from "@/components/profileCards";
 
+
 type User = {
   uid: string;
   userName: string;
@@ -37,9 +38,7 @@ type User = {
 const myProfilePage = () => {
   const { users } = useUsers();
 
-  //usersが非同期のために読み込まれていない可能性
-
-  const [searchUsers, setSearchUsers] = useState<User[]>([]);
+  const [searchUsers, setSearchUsers] = useState<User[]>(users);
   const [inputValue, setInputValue] = useState("");
 
   const [value, setValue] = useState("1");
@@ -50,7 +49,7 @@ const myProfilePage = () => {
     search(e.target.value);
   };
 
-  // // 検索欄への入力値での絞り込み
+  // 名前検索
   const search = (value: string) => {
     if (value === "") {
       setSearchUsers(users);
@@ -62,7 +61,7 @@ const myProfilePage = () => {
     setSearchUsers(serchedUsers);
   };
 
-  console.log(searchUsers);
+  console.log(searchUsers);//初期値をusersにしているのに空
   console.log(users);
 
   return (
