@@ -12,28 +12,30 @@ import {
 } from "@chakra-ui/react";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { doc, updateDoc } from "firebase/firestore";
 
-import { auth, db } from "@/firebase/firebase";
-import { useAuth } from "@/firebase/authFunctions";
+import { db } from "@/firebase/firebase";
+
+import { useRecoilValue } from "recoil";
+import { myUidState } from "@/store/myUid";
 
 //プロフィール写真の更新
 const CommentUpdate = () => {
-  const currentUser = useAuth();
+  const myUid = useRecoilValue(myUidState);
   const [comment, setComment] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   // エラー処理、バリデーション
-  const handleUpdateProfile = () => {
-    const user = auth.currentUser;
-    if (user) {
-      updateDoc(doc(db, "users", currentUser.uid), {
+  const handleUpdateProfile = useCallback(() => {
+    // const user = auth.currentUser;
+    if (myUid) {
+      updateDoc(doc(db, "users", myUid), {
         comment: comment,
       });
     }
     onClose();
-  };
+  },[comment, onClose]);
 
   return (
     <>

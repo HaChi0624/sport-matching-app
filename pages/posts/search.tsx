@@ -117,9 +117,9 @@ const myProfilePage = () => {
                     <Radio value="13">その他</Radio>
                   </RadioGroup>
                   <Box>好きな選手</Box>
-                  <Input></Input>
+                  <Input placeholder="検索" value={inputValue} onChange={handleInputChange}/>
                   <Box>タグ</Box>
-                  <Input></Input>
+                  <Input placeholder="検索" value={inputValue} onChange={handleInputChange}/>
                 </AccordionPanel>
               </>
             )}
