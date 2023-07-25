@@ -1,5 +1,8 @@
 import { useEffect } from "react";
-import { useRecoilState, useResetRecoilState } from "recoil";
+import {
+  useRecoilState,
+  atom,
+} from "recoil";
 import { signInUserState } from "../store/auth";
 import { auth, db } from "./firebase";
 import {
@@ -35,7 +38,7 @@ export const signUp = async (
     await createUserWithEmailAndPassword(auth, email, password).then(
       (result) => {
         const user = result.user;
-        /** 
+        /**
          * const [myUid, setMyUid] = useRecoilState(myUidState);
          * Error: Invalid hook call.Hooks can only be called inside of the body of a function component.
          */
@@ -77,23 +80,59 @@ export const signOut = async () => {
 // setSignInUserを使ってRecoil Stateにuidを保存します。
 // ログアウト状態なら、resetStatusを使ってRecoil Stateの状態を初期化します。
 
+// export const useAuth = () => {
+//   const [signInUser, setSignInUser] = useRecoilState(signInUserState);
+//   const resetStatus = useResetRecoilState(signInUserState);
+
+//   useEffect(() => {
+//     const unSub = auth.onAuthStateChanged((user) => {
+//       if (user) {
+//         setSignInUser({
+//           uid: user.uid,
+//         });
+//       } else {
+//         resetStatus();
+//       }
+//     });
+//     return () => unSub();
+//   }, [setSignInUser, resetStatus]);
+
+//   console.log(signInUser);
+//   return signInUser;
+// };
+
+
+// User state
+export const userState = atom({
+  key: 'userState',
+  default: { uid: '' }  // default to user with empty UID
+});
+
+// Auth status state
+export const authStatusState = atom({
+  key: 'authStatusState',
+  default: 'LOADING'  // LOADING, LOGGED_IN, NOT_LOGGED_IN
+});
+
+// Custom hook
 export const useAuth = () => {
-  const [signInUser, setSignInUser] = useRecoilState(signInUserState);
-  const resetStatus = useResetRecoilState(signInUserState);
+  const [user, setUser] = useRecoilState(userState);
+  const [status, setStatus] = useRecoilState(authStatusState);
 
   useEffect(() => {
     const unSub = auth.onAuthStateChanged((user) => {
       if (user) {
-        setSignInUser({
+        setUser({
           uid: user.uid,
         });
+        setStatus('LOGGED_IN');
       } else {
-        resetStatus();
+        setUser({ uid: '' });  // reset to user with empty UID
+        setStatus('NOT_LOGGED_IN');
       }
     });
     return () => unSub();
-  }, [setSignInUser, resetStatus]);
+  }, [setUser, setStatus]);
 
-  console.log(signInUser);
-  return signInUser;
+  return { user, status };
 };
