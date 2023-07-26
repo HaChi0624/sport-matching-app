@@ -9,7 +9,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/firebase/firebase";
 
 import LikeButton from "@/components/likeButton";
-import { useProfileCards } from "@/hooks/useProfileCards";
+import { useProfile } from "@/hooks/useProfile";
 
 type User = {
   id: string;

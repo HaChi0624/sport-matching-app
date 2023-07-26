@@ -21,18 +21,18 @@ import { useAuth } from "@/firebase/authFunctions";
 
 //プロフィール写真の更新
 const NameUpdate = () => {
-  const currentUser = useAuth();
+  const {user} = useAuth();
   const [userName, setUserName] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleUpdateProfile = () => {
-    const user = auth.currentUser;
+    // const user = auth.currentUser;
     if (user) {
       updateProfile(user, {
         displayName: userName,
       })
         .then(() => {
-          updateDoc(doc(db, "users", currentUser.uid), {
+          updateDoc(doc(db, "users", user.uid), {
             userName: userName,
           });
           console.log("プロフィールが更新されました");

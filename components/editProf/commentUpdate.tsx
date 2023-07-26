@@ -22,15 +22,17 @@ import { myUidState } from "@/store/myUid";
 
 //プロフィール写真の更新
 const CommentUpdate = () => {
-  const myUid = useRecoilValue(myUidState);
+
+  const {user} = useAuth();
+
   const [comment, setComment] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   // エラー処理、バリデーション
-  const handleUpdateProfile = useCallback(() => {
-    // const user = auth.currentUser;
-    if (myUid) {
-      updateDoc(doc(db, "users", myUid), {
+
+  const handleUpdateProfile = () => {
+    if (user) {
+      updateDoc(doc(db, "users", user.uid), {
         comment: comment,
       });
     }

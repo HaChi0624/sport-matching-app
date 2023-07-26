@@ -12,11 +12,11 @@ import {
   useDisclosure,
   Link,
 } from "@chakra-ui/react";
-import { signOut } from "@/firebase/authFunctions";
+import { signOut, useAuth } from "@/firebase/authFunctions";
 
 const MenuButton = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { user } = useAuthContext();
+  const { user } = useAuth();
   return (
     <>
       <Button colorScheme="teal.900" onClick={onOpen}>

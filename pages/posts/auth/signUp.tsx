@@ -13,17 +13,17 @@ import {
 } from "@chakra-ui/react";
 import { signUp } from "@/firebase/authFunctions";
 import { useSetRecoilState } from "recoil";
-import { myUidState } from "@/store/myUid";
+
 
 const SignUp = () => {
   const [userName, setUserName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const setMyUid = useSetRecoilState(myUidState);//追加
+  // const setMyUid = useSetRecoilState(myUidState);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await signUp(userName, email, password, setMyUid); //setMyUidを追加
+    await signUp(userName, email, password); 
     router.push("/posts/Top");
   };
 

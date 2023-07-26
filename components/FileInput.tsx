@@ -1,9 +1,9 @@
 import { FC } from "react";
-import { useProfileCards } from "../hooks/useProfileCards";
+import { useProfile } from "../hooks/useProfile";
 import { Box, Input } from "@chakra-ui/react";
 
 export const FileInput: FC = () => {
-  const { handleFiles, imageContainerRef } = useProfileCards();
+  const { handleFiles, imageContainerRef } = useProfile();
   return (
     <>
       <Box>

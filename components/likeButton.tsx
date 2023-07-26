@@ -17,8 +17,7 @@ import { useRecoilValue } from "recoil";
 import { myUidState } from "@/store/myUid";
 
 const LikeButton = (props: { user2Id: string; user2Name: string }) => {
-  // const currentUser = useAuth();
-  const myUid = useRecoilValue(myUidState);
+  const {user} = useAuth();
   const { user2Id, user2Name } = props;
   const [like, setLike] = useState(false);
 
@@ -27,7 +26,7 @@ const LikeButton = (props: { user2Id: string; user2Name: string }) => {
   // 友達解除は別で
   const onClickLike = async () => {
     setLike(!like);
-    const docRef = collection(db, "users", myUid, "friends");
+    const docRef = collection(db, "users", user.uid, "friends");
     const querySnapshot = await getDocs(
       query(docRef, where("uid", "==", user2Id))
     );

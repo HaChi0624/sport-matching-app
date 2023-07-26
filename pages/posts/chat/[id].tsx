@@ -26,9 +26,9 @@ type ChatLog = {
 
 const FriendChat = () => {
   const router = useRouter();
-  const currentUser = useAuth();
+  const {user} = useAuth();
 
-  const user1Id: string = currentUser.uid
+  const user1Id: string = user.uid
   const user2Id: string = router.query.id as string;
   const user1Name = "aaa";
   const [user2Name, setUser2Name] = useState("");
@@ -77,11 +77,6 @@ const FriendChat = () => {
       date: new Date(),
     },
   ]);
-
-  //いらなかったら消す
-  useEffect(() => {
-    console.log(currentUser);
-  }, [currentUser]);
 
 
   // confirm id and get user2name
