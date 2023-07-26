@@ -26,20 +26,10 @@ const NameUpdate = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleUpdateProfile = () => {
-    // const user = auth.currentUser;
     if (user) {
-      updateProfile(user, {
-        displayName: userName,
-      })
-        .then(() => {
-          updateDoc(doc(db, "users", user.uid), {
-            userName: userName,
-          });
-          console.log("プロフィールが更新されました");
-        })
-        .catch((error) => {
-          console.error("プロフィールの更新に失敗しました", error);
-        });
+      updateDoc(doc(db, "users", user.uid), {
+        userName: userName,
+      });
     }
     onClose()
   };

@@ -15,7 +15,7 @@ import { ChevronRightIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import { doc, updateDoc } from "firebase/firestore";
 
-import { auth, db } from "@/firebase/firebase";
+import { db } from "@/firebase/firebase";
 import { useAuth } from "@/firebase/authFunctions";
 
 //プロフィール写真の更新
