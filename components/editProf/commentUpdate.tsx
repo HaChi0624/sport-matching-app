@@ -12,19 +12,24 @@ import {
 } from "@chakra-ui/react";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { doc, updateDoc } from "firebase/firestore";
 
-import { auth, db } from "@/firebase/firebase";
-import { useAuth } from "@/firebase/authFunctions";
+import { db } from "@/firebase/firebase";
+
+import { useRecoilValue } from "recoil";
+import { myUidState } from "@/store/myUid";
 
 //プロフィール写真の更新
 const CommentUpdate = () => {
+
   const {user} = useAuth();
+
   const [comment, setComment] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   // エラー処理、バリデーション
+
   const handleUpdateProfile = () => {
     if (user) {
       updateDoc(doc(db, "users", user.uid), {
@@ -32,7 +37,7 @@ const CommentUpdate = () => {
       });
     }
     onClose();
-  };
+  },[comment, onClose]);
 
   return (
     <>

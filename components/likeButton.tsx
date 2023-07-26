@@ -11,7 +11,10 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "@/firebase/firebase";
-import { useAuth } from "@/firebase/authFunctions";
+// import { useAuth } from "@/firebase/authFunctions";
+
+import { useRecoilValue } from "recoil";
+import { myUidState } from "@/store/myUid";
 
 const LikeButton = (props: { user2Id: string; user2Name: string }) => {
   const {user} = useAuth();
