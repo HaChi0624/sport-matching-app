@@ -1,11 +1,11 @@
 import { Container, Heading } from "@chakra-ui/react";
 import styles from "@/styles/myProfilePage.module.css";
-import { useProfileCards } from "@/hooks/useProfileCards";
+import { useProfile } from "@/hooks/useProfile";
 import ProfilePage from "@/components/profilePage";
 
 const myProfilePage = () => {
   const { userName, favTeam, favPlayers, comment, photoURL } =
-    useProfileCards();
+    useProfile();
 
   // console.log("userName: " + userName);
   // console.log("favTeam: " + favTeam);

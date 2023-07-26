@@ -20,15 +20,14 @@ import { useAuth } from "@/firebase/authFunctions";
 
 //プロフィール写真の更新
 const CommentUpdate = () => {
-  const currentUser = useAuth();
+  const {user} = useAuth();
   const [comment, setComment] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   // エラー処理、バリデーション
   const handleUpdateProfile = () => {
-    const user = auth.currentUser;
     if (user) {
-      updateDoc(doc(db, "users", currentUser.uid), {
+      updateDoc(doc(db, "users", user.uid), {
         comment: comment,
       });
     }

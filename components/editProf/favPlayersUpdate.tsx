@@ -20,15 +20,14 @@ import { useAuth } from "@/firebase/authFunctions";
 
 //プロフィール写真の更新
 const FavPlayersUpdate = () => {
-  const currentUser = useAuth();
+  const {user} = useAuth();
   const [favPlayers, setFavPlayers] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   // エラー処理、バリデーション
   const handleUpdateProfile = () => {
-    const user = auth.currentUser;
     if (user) {
-      updateDoc(doc(db, "users", currentUser.uid), {
+      updateDoc(doc(db, "users", user.uid), {
         favPlayers: favPlayers,
       });
     }

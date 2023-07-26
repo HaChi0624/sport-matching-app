@@ -14,7 +14,7 @@ import { db } from "@/firebase/firebase";
 import { useAuth } from "@/firebase/authFunctions";
 
 const LikeButton = (props: { user2Id: string; user2Name: string }) => {
-  const currentUser = useAuth();
+  const {user} = useAuth();
   const { user2Id, user2Name } = props;
   const [like, setLike] = useState(false);
 
@@ -23,7 +23,7 @@ const LikeButton = (props: { user2Id: string; user2Name: string }) => {
   // 友達解除は別で
   const onClickLike = async () => {
     setLike(!like);
-    const docRef = collection(db, "users", currentUser.uid, "friends");
+    const docRef = collection(db, "users", user.uid, "friends");
     const querySnapshot = await getDocs(
       query(docRef, where("uid", "==", user2Id))
     );
