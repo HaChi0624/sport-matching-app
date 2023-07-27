@@ -15,7 +15,14 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { getDoc, doc, getDocs, collection } from "firebase/firestore";
+import {
+  getDoc,
+  doc,
+  getDocs,
+  collection,
+  query,
+  where,
+} from "firebase/firestore";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -82,8 +89,11 @@ const FriendChat = () => {
     },
   ]);
 
-  // confirm id and get user2name
+  //  get user2name
   useEffect(() => {
+    // if (status === "LOADING") {
+    //   return;
+    // }
     const fetchUser2Name = async () => {
       if (user2Id) {
         const userSnapshot = await getDoc(doc(db, "users", user2Id));
@@ -101,24 +111,16 @@ const FriendChat = () => {
 
   useEffect(() => {
     const fetchRoomId = async () => {
-      if (status === "LOADING") {
-        return;
-      }
-      const friendSnapshot = await getDoc(
-        doc(db, "users", user1Id, "friends", "AcT057IAKPxYbMFfCxTZ")
+      const collectionRef = collection(db, "users", user1Id, "friends");
+      const querySnapshot = await getDocs(
+        query(collectionRef, where("uid", "==", user2Id))
       );
-      // const friendSnapshot = await getDoc(
-      //   doc(db, "users", user1Id, "friends", user2Id)
-      // );
-      if (friendSnapshot.exists()) {
-        const friendData = friendSnapshot.data();
-        setRoomId(friendData.roomId);
-      }
-      console.log("friendSnapshot:", friendSnapshot);
+      querySnapshot.forEach((doc) => {
+        setRoomId(doc.id)
+      })
     };
     fetchRoomId();
   }, [user2Id]);
-  console.log(`roomId: ${roomId}`);
 
   // チャット追加
 
