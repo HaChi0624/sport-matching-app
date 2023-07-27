@@ -5,5 +5,5 @@ export const userState = atom({
   default: {
     uid: "",
     photoURL: "",
-  }, // default to user with empty UID
+  },
 });

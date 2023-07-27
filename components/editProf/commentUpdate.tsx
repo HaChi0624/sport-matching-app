@@ -18,7 +18,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/firebase/firebase";
 
 import { useRecoilValue } from "recoil";
-import { myUidState } from "@/store/myUid";
+import { useAuth } from "@/firebase/authFunctions";
 
 //プロフィール写真の更新
 const CommentUpdate = () => {
@@ -37,7 +37,7 @@ const CommentUpdate = () => {
       });
     }
     onClose();
-  },[comment, onClose]);
+  };
 
   return (
     <>

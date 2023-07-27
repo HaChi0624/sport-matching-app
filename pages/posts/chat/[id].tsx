@@ -1,5 +1,6 @@
 import { useAuth } from "@/firebase/authFunctions";
 import { db } from "@/firebase/firebase";
+import { useProfile } from "@/hooks/useProfile";
 import {
   Avatar,
   Box,
@@ -12,6 +13,7 @@ import {
   Heading,
   Input,
   Text,
+  VStack,
 } from "@chakra-ui/react";
 import { getDoc, doc, getDocs, collection } from "firebase/firestore";
 import { useRouter } from "next/router";
@@ -26,58 +28,59 @@ type ChatLog = {
 
 const FriendChat = () => {
   const router = useRouter();
-  const {user} = useAuth();
+  const { user, status } = useAuth();
+  const { userName } = useProfile();
 
-  const user1Id: string = user.uid
+  const user1Id: string = user.uid;
   const user2Id: string = router.query.id as string;
-  const user1Name = "aaa";
+  const user1Name = userName;
+  const [roomId, setRoomId] = useState("");
   const [user2Name, setUser2Name] = useState("");
   const [inputMsg, setInputMsg] = useState("");
   const [chatLogs, setChatLogs] = useState<ChatLog[]>([
     {
       key: "1",
-      name: "m.t",
+      name: "nannan",
       msg: "めっせーじ",
       date: new Date(),
     },
     {
       key: "2",
-      name: "m.t",
+      name: "ikeike",
       msg: "めっせーじdayo",
       date: new Date(),
     },
     {
       key: "3",
-      name: "m.t",
-      msg: "めっせーじomg",
+      name: "ikeike",
+      msg: "めっせーじmg",
       date: new Date(),
     },
     {
       key: "4",
-      name: "m.t",
-      msg: "めっせーじomg",
+      name: "aaa",
+      msg: "gasgasg",
       date: new Date(),
     },
     {
       key: "5",
-      name: "m.t",
-      msg: "めっせーじomg",
+      name: "denden",
+      msg: "gaajaklgmg",
       date: new Date(),
     },
     {
       key: "6",
-      name: "m.t",
-      msg: "めっせーじomg",
+      name: "cancan",
+      msg: "k;kjio",
       date: new Date(),
     },
     {
       key: "7",
       name: "m.t",
-      msg: "めっせーじomg",
+      msg: "kajreoajg",
       date: new Date(),
     },
   ]);
-
 
   // confirm id and get user2name
   useEffect(() => {
@@ -95,24 +98,27 @@ const FriendChat = () => {
 
   // roomId
   // 出来てない
-  const [roomId, setRoomId] = useState("");
 
   useEffect(() => {
     const fetchRoomId = async () => {
-      if (user1Id && user2Id) {
-        const friendSnapshot = await getDoc(
-          doc(db, "users", user1Id, "friends", user2Id)
-        );
-        if (friendSnapshot.exists()) {
-          const friendData = friendSnapshot.data();
-          setRoomId(friendData.roomId);
-        }
-        console.log("friendSnapshot:", friendSnapshot);
+      if (status === "LOADING") {
+        return;
       }
+      const friendSnapshot = await getDoc(
+        doc(db, "users", user1Id, "friends", "AcT057IAKPxYbMFfCxTZ")
+      );
+      // const friendSnapshot = await getDoc(
+      //   doc(db, "users", user1Id, "friends", user2Id)
+      // );
+      if (friendSnapshot.exists()) {
+        const friendData = friendSnapshot.data();
+        setRoomId(friendData.roomId);
+      }
+      console.log("friendSnapshot:", friendSnapshot);
     };
     fetchRoomId();
   }, [user2Id]);
-  console.log(roomId);
+  console.log(`roomId: ${roomId}`);
 
   // チャット追加
 
@@ -126,32 +132,45 @@ const FriendChat = () => {
   return (
     <>
       <Container>
-        <Heading>{user2Name}{roomId}</Heading>
+        <Heading>
+          <Box>user1Name: {user1Name}</Box>
+          <Box>user2Name: {user2Name}</Box>
+          <Box>roomId: {roomId}</Box>
+        </Heading>
         {chatLogs.map((item) => (
-          <Box
-            // className={`balloon_${userName === item.name ? "r" : "l"}`}
-            key={item.key}
-          >
+          <Box key={item.key}>
             <HStack style={{ marginLeft: "3px" }}>
-              <Box textAlign="center">
-                <Avatar />
-                {user1Name === item.name ? (
-                  <HStack>
-                    <Box>
-                      {user1Name === item.name ? formatHHMM(item.date) : ""}
-                    </Box>
-                    <Box>{user1Name}</Box>
-                  </HStack>
-                ) : (
-                  <HStack>
-                    <Box>{user2Name}</Box>
-                    <Box>
-                      {user2Name === item.name ? formatHHMM(item.date) : ""}
-                    </Box>
-                  </HStack>
-                )}
-              </Box>
-              <Text className="says">{item.msg}</Text>
+              {user1Name === item.name ? (
+                <>
+                  <Text fontSize={"24px"} className="says">
+                    {item.msg}
+                  </Text>
+                  <VStack>
+                    <Avatar />
+                    <HStack>
+                      <Box fontSize={"20px"}>{item.name}</Box>
+                      <Box>
+                        {item.name === user1Name ? formatHHMM(item.date) : ""}
+                      </Box>
+                    </HStack>
+                  </VStack>
+                </>
+              ) : (
+                <>
+                  <VStack>
+                    <Avatar />
+                    <HStack>
+                      <Box>{item.name}</Box>
+                      <Box>
+                        {item.name !== user1Name ? formatHHMM(item.date) : ""}
+                      </Box>
+                    </HStack>
+                  </VStack>
+                  <Text fontSize={"24px"} className="says">
+                    {item.msg}
+                  </Text>
+                </>
+              )}
             </HStack>
           </Box>
         ))}
