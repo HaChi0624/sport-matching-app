@@ -1,4 +1,4 @@
-import { Box, Container, Text, Image, Center } from "@chakra-ui/react";
+import { Box, Container, Text, Image, Center, Avatar } from "@chakra-ui/react";
 import styles from "@/styles/myProfilePage.module.css";
 import goya from "src/goya.png";
 
@@ -20,6 +20,7 @@ type User = {
 };
 
 const FriendProfilePage = () => {
+  const [photoURL, setPhotoURL] = useState("");
   const [userName, setUserName] = useState("");
   const [favTeam, setFavTeam] = useState("");
   const [favPlayers, setFavPlayers] = useState("");
@@ -35,6 +36,7 @@ const FriendProfilePage = () => {
         const userSnapshot = await getDoc(doc(db, "users", uid));
         if (userSnapshot.exists()) {
           const userData = userSnapshot.data();
+          setPhotoURL(userData.photoURL)
           setUserName(userData.userName);
           setFavTeam(userData.favTeam);
           setFavPlayers(userData.favPlayers);
@@ -42,7 +44,6 @@ const FriendProfilePage = () => {
         }
       }
     };
-
     fetchUserName();
   }, [uid]);
 
@@ -56,7 +57,7 @@ const FriendProfilePage = () => {
       </Text>
       <Box className={styles.box1}>
         <Center>
-          <Image src={goya.src} alt="picture" w="240px" h="240px" />
+          <Avatar src={photoURL} w="240px" h="240px" />
         </Center>
         <Box style={{ display: "flex", justifyContent: "flex-end" }}>
           <LikeButton user2Id={uid} user2Name={userName} />
