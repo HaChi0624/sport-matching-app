@@ -30,10 +30,9 @@ const friendList = () => {
   const { users } = useUsers();
   const [idData, setIdData] = useState<string[]>([]);
   const [requestList, setRequestList] = useState<User[]>([]);
+  const [friendList, setFriendList] = useState<User[]>([]);
 
-  //　likeにしているidを取得
-  // likeではない申請用の変数に変えたい
-  // 申請に対する対応を行った場合、変数をfalseにしてリストに載らないようにする
+  //　requestされているidを取得
   useEffect(() => {
     const fetchIdData = async () => {
       if (status === "LOADING") {
@@ -43,7 +42,7 @@ const friendList = () => {
         const collectionRef = collection(db, "users", user.uid, "friends");
         if (collectionRef) {
           const querySnapshot = await getDocs(
-            query(collectionRef, where("like", "==", true))
+            query(collectionRef, where("request", "==", true))
           );
           const newIdData: string[] = [];
           querySnapshot.forEach((doc) => {
@@ -58,10 +57,41 @@ const friendList = () => {
     fetchIdData();
   }, [user.uid]);
 
-  // idが一致するものを取得
+  // friends = trueを取得
   useEffect(() => {
-    const newUsersData = users.filter((user) => idData.includes(user.uid));
-    setRequestList(newUsersData);
+    const fetchIdData = async () => {
+      if (status === "LOADING") {
+        return;
+      }
+      try {
+        const collectionRef = collection(db, "users", user.uid, "friends");
+        if (collectionRef) {
+          const querySnapshot = await getDocs(
+            query(collectionRef, where("friend", "==", true))
+          );
+          const newIdData: string[] = [];
+          querySnapshot.forEach((doc) => {
+            newIdData.push(doc.data().uid);
+          });
+          setIdData(newIdData);
+        }
+      } catch (error) {
+        console.error("Error fetching requestList:", error);
+      }
+    };
+    fetchIdData();
+  }, [user.uid]);
+
+  // 友達申請されているIDを取得
+  useEffect(() => {
+    const newRequestData = users.filter((user) => idData.includes(user.uid));
+    setRequestList(newRequestData);
+  }, [idData, users]);
+
+  // friend取得
+  useEffect(() => {
+    const newFriendsData = users.filter((user) => idData.includes(user.uid));
+    setFriendList(newFriendsData);
   }, [idData, users]);
 
   // likeのstateがtrueの場合に表示されるようにしたい
@@ -69,13 +99,14 @@ const friendList = () => {
     <>
       <Container py="16px" maxW={["90%", "90%", "80%", "70%"]}>
         <Text>グッドされました</Text>
+        <p>friendsコレクションがそもそも追加されていないから意味がない。requestButtonでuser2にも追加する必要がある。</p>
         <HStack h="20">
-          {requestList.map((friend) => (
+          {requestList.map((requester) => (
             <Link
-              key={friend.uid}
-              href={`/posts/friendProfilePage/${friend.uid}`}
+              key={requester.uid}
+              href={`/posts/friendProfilePage/${requester.uid}`}
             >
-              <Avatar src={friend.photoURL} w="64px" h="64px" />
+              <Avatar src={requester.photoURL} w="64px" h="64px" />
             </Link>
           ))}
         </HStack>
@@ -83,7 +114,7 @@ const friendList = () => {
         <Text fontSize="4xl">友達一覧</Text>
         <Input placeholder="検索" />
         <Box mt="8px">
-          {users.map((user) => (
+          {friendList.map((user) => (
             <HStack h="20" key={user.uid}>
               <Avatar src={user.photoURL} w="64px" h="64px" />
               <Box>
