@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 // import styles from "@/styles/myProfilePage.module.css";
 import ballIcon from "src/ballIcon.png";
-import LikeButton from "./likeButton";
+import RequestButton from "./friendRequest/requestButton";
 
 const ProfileCard = (props: {
   uid: string;
@@ -21,6 +21,7 @@ const ProfileCard = (props: {
   photoURL: string;
 }) => {
   const { photoURL, uid, userName } = props;
+  const request = "2";
 
   return (
     <>
@@ -47,9 +48,10 @@ const ProfileCard = (props: {
       <CardFooter>
         <HStack mt="6" spacing="3">
           <Heading size="md">名前</Heading>
-          <Text fontSize='3xl'>{userName}</Text>
+          <Text fontSize="3xl">{userName}</Text>
           {/* <Spacer /> */}
-          <LikeButton user2Id={uid} user2Name={userName} />
+
+          <RequestButton user2Id={uid} user2Name={userName} />
         </HStack>
       </CardFooter>
     </>

@@ -4,7 +4,7 @@ import styles from "@/styles/header.module.css";
 import { useAuthContext } from "@/firebase/auth/authProvider";
 import { useRecoilState, useRecoilValue } from "recoil";
 
-import MenuButton from "./menuButton";
+import MenuButton from "./Button/menuButton";
 import { useProfile } from "@/hooks/useProfile";
 import { userProfState } from "@/store/prof";
 import { useEffect } from "react";
