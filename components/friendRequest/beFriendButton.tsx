@@ -42,6 +42,11 @@ const BeFriendButton = (props: { user2Id: string; user2Name: string }) => {
         request: false,
         friend: true,
       });
+       // chatコレクションにroomIdに基づいたChatLogを作成
+       await setDoc(doc(db, 'chat', roomId), {
+        roomId: roomId,
+        member: {user1Id, user2Id},
+      })
     }
   };
 
