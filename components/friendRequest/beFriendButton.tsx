@@ -18,56 +18,36 @@ const BeFriendButton = (props: { user2Id: string; user2Name: string }) => {
   const { user, status } = useAuth();
   const user1Id = user.uid;
   const { user2Id, user2Name } = props;
-  const [request, setRequest] = useState(false);
-  const [roomId, setRoomId] = useState("");
-
-  useEffect(() => {
-    const fetchRoomId = async () => {
-      if (status === "LOADING") {
-        return;
-      }
-      const collectionRef = collection(db, "users", user1Id, "friends");
-      const querySnapshot = await getDocs(
-        query(collectionRef, where("uid", "==", user2Id))
-      );
-      querySnapshot.forEach((doc) => {
-        setRoomId(doc.id);
-      });
-    };
-    fetchRoomId();
-  }, [user2Id]);
+  // const [request, setRequest] = useState(false);
 
   //user2から申請をうけた
-  const onClickRequest = async () => {
-    const user1CollectionRef = collection(db, "users", user1Id, "friends");
-    const user2docRef = doc(db, "users", user2Id, "friends", user1Id);
+  const onClickToBeFriend = async () => {
+    if (status === "LOADING") {
+      return;
+    }
 
-    // roomIdの取得
-    const roomId = getDoc(user2docRef);
+    const user1DocRef = doc(db, "users", user1Id, "friends", user2Id);
+    const docSnap = await getDoc(user1DocRef);
 
-    //user2の情報を追加
-    // requestButtonに移動
-    // const user1QuerySnapshot = await getDocs(
-    //   query(user1CollectionRef, where("uid", "==", user2Id))
-    // );
-    // if (user1QuerySnapshot.empty) {
-    //   const newUser1DocRef = doc(user1CollectionRef);
-    //   await setDoc(newUser1DocRef, {
-    //     uid: user2Id,
-    //     roomId: roomId,
-    //     request: false,
-    //     friend: true,
-    //   });
-    // }
-
-    // user1のrequest=falseに変更, friend=trueの追加
+    if (docSnap.exists()) {
+      // user1のrequested falseにする
+      const roomId = docSnap.data().roomId;
+      await updateDoc(user1DocRef, {
+        requested: false,
+        friend: true,
+      });
+      // user2のrequest falseにする
+      const user2DocRef = doc(db, "users", user2Id, "friends", roomId);
+      await updateDoc(user2DocRef, {
+        request: false,
+        friend: true,
+      });
+    }
   };
-  
+
   return (
     <>
-      <Button onClick={onClickRequest}>友達になる</Button>
-      <Button>やめておく</Button>
-      <Button>保留</Button>
+      <Button onClick={onClickToBeFriend}>友達になる!</Button>
     </>
   );
 };

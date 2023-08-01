@@ -8,8 +8,9 @@ import { useRouter } from "next/router";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/firebase/firebase";
 
-import LikeButton from "@/components/likeButton";
+import RequestButton from "@/components/friendRequest/requestButton";
 import { useProfile } from "@/hooks/useProfile";
+import BeFriendButton from "@/components/friendRequest/beFriendButton";
 
 type User = {
   id: string;
@@ -36,7 +37,7 @@ const FriendProfilePage = () => {
         const userSnapshot = await getDoc(doc(db, "users", uid));
         if (userSnapshot.exists()) {
           const userData = userSnapshot.data();
-          setPhotoURL(userData.photoURL)
+          setPhotoURL(userData.photoURL);
           setUserName(userData.userName);
           setFavTeam(userData.favTeam);
           setFavPlayers(userData.favPlayers);
@@ -60,7 +61,10 @@ const FriendProfilePage = () => {
           <Avatar src={photoURL} w="240px" h="240px" />
         </Center>
         <Box style={{ display: "flex", justifyContent: "flex-end" }}>
-          <LikeButton user2Id={uid} user2Name={userName} />
+          {/* 申請するとき */}
+          <RequestButton user2Id={uid} user2Name={userName} />
+          {/* 申請を受けたとき　 user2のrequest=trueの時 */}
+          <BeFriendButton user2Id={uid} user2Name={userName} />
         </Box>
         <Text className={styles.text}>名前</Text>
         <Box>{userName}</Box>

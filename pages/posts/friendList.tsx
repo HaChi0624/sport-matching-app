@@ -28,7 +28,8 @@ type User = {
 const friendList = () => {
   const { user, status } = useAuth();
   const { users } = useUsers();
-  const [idData, setIdData] = useState<string[]>([]);
+  const [requestedIdData, setRequestedIdData] = useState<string[]>([]);
+  const [friendIdData, setFriendIdData] = useState<string[]>([]);
   const [requestList, setRequestList] = useState<User[]>([]);
   const [friendList, setFriendList] = useState<User[]>([]);
 
@@ -42,13 +43,13 @@ const friendList = () => {
         const collectionRef = collection(db, "users", user.uid, "friends");
         if (collectionRef) {
           const querySnapshot = await getDocs(
-            query(collectionRef, where("request", "==", true))
+            query(collectionRef, where("requested", "==", true))
           );
           const newIdData: string[] = [];
           querySnapshot.forEach((doc) => {
             newIdData.push(doc.data().uid);
           });
-          setIdData(newIdData);
+          setRequestedIdData(newIdData);
         }
       } catch (error) {
         console.error("Error fetching requestList:", error);
@@ -73,10 +74,10 @@ const friendList = () => {
           querySnapshot.forEach((doc) => {
             newIdData.push(doc.data().uid);
           });
-          setIdData(newIdData);
+          setFriendIdData(newIdData);
         }
       } catch (error) {
-        console.error("Error fetching requestList:", error);
+        console.error("Error fetching friendList:", error);
       }
     };
     fetchIdData();
@@ -84,22 +85,34 @@ const friendList = () => {
 
   // 友達申請されているIDを取得
   useEffect(() => {
-    const newRequestData = users.filter((user) => idData.includes(user.uid));
+    if (status === "LOADING") {
+      return;
+    }
+    const newRequestData = users.filter((user) =>
+      requestedIdData.includes(user.uid)
+    );
     setRequestList(newRequestData);
-  }, [idData, users]);
+    // console.log(`requestedIdData: ${requestedIdData}`)
+  }, [requestedIdData, users]);
 
   // friend取得
   useEffect(() => {
-    const newFriendsData = users.filter((user) => idData.includes(user.uid));
+    if (status === "LOADING") {
+      return;
+    }
+    const newFriendsData = users.filter((user) =>
+      friendIdData.includes(user.uid)
+    );
     setFriendList(newFriendsData);
-  }, [idData, users]);
+    console.log(`friendIdData: ${friendIdData}`);
+  }, [friendIdData, users]);
 
   // likeのstateがtrueの場合に表示されるようにしたい
   return (
     <>
       <Container py="16px" maxW={["90%", "90%", "80%", "70%"]}>
-        <Text>グッドされました</Text>
-        <p>friendsコレクションがそもそも追加されていないから意味がない。requestButtonでuser2にも追加する必要がある。</p>
+        <Text fontSize={'20px'}>グッドされました！</Text>
+        <Text>リンク先で友達になるを押すと友達一覧に表示されるようになります。</Text>
         <HStack h="20">
           {requestList.map((requester) => (
             <Link

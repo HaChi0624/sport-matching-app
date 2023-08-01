@@ -33,7 +33,7 @@ const RequestButton = (props: { user2Id: string; user2Name: string }) => {
       const user1DocRef = doc(user1CollectionRef);
       await setDoc(user1DocRef, {
         uid: user2Id,
-        request: true,
+        request: true, //申請した
         friend: false,
       });
       const newDocId = user1DocRef.id;
@@ -44,6 +44,7 @@ const RequestButton = (props: { user2Id: string; user2Name: string }) => {
       await setDoc(user2DocRef, {
         uid: user1Id,
         roomId: newDocId,
+        requested: true, //申請された
         friend: false,
       });
     }
