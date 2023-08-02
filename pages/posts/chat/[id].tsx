@@ -1,6 +1,3 @@
-import { useAuth } from "@/firebase/authFunctions";
-import { db } from "@/firebase/firebase";
-import { useProfile } from "@/hooks/useProfile";
 import {
   Avatar,
   Box,
@@ -15,6 +12,10 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+
+import { FormEvent, useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { FirebaseError } from "firebase/app";
 import {
   getDoc,
   doc,
@@ -22,84 +23,48 @@ import {
   collection,
   query,
   where,
+  addDoc,
+  serverTimestamp,
+  setDoc,
+  onSnapshot,
+  FieldValue,
 } from "firebase/firestore";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+
+import { useAuth } from "@/firebase/authFunctions";
+import { db } from "@/firebase/firebase";
+import { useProfile } from "@/hooks/useProfile";
 
 type ChatLog = {
   key: string;
-  name: string;
+  userName: string;
+  uid: string;
   msg: string;
-  date: Date;
+  createdAt: Date;
 };
 
 const FriendChat = () => {
   const router = useRouter();
   const { user, status } = useAuth();
-  const { userName } = useProfile();
+  const { userName, photoURL } = useProfile(); //user1のデータ
 
   const user1Id: string = user.uid;
   const user2Id: string = router.query.id as string;
   const user1Name = userName;
   const [roomId, setRoomId] = useState("");
   const [user2Name, setUser2Name] = useState("");
+  const [user2PhotoURL, setUser2PhotoURL] = useState("");
   const [inputMsg, setInputMsg] = useState("");
-  const [chatLogs, setChatLogs] = useState<ChatLog[]>([
-    {
-      key: "1",
-      name: "nannan",
-      msg: "めっせーじ",
-      date: new Date(),
-    },
-    {
-      key: "2",
-      name: "ikeike",
-      msg: "めっせーじdayo",
-      date: new Date(),
-    },
-    {
-      key: "3",
-      name: "ikeike",
-      msg: "めっせーじmg",
-      date: new Date(),
-    },
-    {
-      key: "4",
-      name: "aaa",
-      msg: "gasgasg",
-      date: new Date(),
-    },
-    {
-      key: "5",
-      name: "denden",
-      msg: "gaajaklgmg",
-      date: new Date(),
-    },
-    {
-      key: "6",
-      name: "cancan",
-      msg: "k;kjio",
-      date: new Date(),
-    },
-    {
-      key: "7",
-      name: "m.t",
-      msg: "kajreoajg",
-      date: new Date(),
-    },
-  ]);
+  const [chatLogs, setChatLogs] = useState<ChatLog[]>([]);
 
-  //  get user2name
+  //  get user2name and photoURL
   useEffect(() => {
-    // if (status === "LOADING") {
-    //   return;
-    // }
     const fetchUser2Name = async () => {
       if (user2Id) {
         const userSnapshot = await getDoc(doc(db, "users", user2Id));
         if (userSnapshot.exists()) {
           const userData = userSnapshot.data();
           setUser2Name(userData.userName);
+          setUser2PhotoURL(userData.photoURL);
         }
       }
     };
@@ -107,27 +72,75 @@ const FriendChat = () => {
   }, [user2Id]);
 
   // roomId
-  // 出来てない
 
   useEffect(() => {
     const fetchRoomId = async () => {
+      if (status === "LOADING") {
+        return;
+      }
       const collectionRef = collection(db, "users", user1Id, "friends");
       const querySnapshot = await getDocs(
         query(collectionRef, where("uid", "==", user2Id))
       );
       querySnapshot.forEach((doc) => {
-        setRoomId(doc.id)
-      })
+        setRoomId(doc.data().roomId);
+      });
+      // console.log(`roomId: ${roomId}`);
     };
     fetchRoomId();
-  }, [user2Id]);
+  }, [user1Id, user2Id]);
 
   // チャット追加
+  const handleSendMessage = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const docRef = await addDoc(collection(db, "chat", roomId, "chatLog"), {
+        key: Math.random(),
+        uid: user1Id,
+        userName: user1Name,
+        msg: inputMsg,
+        createdAt: serverTimestamp(),
+      });
+      setInputMsg("");
+      // console.log(`id: ${docRef.id}`);
+    } catch (e) {
+      if (e instanceof FirebaseError) {
+        console.log(e);
+      }
+    }
+  };
 
   // チャット取得
+  // 10件取得
+  // 第二引数何入れるか　chatLogsはだめ
+  // onSnapshotを検討
+  useEffect(() => {
+    const fetchChatLog = async () => {
+      if (status === "LOADING") {
+        return;
+      }
+      onSnapshot(collection(db, "chat", roomId, "chatLog"), (snapshot) => {
+        const chatRef: ChatLog[] = [];
+        snapshot.docs.map((doc) => {
+          const chat = {
+            key: doc.data().key,
+            uid: doc.data().uid,
+            userName: doc.data().userName,
+            msg: doc.data().msg,
+            createdAt: doc.data().createdAt.toDate(), // Uncaught TypeError: Cannot read properties of null (reading 'toDate')
+          };
+          chatRef.push({ ...chat });
+        });
+        chatRef.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
+        setChatLogs(chatRef);
+        console.log(chatRef);
+      });
+    };
+    fetchChatLog();
+  }, [roomId]);
 
   // 時間
-  const formatHHMM = (time: Date) => {
+  const formatHHMM = (time: Date | string) => {
     return new Date(time).toTimeString().slice(0, 5);
   };
 
@@ -135,24 +148,32 @@ const FriendChat = () => {
     <>
       <Container>
         <Heading>
-          <Box>user1Name: {user1Name}</Box>
-          <Box>user2Name: {user2Name}</Box>
-          <Box>roomId: {roomId}</Box>
+          <Box>{user2Name}</Box>
+          <Box fontSize={"16px"}>roomId: {roomId}</Box>
         </Heading>
-        {chatLogs.map((item) => (
-          <Box key={item.key}>
-            <HStack style={{ marginLeft: "3px" }}>
-              {user1Name === item.name ? (
+        <Box minH={"500px"}>
+          {chatLogs.map((item) => (
+            <HStack
+              key={item.msg}
+              style={{
+                marginLeft: user1Name === item.userName ? "3px" : "auto",
+                justifyContent:
+                  user1Name === item.userName ? "flex-end" : "flex-start",
+              }}
+            >
+              {user1Name === item.userName ? (
                 <>
                   <Text fontSize={"24px"} className="says">
                     {item.msg}
                   </Text>
                   <VStack>
-                    <Avatar />
+                    <Avatar src={photoURL} />
                     <HStack>
-                      <Box fontSize={"20px"}>{item.name}</Box>
+                      {/* <Box fontSize={"20px"}>{item.userName}</Box> */}
                       <Box>
-                        {item.name === user1Name ? formatHHMM(item.date) : ""}
+                        {item.userName === user1Name
+                          ? formatHHMM(item.createdAt)
+                          : ""}
                       </Box>
                     </HStack>
                   </VStack>
@@ -160,44 +181,33 @@ const FriendChat = () => {
               ) : (
                 <>
                   <VStack>
-                    <Avatar />
+                    <Avatar src={user2PhotoURL} />
                     <HStack>
-                      <Box>{item.name}</Box>
+                      {/* <Box>{item.userName}</Box> */}
                       <Box>
-                        {item.name !== user1Name ? formatHHMM(item.date) : ""}
+                        {item.userName !== user1Name
+                          ? formatHHMM(item.createdAt)
+                          : ""}
                       </Box>
                     </HStack>
                   </VStack>
-                  <Text fontSize={"24px"} className="says">
-                    {item.msg}
-                  </Text>
+                  <Text fontSize={"24px"}>{item.msg}</Text>
                 </>
               )}
             </HStack>
-          </Box>
-        ))}
+          ))}
+        </Box>
 
         <Box>
-          <form>
-            <FormControl
-              className="chatform"
-              // onSubmit={async (e) => {
-              //   e.preventDefault();
-              //   await submitMsg();
-              // }}
-            >
+          <form onSubmit={handleSendMessage}>
+            <FormControl className="chatform">
               <Input
                 type="text"
                 value={inputMsg}
                 onChange={(e) => setInputMsg(e.target.value)}
               />
             </FormControl>
-            <Button
-              // onClick={() => submitMsg}
-              type="submit"
-            >
-              送信
-            </Button>
+            <Button type="submit">送信</Button>
           </form>
         </Box>
       </Container>
