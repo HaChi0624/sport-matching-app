@@ -1,14 +1,49 @@
 import { Container, Heading } from "@chakra-ui/react";
 import styles from "@/styles/myProfilePage.module.css";
-import { useProfile } from "@/hooks/useProfile";
+
+import { useEffect, useState } from "react";
+import { doc, onSnapshot } from "firebase/firestore";
+
+import { db } from "@/firebase/firebase";
+import { useAuth } from "@/firebase/authFunctions";
 import ProfilePage from "@/components/profilePage";
 
+type Profile = {
+  userName: string;
+  favTeam: string;
+  favPlayers: string;
+  comment: string;
+  photoURL: string;
+};
 const myProfilePage = () => {
-  const { userName, favTeam, favPlayers, comment, photoURL } =
-    useProfile();
+  const { user, status } = useAuth();
 
-  // console.log("userName: " + userName);
-  // console.log("favTeam: " + favTeam);
+  const [userName, setUserName] = useState("");
+  const [favTeam, setFavTeam] = useState("");
+  const [favPlayers, setFavPlayers] = useState("");
+  const [comment, setComment] = useState("");
+  const [photoURL, setPhotoURL] = useState("");
+  
+  // onSnapshotで取得
+  useEffect(() => {
+    const fetchProfile = async () => {
+      if (status === "LOADING") {
+        return;
+      }
+      onSnapshot(doc(db, "users", user.uid), (doc) => {
+        const userData = doc.data();
+        if (userData) {
+          setUserName(userData.userName);
+          setFavTeam(userData.favTeam);
+          setFavPlayers(userData.favPlayers);
+          setComment(userData.comment);
+          setPhotoURL(userData.photoURL);
+        }
+        // console.log(userData);
+      });
+    };
+    fetchProfile();
+  }, [user]);
 
   return (
     <Container>
