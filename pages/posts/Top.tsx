@@ -1,4 +1,3 @@
-import CreateProfModal from "@/components/createProfModal";
 import Footer from "@/components/footer";
 import SnsIcon from "@/components/snsIcon";
 import {

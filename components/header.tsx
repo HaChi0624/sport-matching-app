@@ -11,21 +11,8 @@ import { useEffect } from "react";
 import { useAuth } from "@/firebase/authFunctions";
 
 const Header = () => {
-  // const { user } = useAuthContext();
-  // const { photoURL } = useProfileCards();
-  // const userProf = useRecoilValue(userProfState);
-  // const [myUid, setMyUid] = useRecoilState(myUidState);
-
-  // useEffect(() => {
-  //   if (user) {
-  //     setMyUid(user.uid)
-  //     console.log(`myUid is ${myUid}`);
-  //   }
-  // })
-
-  // console.log(user);
-
   const { user, status } = useAuth();
+  const { photoURL } = useProfile();
 
   return (
     // 'rgb(0, 75, 149)'
@@ -42,7 +29,7 @@ const Header = () => {
       <Spacer />
       <HStack>
         <Box color="white">
-          {status !== "LOADING" ? <Avatar src={user.photoURL} /> : "ゲスト"}
+          {status !== "LOADING" ? <Avatar src={photoURL} /> : "ゲスト"}
         </Box>
         <BellIcon color="white" boxSize={"32px"} />
         <MenuButton />
