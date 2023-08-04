@@ -21,13 +21,13 @@ import {
   RadioGroup,
   Stack,
   Radio,
+  Text,
 } from "@chakra-ui/react";
 import { MinusIcon, AddIcon } from "@chakra-ui/icons";
 
 import { useEffect, useState } from "react";
 import { useUsers } from "@/hooks/useUsers";
 import ProfileCards from "@/components/profileCards";
-
 
 type User = {
   uid: string;
@@ -37,11 +37,17 @@ type User = {
 
 const myProfilePage = () => {
   const { users } = useUsers();
-
+  
   const [searchUsers, setSearchUsers] = useState<User[]>(users);
   const [inputValue, setInputValue] = useState("");
-
+  
   const [value, setValue] = useState("1");
+
+  // searchUsersの初期値を設定
+  useEffect(() => {
+    setSearchUsers(users);
+    // console.log(`searchUsers: ${searchUsers}`);
+  }, [users]);
 
   // // 検索欄への入力値をハンドリング
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,8 +67,8 @@ const myProfilePage = () => {
     setSearchUsers(serchedUsers);
   };
 
-  console.log(searchUsers);//初期値をusersにしているのに空
-  console.log(users);
+
+  // console.log(users);
 
   return (
     <>
@@ -70,6 +76,7 @@ const myProfilePage = () => {
         <Heading fontWeight={"light"} pb="16px">
           相手を探す
         </Heading>
+        <Text>適当に文字を入力して消してもらうと全員分表示されます。</Text>
 
         <InputGroup size="md">
           <Input
@@ -117,9 +124,17 @@ const myProfilePage = () => {
                     <Radio value="13">その他</Radio>
                   </RadioGroup>
                   <Box>好きな選手</Box>
-                  <Input placeholder="検索" value={inputValue} onChange={handleInputChange}/>
+                  <Input
+                    placeholder="検索"
+                    value={inputValue}
+                    onChange={handleInputChange}
+                  />
                   <Box>タグ</Box>
-                  <Input placeholder="検索" value={inputValue} onChange={handleInputChange}/>
+                  <Input
+                    placeholder="検索"
+                    value={inputValue}
+                    onChange={handleInputChange}
+                  />
                 </AccordionPanel>
               </>
             )}

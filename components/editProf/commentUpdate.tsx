@@ -13,11 +13,10 @@ import {
 import { ChevronRightIcon } from "@chakra-ui/icons";
 
 import { useState, useCallback } from "react";
+import { useRecoilValue } from "recoil";
 import { doc, updateDoc } from "firebase/firestore";
 
 import { db } from "@/firebase/firebase";
-
-import { useRecoilValue } from "recoil";
 import { useAuth } from "@/firebase/authFunctions";
 
 //プロフィール写真の更新
@@ -62,7 +61,7 @@ const CommentUpdate = () => {
           </ModalBody>
 
           <ModalFooter>
-            <Button onClick={handleUpdateProfile}>更新</Button>
+            <Button type='submit' onClick={handleUpdateProfile}>更新</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

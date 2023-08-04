@@ -25,7 +25,7 @@ export const useUsers = () => {
             if (!newUsers.some((u) => u.uid === user.uid)) {
               newUsers.push(user);
             }
-            console.log(doc.id, " => ", doc.data());
+            console.log(doc.data());
           });
           setUsers(newUsers);
         }

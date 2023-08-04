@@ -1,4 +1,3 @@
-import { useAuthContext } from "@/firebase/auth/authProvider";
 import {
   Box,
   Button,
@@ -31,10 +30,11 @@ const MenuButton = () => {
           <DrawerBody>
             <Stack>
               <Link href="/posts/Top">ホーム</Link>
+              <Link href="/posts/Top2">ホーム画面候補</Link>
               <Link href="/posts/myProfilePage">プロフィール</Link>
               <Link href="/posts/search">探す</Link>
               <Link href="/posts/friendList">友達</Link>
-              <Link href="/posts/chat">チャット</Link>
+              {/* <Link href="/posts/chat">チャット</Link> */}
               <Link href="/posts/columns">コラム</Link>
               <Link href="/posts/settings">設定</Link>
               <Box>
