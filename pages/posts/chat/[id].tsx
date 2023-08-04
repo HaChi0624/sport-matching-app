@@ -116,6 +116,9 @@ const FriendChat = () => {
   // onSnapshotを検討
   useEffect(() => {
     const fetchChatLog = async () => {
+      if (!roomId) {
+        return;
+      }
       if (status === "LOADING") {
         return;
       }

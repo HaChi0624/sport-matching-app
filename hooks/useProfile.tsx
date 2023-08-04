@@ -62,9 +62,7 @@ export const useProfile = () => {
     if (status === "LOADING") {
       return;
     }
-
     const fetchUserName = async () => {
-      try {
         const userSnapshot = await getDoc(doc(db, "users", user.uid));
         const userData = userSnapshot.data();
         if (userData) {
@@ -74,9 +72,19 @@ export const useProfile = () => {
           setComment(userData.comment);
           setPhotoURL(userData.photoURL);
         }
-      } catch (error) {
-        console.error("Error fetching user name:", error);
-      }
+      // try {
+      //   const userSnapshot = await getDoc(doc(db, "users", user.uid));
+      //   const userData = userSnapshot.data();
+      //   if (userData) {
+      //     setUserName(userData.userName);
+      //     setFavTeam(userData.favTeam);
+      //     setFavPlayers(userData.favPlayers);
+      //     setComment(userData.comment);
+      //     setPhotoURL(userData.photoURL);
+      //   }
+      // } catch (error) {
+      //   console.error("Error fetching user name:", error);
+      // }
     };
     fetchUserName();
   }, [user]);
