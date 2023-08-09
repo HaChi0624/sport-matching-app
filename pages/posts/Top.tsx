@@ -60,7 +60,7 @@ const Top = () => {
   return (
     <Box>
       <Box className={styles.title}>
-        <Text fontSize={["35px", "42px", "56px", "56px"]} pointer-events="none">
+        <Text fontSize={["35px", "42px", "56px", "56px"]} pointerEvents="none">
           スポッチで一緒に
         </Text>
         <Text fontSize={["35px", "42px", "56px", "56px"]} ml="64px">
@@ -108,14 +108,14 @@ const Top = () => {
 
                 {/* 内容 */}
                 <StepDescription>
-                  <Text
-                    // className={styles.button}
+                  {/* <Text
+                    className={styles.button}
                     fontSize={["15px", "18px", "18px", "24px"]}
                     maxWidth={["280px", "380px", "380px", "520px"]}
                     ml="10px"
-                  >
+                  > */}
                     <Link href={step.link}>{step.description}</Link>
-                  </Text>
+                  {/* </Text> */}
                 </StepDescription>
               </Box>
 
