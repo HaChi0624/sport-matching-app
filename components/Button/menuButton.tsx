@@ -18,7 +18,7 @@ const MenuButton = () => {
   const { user } = useAuth();
   return (
     <>
-      <Button colorScheme="teal.900" onClick={onOpen}>
+      <Button onClick={onOpen}>
         メニュー
       </Button>
       <Drawer isOpen={isOpen} placement="right" onClose={onClose}>

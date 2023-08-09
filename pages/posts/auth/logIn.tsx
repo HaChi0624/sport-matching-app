@@ -6,9 +6,10 @@ import {
   FormLabel,
   Input,
   Button,
+  HStack,
+  Link,
 } from "@chakra-ui/react";
 
-import Link from "next/link";
 import router from "next/router";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../firebase/firebase";
@@ -34,37 +35,55 @@ const LogIn = () => {
     setPassword(e.target.value);
 
   return (
-    <Box width="40%" margin="0 auto" paddingTop="100">
-      <Text fontSize="3xl" marginBottom="3">
-        ログインページ
-      </Text>
-      <form onSubmit={handleLogin}>
-        <FormControl>
-          <FormLabel>メールアドレス</FormLabel>
-          <Input
-            name="email"
-            type="email"
-            placeholder="email"
-            onChange={handleChangeEmail}
-          />
-        </FormControl>
-        <FormControl>
-          <FormLabel>パスワード</FormLabel>
-          <Input
-            name="password"
-            type="password"
-            placeholder="password"
-            onChange={handleChangePassword}
-          />
-        </FormControl>
-        <Box marginTop="3">
-          <Button type="submit">ログイン(ホーム画面へ)</Button>
+    <>
+      {/* <HStack
+        // bg={["yellow.500"]}
+        h="60px"
+      >
+        <Link
+          href="/posts/Top"
+          // color="white"
+          fontWeight="bold"
+          ml={["8px", "8px", "16px", "24px"]}
+          fontSize={["20px", "24px", "24px", "24px"]}
+        >
+          Sport Matching App
+        </Link>
+      </HStack> */}
+      <Box width="55%" margin="0 auto" paddingTop="160px">
+        <Text fontSize="3xl" marginBottom="32px">
+          ログインページ
+        </Text>
+        <form onSubmit={handleLogin}>
+          <FormControl>
+            <FormLabel>メールアドレス</FormLabel>
+            <Input
+              name="email"
+              type="email"
+              placeholder="email"
+              onChange={handleChangeEmail}
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel>パスワード</FormLabel>
+            <Input
+              name="password"
+              type="password"
+              placeholder="password"
+              onChange={handleChangePassword}
+            />
+          </FormControl>
+          <Box marginTop="3">
+            <Button type="submit">ログイン</Button>
+          </Box>
+        </form>
+        <Box mt='32px'>
+          <Link href="/posts/auth/signUp">
+            ユーザ登録がお済みでない方はこちらへ
+          </Link>
         </Box>
-      </form>
-      <Box>
-        <Link href="/posts/auth/signUp">ユーザ登録がお済み出ない方はこちらへ</Link>
       </Box>
-    </Box>
+    </>
   );
 };
 export default LogIn;

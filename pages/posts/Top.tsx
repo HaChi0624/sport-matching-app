@@ -1,5 +1,3 @@
-import Footer from "@/components/footer";
-import SnsIcon from "@/components/snsIcon";
 import {
   Box,
   Button,
@@ -8,83 +6,124 @@ import {
   HStack,
   Stack,
   Text,
+  VStack,
+  Link,
+  Divider,
 } from "@chakra-ui/react";
-import Link from "next/link";
+import styles from "@/styles/top.module.css";
+
+// import NextLink from "next/link";
+// import Link from "next/link";
 import IMG_1014 from "@/src/IMG_1014.png";
-import { useRouter } from "next/router";
 import Slider from "@/components/slider";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
+import SnsIcon from "@/components/snsIcon";
+
+import {
+  Step,
+  StepDescription,
+  StepIcon,
+  StepIndicator,
+  StepNumber,
+  StepSeparator,
+  StepStatus,
+  StepTitle,
+  Stepper,
+  useSteps,
+} from "@chakra-ui/react";
+
+const steps = [
+  {
+    title: "First",
+    description: ">>>プロフィールの作成",
+    link: "/posts/myProfilePage",
+  },
+  { title: "Second", description: ">>>相手を探す", link: "/posts/search" },
+  {
+    title: "Third",
+    description:
+      ">>>相手が見つかればチャットで日程を決めたり、好きな選手のことを話そう！",
+    link: "/posts/friendList",
+  },
+];
 
 const Top = () => {
-  const router = useRouter();
-  const mainbgcolor = "rgb(0, 75, 149)";
-  const items = [
-    { id: 1, content: "Slide 1" },
-    { id: 2, content: "Slide 2" },
-    { id: 3, content: "Slide 3" },
-  ];
+  const { activeStep } = useSteps({
+    index: 1,
+    count: steps.length,
+  });
+
+  // 押すとindexの値が１つ進む
+  //
+
   return (
-    <Box bg={mainbgcolor}>
-      <Center
-        w="100%"
-        h={["300px", "300px", "300px", "400px"]}
-        bg={"white"}
-        overflow={"hidden"}
+    <Box>
+      <Box className={styles.title}>
+        <Text fontSize={["35px", "42px", "56px", "56px"]} pointer-events="none">
+          スポッチで一緒に
+        </Text>
+        <Text fontSize={["35px", "42px", "56px", "56px"]} ml="64px">
+          野球を楽しもう！
+        </Text>
+      </Box>
+
+      <Box
+        // mb="40px"
+        m="0 auto"
+        maxWidth={["90%", "70%", "70%", "50%"]}
       >
-        <img
-          src={IMG_1014.src}
-          width="100%"
-          height="300px"
-          object-fit="cover"
-        />
-      </Center>
-      <Container maxW={["90%", "90%", "80%", "60%"]} bg={"white"}>
-        <Stack mt="8px" mb="20px">
-          <Text fontSize="24px">―新着情報</Text>
-          {/* <Box
-            h="300px"
-            border="1px"
-            borderRadius={"10px"}
-            white-space="nowrap"
-            overflow="scroll"
-            overflowX="hidden"
-            overflowY="scroll"
-          >
-            アップデート、コラムとか
-          </Box> */}
-          <Slider />
-        </Stack>
-        <Stack mb="20px">
-          <Box fontSize="24px">―このサイトの使い方</Box>
-          <Button mr="1" w={"300px"}>
-            チュートリアル
-          </Button>
-        </Stack>
-        <Stack mb="20px">
-          <Text fontSize="24px">―プロフィールを作ってみよう！</Text>
-          {/* <CreateProfModal /> */}
-          <Button
-            onClick={() => router.push("/posts/myProfilePage")}
-            w={"300px"}
-          >
-            作ってみよう！
-          </Button>
-        </Stack>
-        <Stack mb="20px">
-          <Text fontSize="24px">―SNS</Text>
-          <HStack h="100px">
-            <SnsIcon bg="blue.400">Facebook</SnsIcon>
-            <SnsIcon bg="blue.300">twitter</SnsIcon>
-            <SnsIcon bg="red.500">Youtube</SnsIcon>
-          </HStack>
-        </Stack>
-        <HStack bgColor="gray.200" borderRadius="10px">
-          <Link href="/posts/myProfilePage">プロフィール</Link>
-          <Link href="/posts/search">探す</Link>
-          <Link href="/posts/friendsList">友達</Link>
-          <Link href="/posts/chat">チャット</Link>
-        </HStack>
-      </Container>
-      <Footer />
+        <Box
+          textAlign={"center"}
+          fontSize={["36px", "36px", "36px", "36px"]}
+          mb="30px"
+        >
+          ―３つのステップ―
+        </Box>
+        <Stepper
+          index={activeStep}
+          orientation="vertical"
+          height={["300px", "400px", "400px", "400px"]}
+          gap="0"
+          // mb='20px'
+          // marginX={['10px','10px','10px','10px']}
+        >
+          {steps.map((step, index) => (
+            <Step key={index}>
+              <StepIndicator>
+                <StepStatus
+                  complete={<StepIcon />}
+                  incomplete={<StepNumber />}
+                  active={<StepNumber />}
+                />
+              </StepIndicator>
+
+              <Box flexShrink="0">
+                {/* タイトル */}
+                <StepTitle>
+                  <Text fontSize={["28px", "36px", "36px", "36px"]}>
+                    {step.title}
+                  </Text>
+                </StepTitle>
+
+                {/* 内容 */}
+                <StepDescription>
+                  <Text
+                    // className={styles.button}
+                    fontSize={["15px", "18px", "18px", "24px"]}
+                    maxWidth={["280px", "380px", "380px", "520px"]}
+                    ml="10px"
+                  >
+                    <Link href={step.link}>{step.description}</Link>
+                  </Text>
+                </StepDescription>
+              </Box>
+
+              <StepSeparator />
+            </Step>
+          ))}
+        </Stepper>
+      </Box>
     </Box>
   );
 };
