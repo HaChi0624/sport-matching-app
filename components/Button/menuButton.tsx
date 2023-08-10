@@ -10,16 +10,28 @@ import {
   Stack,
   useDisclosure,
   Link,
+  Divider,
 } from "@chakra-ui/react";
+import { HamburgerIcon } from "@chakra-ui/icons";
 import { signOut, useAuth } from "@/firebase/authFunctions";
 
 const MenuButton = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { user } = useAuth();
+
+  const navigationLinks = [
+    { href: "/posts/Top", text: "ホーム" },
+    { href: "/posts/myProfilePage", text: "プロフィール" },
+    { href: "/posts/search", text: "探す" },
+    { href: "/posts/friendList", text: "友達" },
+    { href: "/posts/columns", text: "コラム" },
+    { href: "/posts/settings", text: "設定" },
+  ];
+
   return (
     <>
-      <Button onClick={onOpen}>
-        メニュー
+      <Button onClick={onOpen} bg="none">
+        <HamburgerIcon />
       </Button>
       <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
         <DrawerOverlay />
@@ -29,21 +41,13 @@ const MenuButton = () => {
 
           <DrawerBody>
             <Stack>
-              <Link href="/posts/Top">ホーム</Link>
-              <Link href="/posts/Top2">ホーム画面候補</Link>
-              <Link href="/posts/myProfilePage">プロフィール</Link>
-              <Link href="/posts/search">探す</Link>
-              <Link href="/posts/friendList">友達</Link>
-              {/* <Link href="/posts/chat">チャット</Link> */}
-              <Link href="/posts/columns">コラム</Link>
-              <Link href="/posts/settings">設定</Link>
-              <Box>
-                {user ? (
-                  <Button onClick={signOut}>ログアウト</Button>
-                ) : (
-                  <Link href="/posts/auth/logIn">ログイン</Link>
-                )}
-              </Box>
+              {navigationLinks.map((item, index) => (
+                <Box key={index} textAlign={'center'}>
+                  <Link href={item.href}>{item.text}</Link>
+                  <Divider pt='4px' />
+                </Box>
+              ))}
+              <Button onClick={signOut}>ログアウト</Button>
             </Stack>
           </DrawerBody>
         </DrawerContent>
