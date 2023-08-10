@@ -53,7 +53,7 @@ const RequestButton = (props: { user2Id: string; user2Name: string }) => {
 
   return (
     <>
-      <Button onClick={onClickRequest} bg={request ? "red.200" : "white"}>
+      <Button onClick={onClickRequest} bg={request ? "red.200" : "gray.200"}>
         友達申請
       </Button>
     </>
