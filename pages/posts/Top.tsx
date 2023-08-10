@@ -107,15 +107,19 @@ const Top = () => {
                 </StepTitle>
 
                 {/* 内容 */}
-                <StepDescription>
-                  <Text
-                    // className={styles.button}
+                <StepDescription
+                  // display={"inline-block"}
+                  // maxWidth={["280px", "380px", "380px", "520px"]}
+                  style={{maxWidth: "280px"}}
+                >
+                  <Link
+                    href={step.link}
+                    // maxWidth={["280px", "380px", "380px", "520px"]}
                     fontSize={["15px", "18px", "18px", "24px"]}
-                    maxWidth={["280px", "380px", "380px", "520px"]}
                     ml="10px"
                   >
-                    <Link href={step.link}>{step.description}</Link>
-                  </Text>
+                    {step.description}
+                  </Link>
                 </StepDescription>
               </Box>
 

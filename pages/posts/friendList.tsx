@@ -111,34 +111,42 @@ const friendList = () => {
   return (
     <>
       <Container py="16px" maxW={["90%", "90%", "80%", "70%"]}>
-        <Text fontSize={'20px'}>グッドされました！</Text>
-        <Text>リンク先で友達になるを押すと友達一覧に表示されるようになります。</Text>
-        <HStack h="20">
-          {requestList.map((requester) => (
-            <Link
-              key={requester.uid}
-              href={`/posts/friendProfilePage/${requester.uid}`}
-            >
-              <Avatar src={requester.photoURL} w="64px" h="64px" />
-            </Link>
-          ))}
-        </HStack>
-        {/* users.uidと */}
-        <Text fontSize="4xl">友達一覧</Text>
-        <Input placeholder="検索" />
-        <Box mt="8px">
-          {friendList.map((user) => (
-            <HStack h="20" key={user.uid}>
-              <Avatar src={user.photoURL} w="64px" h="64px" />
-              <Box>
-                <Link href={`/posts/friendProfilePage/${user.uid}`}>
-                  {user.userName}
-                </Link>
-                <Text>最新ログイン：２日前</Text>
-              </Box>
-              <Link href={`/posts/chat/${user.uid}`}>チャット</Link>
-            </HStack>
-          ))}
+        {/* requested */}
+        <Box border={"1px"} borderRadius={"20px"} p="10px 20px" mb="20px">
+          <Text fontSize={"24px"}>グッドされました！</Text>
+          <Text>
+            リンク先で友達になるを押すと友達一覧に表示されるようになります。
+          </Text>
+          <HStack h="20">
+            {requestList.map((requester) => (
+              <Link
+                key={requester.uid}
+                href={`/posts/friendProfilePage/${requester.uid}`}
+              >
+                <Avatar src={requester.photoURL} w="64px" h="64px" />
+              </Link>
+            ))}
+          </HStack>
+        </Box>
+
+        {/* friend */}
+        <Box>
+          <Text fontSize="4xl">友達一覧</Text>
+          <Input placeholder="検索" />
+          <Box mt="8px">
+            {friendList.map((user) => (
+              <HStack h="20" key={user.uid}>
+                <Avatar src={user.photoURL} w="64px" h="64px" />
+                <Box>
+                  <Link href={`/posts/friendProfilePage/${user.uid}`}>
+                    {user.userName}
+                  </Link>
+                  <Text>最新ログイン：２日前</Text>
+                </Box>
+                <Link href={`/posts/chat/${user.uid}`}>チャット</Link>
+              </HStack>
+            ))}
+          </Box>
         </Box>
       </Container>
     </>

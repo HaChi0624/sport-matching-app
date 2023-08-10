@@ -37,10 +37,10 @@ type User = {
 
 const myProfilePage = () => {
   const { users } = useUsers();
-  
+
   const [searchUsers, setSearchUsers] = useState<User[]>(users);
   const [inputValue, setInputValue] = useState("");
-  
+
   const [value, setValue] = useState("1");
 
   // searchUsersの初期値を設定
@@ -67,7 +67,6 @@ const myProfilePage = () => {
     setSearchUsers(serchedUsers);
   };
 
-
   // console.log(users);
 
   return (
@@ -76,7 +75,6 @@ const myProfilePage = () => {
         <Heading fontWeight={"light"} pb="16px">
           相手を探す
         </Heading>
-        <Text>適当に文字を入力して消してもらうと全員分表示されます。</Text>
 
         <InputGroup size="md">
           <Input
@@ -103,7 +101,9 @@ const myProfilePage = () => {
                   </AccordionButton>
                 </Box>
                 <AccordionPanel pb={4}>
-                  <Box>好きな球団</Box>
+                  <Box fontSize={"20px"} pt={"6px"}>
+                    好きな球団
+                  </Box>
                   <RadioGroup onChange={setValue} value={value}>
                     <Stack direction="row">
                       <Radio value="1">ヤクルト</Radio>
@@ -123,13 +123,17 @@ const myProfilePage = () => {
                     </Stack>
                     <Radio value="13">その他</Radio>
                   </RadioGroup>
-                  <Box>好きな選手</Box>
+                  <Box fontSize={"20px"} pt={"6px"}>
+                    好きな選手
+                  </Box>
                   <Input
                     placeholder="検索"
                     value={inputValue}
                     onChange={handleInputChange}
                   />
-                  <Box>タグ</Box>
+                  <Box fontSize={"20px"} pt={"6px"}>
+                    タグ
+                  </Box>
                   <Input
                     placeholder="検索"
                     value={inputValue}
