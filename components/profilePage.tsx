@@ -7,6 +7,7 @@ import {
   Spacer,
   Button,
   Avatar,
+  Divider,
 } from "@chakra-ui/react";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import styles from "@/styles/myProfilePage.module.css";
@@ -28,6 +29,29 @@ const ProfilePage = (props: {
   const { photoURL, userName, favTeam, favPlayers, comment } = props;
   const { user, status } = useAuth();
 
+  const profileData = [
+    {
+      label: "名前",
+      value: userName,
+      updateComponent: <NameUpdate />,
+    },
+    {
+      label: "好きな球団",
+      value: favTeam,
+      updateComponent: <FavTeamUpdate />,
+    },
+    {
+      label: "好きな選手",
+      value: favPlayers,
+      updateComponent: <FavPlayersUpdate />,
+    },
+    {
+      label: "ひとこと",
+      value: comment,
+      updateComponent: <CommentUpdate />,
+    },
+  ];
+
   return (
     <>
       {status === "LOADING" ? (
@@ -35,54 +59,32 @@ const ProfilePage = (props: {
       ) : (
         <>
           {/* 写真 */}
-          <Box>
-            <Box>
-              <Avatar
-                src={photoURL}
-                w="240px"
-                h="240px"
-                border="1px"
-                borderRadius={"full"}
-              />
-              <PhotoUpdate />
-            </Box>
+          <Box textAlign="center">
+            <Avatar
+              src={photoURL}
+              w="240px"
+              h="240px"
+              border="1px"
+              borderRadius={"full"}
+            />
+            <Spacer />
+            <PhotoUpdate />
           </Box>
-          {/* 名前 */}
-          <HStack>
-            <Box>
-              <Text>名前</Text>
-              <Box>{userName}</Box>
+
+          {/* プロフィール情報 */}
+          {profileData.map((item, index) => (
+            <Box  p='4px'>
+              <HStack key={index}>
+                <Box>
+                  <Text>{item.label}</Text>
+                  <Text fontWeight={"bold"}>{item.value}</Text>
+                </Box>
+                <Spacer />
+                {item.updateComponent}
+              </HStack>
+              <Divider p='4px'/>
             </Box>
-            <Spacer />
-            <NameUpdate />
-          </HStack>
-          {/* 好きな球団 */}
-          <HStack>
-            <Box>
-              <Text>好きな球団</Text>
-              <Box>{favTeam}</Box>
-            </Box>
-            <Spacer />
-            <FavTeamUpdate />
-          </HStack>
-          {/* 好きな選手※5人まで */}
-          <HStack>
-            <Box>
-              <Text>好きな選手</Text>
-              <Box>{favPlayers}</Box>
-            </Box>
-            <Spacer />
-            <FavPlayersUpdate />
-          </HStack>
-          {/* ひとこと */}
-          <HStack>
-            <Box>
-              <Text>ひとこと</Text>
-              <Box>{comment}</Box>
-            </Box>
-            <Spacer />
-            <CommentUpdate />
-          </HStack>
+          ))}
         </>
       )}
     </>

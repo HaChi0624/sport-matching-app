@@ -1,4 +1,4 @@
-import { Container, Heading } from "@chakra-ui/react";
+import { Box, Center, Container, Heading } from "@chakra-ui/react";
 import styles from "@/styles/myProfilePage.module.css";
 
 import { useEffect, useState } from "react";
@@ -46,7 +46,7 @@ const myProfilePage = () => {
   }, [user]);
 
   return (
-    <Container>
+    <Box width='360px' m='0 auto'>
       <Heading className={styles.title} py={3}>
         My Profile
       </Heading>
@@ -57,7 +57,7 @@ const myProfilePage = () => {
         favPlayers={favPlayers}
         comment={comment}
       />
-    </Container>
+    </Box>
   );
 };
 
