@@ -1,9 +1,31 @@
-import { Box, Container, Text, Image, Center, Avatar } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  Text,
+  Image,
+  Center,
+  Avatar,
+  HStack,
+  Spacer,
+  Divider,
+  Link,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverBody,
+  PopoverFooter,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverAnchor,
+  Button,
+  Portal,
+  VStack,
+} from "@chakra-ui/react";
 import styles from "@/styles/myProfilePage.module.css";
 import goya from "src/goya.png";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/firebase/firebase";
@@ -11,6 +33,7 @@ import { db } from "@/firebase/firebase";
 import RequestButton from "@/components/friendRequest/requestButton";
 import { useProfile } from "@/hooks/useProfile";
 import BeFriendButton from "@/components/friendRequest/beFriendButton";
+import { ChatIcon, SettingsIcon } from "@chakra-ui/icons";
 
 type User = {
   id: string;
@@ -50,38 +73,79 @@ const FriendProfilePage = () => {
 
   // console.log(router.query.id)
 
+  const profileData = [
+    {
+      label: "名前",
+      value: userName,
+    },
+    {
+      label: "好きな球団",
+      value: favTeam,
+    },
+    {
+      label: "好きな選手",
+      value: favPlayers,
+    },
+    {
+      label: "ひとこと",
+      value: comment,
+    },
+  ];
+
   return (
     <Container>
       <Link href="/posts/friendList">戻る</Link>
       <Text className={styles.title} py={3}>
         Friend Profile
       </Text>
-      <Box className={styles.box1}>
+      <VStack className={styles.box1}>
         <Center>
           <Avatar src={photoURL} w="240px" h="240px" />
         </Center>
-        <Box style={{ display: "flex", justifyContent: "flex-end" }}>
-          {/* 申請するとき */}
-          <RequestButton user2Id={uid} user2Name={userName} />
-          {/* 申請を受けたとき　 user2のrequest=trueの時 */}
-          <BeFriendButton user2Id={uid} user2Name={userName} />
-        </Box>
-        <Text className={styles.text}>名前</Text>
-        <Box>{userName}</Box>
-      </Box>
 
-      <Box className={styles.box2}>
-        <Text className={styles.text}>好きな球団</Text>
-        <Box>{favTeam}</Box>
-      </Box>
-      <Box className={styles.box1}>
-        <Text className={styles.text}>好きな選手※5人まで</Text>
-        <Box>{favPlayers}</Box>
-      </Box>
-      <Box className={styles.box2}>
-        <Text className={styles.text}>ひとこと</Text>
-        <Box>{comment}</Box>
-      </Box>
+        <HStack style={{ display: "flex", justifyContent: "flex-end" }}>
+          {/* チャット */}
+          <Link href={`/posts/chat/${uid}`}>
+            <ChatIcon />
+          </Link>
+          <Spacer />
+          {/* 申請など */}
+          <Popover>
+            <PopoverTrigger>
+              <SettingsIcon />
+            </PopoverTrigger>
+            <Portal>
+              <PopoverContent>
+                <PopoverArrow />
+                <PopoverBody>
+                  <VStack>
+                    {/* 申請するとき */}
+                    <RequestButton user2Id={uid} user2Name={userName} />
+                    {/* 申請を受けたとき　 user2のrequest=trueの時 */}
+                    <BeFriendButton user2Id={uid} user2Name={userName} />
+                    {/* 友達解除 */}
+                    <Button>友達解除</Button>
+                  </VStack>
+                </PopoverBody>
+              </PopoverContent>
+            </Portal>
+          </Popover>
+        </HStack>
+      </VStack>
+
+      {/* プロフィール情報 */}
+      {profileData.map((item, index) => (
+        <Box p="4px">
+          <HStack key={index}>
+            <Box>
+              <Text>{item.label}</Text>
+              <Text fontWeight={"bold"}>{item.value}</Text>
+            </Box>
+            <Spacer />
+          </HStack>
+          <Divider p="4px" />
+        </Box>
+      ))}
     </Container>
   );
 };

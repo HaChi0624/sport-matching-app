@@ -1,20 +1,15 @@
 import {
-  Box,
   Text,
-  Image,
-  Center,
   HStack,
-  Spacer,
-  Card,
   CardBody,
   Divider,
   Heading,
   CardFooter,
   Avatar,
   VStack,
+  Link,
 } from "@chakra-ui/react";
 // import styles from "@/styles/myProfilePage.module.css";
-import ballIcon from "src/ballIcon.png";
 import RequestButton from "./friendRequest/requestButton";
 
 const ProfileCard = (props: {
@@ -29,7 +24,9 @@ const ProfileCard = (props: {
     <>
       {/* img */}
       <CardBody m={"0 auto"}>
-        <Avatar src={photoURL} w="240px" h="240px" />
+        <Link href={`/posts/friendProfilePage/${uid}`}>
+          <Avatar src={photoURL} w="240px" h="240px" />
+        </Link>
       </CardBody>
       <Divider width="80%" m="0 auto" />
 

@@ -2,9 +2,11 @@ import {
   Avatar,
   Box,
   Container,
+  Divider,
   HStack,
   Image,
   Input,
+  Link,
   Spacer,
   Stack,
   Text,
@@ -13,11 +15,11 @@ import {
 
 import { useEffect, useState } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import Link from "next/link";
 
 import { useUsers } from "@/hooks/useUsers";
 import { useAuth } from "@/firebase/authFunctions";
 import { db } from "@/firebase/firebase";
+import { ChatIcon } from "@chakra-ui/icons";
 
 type User = {
   uid: string;
@@ -110,7 +112,7 @@ const friendList = () => {
   // likeのstateがtrueの場合に表示されるようにしたい
   return (
     <>
-      <Container py="16px" maxW={["90%", "90%", "80%", "70%"]}>
+      <Container py="16px" maxW={["90%", "90%", "80%", "600px"]}>
         {/* requested */}
         <Box border={"1px"} borderRadius={"20px"} p="10px 20px" mb="20px">
           <Text fontSize={"24px"}>グッドされました！</Text>
@@ -135,16 +137,26 @@ const friendList = () => {
           <Input placeholder="検索" />
           <Box mt="8px">
             {friendList.map((user) => (
-              <HStack h="20" key={user.uid}>
-                <Avatar src={user.photoURL} w="64px" h="64px" />
-                <Box>
-                  <Link href={`/posts/friendProfilePage/${user.uid}`}>
+              <>
+                <HStack h="20" key={user.uid}>
+                  <Avatar src={user.photoURL} w="64px" h="64px" />
+                  <Link
+                    href={`/posts/friendProfilePage/${user.uid}`}
+                    pl="16px"
+                    fontSize={"18px"}
+                  >
                     {user.userName}
                   </Link>
+                  <Spacer />
                   <Text>最新ログイン：２日前</Text>
-                </Box>
-                <Link href={`/posts/chat/${user.uid}`}>チャット</Link>
-              </HStack>
+                  <Spacer />
+
+                  <Link href={`/posts/chat/${user.uid}`}>
+                    <ChatIcon />
+                  </Link>
+                </HStack>
+                <Divider />
+              </>
             ))}
           </Box>
         </Box>
