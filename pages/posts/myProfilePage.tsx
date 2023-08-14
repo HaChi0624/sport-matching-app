@@ -46,7 +46,7 @@ const myProfilePage = () => {
   }, [user]);
 
   return (
-    <Box width='360px' m='0 auto'>
+    <Box width='360px' m='0 auto' pt="60px">
       <Heading className={styles.title} py={3}>
         My Profile
       </Heading>

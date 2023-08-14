@@ -58,7 +58,7 @@ const Top = () => {
   //
 
   return (
-    <Box>
+    <Box pt='60px'>
       <Box className={styles.title}>
         <Text fontSize={["35px", "42px", "56px", "56px"]} pointer-events="none">
           スポッチで一緒に
@@ -110,7 +110,7 @@ const Top = () => {
                 <StepDescription
                   // display={"inline-block"}
                   // maxWidth={["280px", "380px", "380px", "520px"]}
-                  style={{maxWidth: "280px"}}
+                  style={{ maxWidth: "280px" }}
                 >
                   <Link
                     href={step.link}

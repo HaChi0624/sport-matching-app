@@ -17,8 +17,11 @@ const Header = () => {
   return (
     // 'rgb(0, 75, 149)'
     <HStack
-      // bg={["yellow.500"]}
+      bg={'whitesmoke'}
+      w='100%'
       h="60px"
+      position={"fixed"}
+      zIndex={20}
     >
       <Link
         href="/posts/Top"

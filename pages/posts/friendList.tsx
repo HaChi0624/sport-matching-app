@@ -112,7 +112,7 @@ const friendList = () => {
   // likeのstateがtrueの場合に表示されるようにしたい
   return (
     <>
-      <Container py="16px" maxW={["90%", "90%", "80%", "600px"]}>
+      <Container pt="60px" maxW={["90%", "90%", "80%", "600px"]}>
         {/* requested */}
         <Box border={"1px"} borderRadius={"20px"} p="10px 20px" mb="20px">
           <Text fontSize={"24px"}>グッドされました！</Text>
