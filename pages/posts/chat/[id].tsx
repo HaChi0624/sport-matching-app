@@ -28,6 +28,7 @@ import {
   setDoc,
   onSnapshot,
   FieldValue,
+  Timestamp,
 } from "firebase/firestore";
 
 import { useAuth } from "@/firebase/authFunctions";
@@ -55,6 +56,7 @@ const FriendChat = () => {
   const [user2PhotoURL, setUser2PhotoURL] = useState("");
   const [inputMsg, setInputMsg] = useState("");
   const [chatLogs, setChatLogs] = useState<ChatLog[]>([]);
+  const [dateMessage, setDateMessage] = useState("");
 
   //  get user2name and photoURL
   useEffect(() => {
@@ -83,7 +85,11 @@ const FriendChat = () => {
         query(collectionRef, where("uid", "==", user2Id))
       );
       querySnapshot.forEach((doc) => {
-        setRoomId(doc.data().roomId);
+        if (doc.exists()) {
+          setRoomId(doc.data().roomId);
+        } else {
+          console.log("Document does not exist.");
+        }
       });
       // console.log(`roomId: ${roomId}`);
     };
@@ -125,16 +131,28 @@ const FriendChat = () => {
       onSnapshot(collection(db, "chat", roomId, "chatLog"), (snapshot) => {
         const chatRef: ChatLog[] = [];
         snapshot.docs.map((doc) => {
-          const chat = {
-            key: doc.data().key,
-            uid: doc.data().uid,
-            userName: doc.data().userName,
-            msg: doc.data().msg,
-            createdAt: doc.data().createdAt.toDate(), // Uncaught TypeError: Cannot read properties of null (reading 'toDate')
-          };
-          chatRef.push({ ...chat });
+          if (doc.exists()) {
+            const chat = {
+              key: doc.data().key,
+              uid: doc.data().uid,
+              userName: doc.data().userName,
+              msg: doc.data().msg,
+              createdAt: doc.data().createdAt
+                ? doc.data().createdAt.toDate()
+                : "",
+            };
+            chatRef.push({ ...chat });
+          } else {
+            console.log("Document does not exist.");
+          }
         });
-        chatRef.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
+        chatRef.sort((a, b) => {
+          // console.log("a.createdAt:", a.createdAt.getTime());
+          // console.log("b.createdAt:", b.createdAt);
+          return (
+            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+          );
+        });
         setChatLogs(chatRef);
         console.log(chatRef);
       });
@@ -147,73 +165,78 @@ const FriendChat = () => {
     return new Date(time).toTimeString().slice(0, 5);
   };
 
+  const formatMD = (time: Date | string) => {
+    return new Date(time).getMonth() + "/" + new Date(time).getDate();
+  };
+
   return (
     <>
-      <Container>
-        <Heading>
-          <Box>{user2Name}</Box>
-          <Box fontSize={"16px"}>roomId: {roomId}</Box>
-        </Heading>
-        <Box minH={"500px"}>
-          {chatLogs.map((item) => (
-            <HStack
-              key={item.msg}
-              style={{
-                marginLeft: user1Name === item.userName ? "3px" : "auto",
-                justifyContent:
-                  user1Name === item.userName ? "flex-end" : "flex-start",
-              }}
-            >
-              {user1Name === item.userName ? (
-                <>
-                  <Text fontSize={"24px"} className="says">
-                    {item.msg}
-                  </Text>
-                  <VStack>
-                    <Avatar src={photoURL} />
-                    <HStack>
-                      {/* <Box fontSize={"20px"}>{item.userName}</Box> */}
-                      <Box>
-                        {item.userName === user1Name
-                          ? formatHHMM(item.createdAt)
-                          : ""}
-                      </Box>
-                    </HStack>
-                  </VStack>
-                </>
-              ) : (
-                <>
-                  <VStack>
-                    <Avatar src={user2PhotoURL} />
-                    <HStack>
-                      {/* <Box>{item.userName}</Box> */}
-                      <Box>
-                        {item.userName !== user1Name
-                          ? formatHHMM(item.createdAt)
-                          : ""}
-                      </Box>
-                    </HStack>
-                  </VStack>
-                  <Text fontSize={"24px"}>{item.msg}</Text>
-                </>
-              )}
-            </HStack>
-          ))}
-        </Box>
+      <Heading w="80%" m="0 auto">
+        <Box>{user2Name}</Box>
+        {/* <Box fontSize={"16px"}>roomId: {roomId}</Box> */}
+      </Heading>
+      <Box w="80%" m="0 auto" mb="100px">
+        {chatLogs.map((item) => (
+          <HStack
+            key={item.key}
+            style={{
+              marginLeft: user1Name === item.userName ? "3px" : "auto",
+              justifyContent:
+                user1Name === item.userName ? "flex-end" : "flex-start",
+            }}
+          >
+            {user1Name === item.userName ? (
+              <>
+                <Text fontSize={"24px"} className="says">
+                  {item.msg}
+                </Text>
+                <VStack>
+                  <Avatar src={photoURL} />
+                  <HStack>
+                    <Box>{formatMD(item.createdAt)}</Box>
+                    <Box>{formatHHMM(item.createdAt)}</Box>
+                  </HStack>
+                </VStack>
+              </>
+            ) : (
+              <>
+                <VStack>
+                  <Avatar src={user2PhotoURL} />
+                  <HStack>
+                    <Box>
+                      {`${item.createdAt.getMonth()}/${item.createdAt.getDate()}`}
+                    </Box>
+                    <Box>{formatHHMM(item.createdAt)}</Box>
+                  </HStack>
+                </VStack>
+                <Text fontSize={"24px"}>{item.msg}</Text>
+              </>
+            )}
+          </HStack>
+        ))}
+      </Box>
 
-        <Box>
-          <form onSubmit={handleSendMessage}>
+      <Box
+        bg="gray.200"
+        position={"fixed"}
+        bottom={"0"}
+        height="100px"
+        w="100%"
+      >
+        <form onSubmit={handleSendMessage}>
+          <HStack pt="30px" w="80%" m="0 auto">
             <FormControl className="chatform">
               <Input
                 type="text"
                 value={inputMsg}
                 onChange={(e) => setInputMsg(e.target.value)}
+                bg="whiteAlpha.900"
               />
             </FormControl>
             <Button type="submit">送信</Button>
-          </form>
-        </Box>
-      </Container>
+          </HStack>
+        </form>
+      </Box>
     </>
   );
 };
