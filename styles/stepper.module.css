@@ -1,0 +1,46 @@
+.parent {
+  background: red;
+  max-width: 520px;
+}
+.child {
+  display: inline-block;
+  max-width: 280px;
+  background: aqua;
+  font-size: 15px;
+}
+
+/* 480px以上 */
+@media screen and (min-width: 30em) {
+  .parent {
+    background: blue;
+    max-width: 380px;
+  }
+  .child {
+    max-width: 380px;
+    font-size: 18px;
+  }
+}
+
+/* 768px以上 */
+@media screen and (min-width: 48em) {
+  .parent {
+    background: green;
+    max-width: 380px;
+  }
+  .child {
+    max-width: 380px;
+    font-size: 18px;
+  }
+}
+
+/* 992px以上 */
+@media screen and (min-width: 62em) {
+  .parent {
+    background: yellow;
+    max-width: 520px;
+  }
+  .child {
+    max-width: 520px;
+    font-size: 22px;
+  }
+}

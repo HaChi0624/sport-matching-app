@@ -1,64 +1,14 @@
-import {
-  Box,
-  Button,
-  Center,
-  Container,
-  HStack,
-  Stack,
-  Text,
-  VStack,
-  Link,
-  Divider,
-} from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import styles from "@/styles/top.module.css";
 
-// import NextLink from "next/link";
-// import Link from "next/link";
-import IMG_1014 from "@/src/IMG_1014.png";
-import Slider from "@/components/slider";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
-import SnsIcon from "@/components/snsIcon";
-
-import {
-  Step,
-  StepDescription,
-  StepIcon,
-  StepIndicator,
-  StepNumber,
-  StepSeparator,
-  StepStatus,
-  StepTitle,
-  Stepper,
-  useSteps,
-} from "@chakra-ui/react";
-
-const steps = [
-  {
-    title: "First",
-    description: ">>>プロフィールの作成",
-    link: "/posts/myProfilePage",
-  },
-  { title: "Second", description: ">>>相手を探す", link: "/posts/search" },
-  {
-    title: "Third",
-    description:
-      ">>>相手が見つかればチャットで日程を決めたり、好きな選手のことを話そう！",
-    link: "/posts/friendList",
-  },
-];
+import StepperComponent from "@/components/stepperComponent";
 
 const Top = () => {
-  const { activeStep } = useSteps({
-    index: 1,
-    count: steps.length,
-  });
-
   // 押すとindexの値が１つ進む
   //
 
   return (
-    <Box pt='60px'>
+    <Box pt="60px">
       <Box className={styles.title}>
         <Text fontSize={["35px", "42px", "56px", "56px"]} pointer-events="none">
           スポッチで一緒に
@@ -80,53 +30,7 @@ const Top = () => {
         >
           ―３つのステップ―
         </Box>
-        <Stepper
-          index={activeStep}
-          orientation="vertical"
-          height={["300px", "400px", "400px", "400px"]}
-          gap="0"
-          // mb='20px'
-          // marginX={['10px','10px','10px','10px']}
-        >
-          {steps.map((step, index) => (
-            <Step key={index}>
-              <StepIndicator>
-                <StepStatus
-                  complete={<StepIcon />}
-                  incomplete={<StepNumber />}
-                  active={<StepNumber />}
-                />
-              </StepIndicator>
-
-              <Box flexShrink="0">
-                {/* タイトル */}
-                <StepTitle>
-                  <Text fontSize={["28px", "36px", "36px", "36px"]}>
-                    {step.title}
-                  </Text>
-                </StepTitle>
-
-                {/* 内容 */}
-                <StepDescription
-                  // display={"inline-block"}
-                  // maxWidth={["280px", "380px", "380px", "520px"]}
-                  style={{ maxWidth: "280px" }}
-                >
-                  <Link
-                    href={step.link}
-                    // maxWidth={["280px", "380px", "380px", "520px"]}
-                    fontSize={["15px", "18px", "18px", "24px"]}
-                    ml="10px"
-                  >
-                    {step.description}
-                  </Link>
-                </StepDescription>
-              </Box>
-
-              <StepSeparator />
-            </Step>
-          ))}
-        </Stepper>
+        <StepperComponent />
       </Box>
     </Box>
   );
