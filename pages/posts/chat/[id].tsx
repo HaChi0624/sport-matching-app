@@ -4,12 +4,14 @@ import {
   Button,
   Center,
   Container,
+  Divider,
   FormControl,
   FormLabel,
   HStack,
   Heading,
   Input,
   Text,
+  Textarea,
   VStack,
 } from "@chakra-ui/react";
 
@@ -171,11 +173,18 @@ const FriendChat = () => {
 
   return (
     <>
-      <Heading w="80%" m="0 auto">
-        <Box>{user2Name}</Box>
+      <Heading w="80%" position={"fixed"} top="60px">
+        {user2Name}
         {/* <Box fontSize={"16px"}>roomId: {roomId}</Box> */}
       </Heading>
-      <Box w="80%" m="0 auto" mb="100px">
+
+      <Box
+        w="80%"
+        m="0 auto"
+        mb="100px"
+        // overflowY={"scroll"}
+        zIndex={10}
+      >
         {chatLogs.map((item) => (
           <HStack
             key={item.key}
@@ -185,33 +194,23 @@ const FriendChat = () => {
                 user1Name === item.userName ? "flex-end" : "flex-start",
             }}
           >
-            {user1Name === item.userName ? (
-              <>
-                <Text fontSize={"24px"} className="says">
-                  {item.msg}
-                </Text>
-                <VStack>
-                  <Avatar src={photoURL} />
-                  <HStack>
-                    <Box>{formatMD(item.createdAt)}</Box>
-                    <Box>{formatHHMM(item.createdAt)}</Box>
-                  </HStack>
-                </VStack>
-              </>
-            ) : (
-              <>
-                <VStack>
-                  <Avatar src={user2PhotoURL} />
-                  <HStack>
-                    <Box>
-                      {`${item.createdAt.getMonth()}/${item.createdAt.getDate()}`}
-                    </Box>
-                    <Box>{formatHHMM(item.createdAt)}</Box>
-                  </HStack>
-                </VStack>
-                <Text fontSize={"24px"}>{item.msg}</Text>
-              </>
-            )}
+            <>
+              <Text fontSize={"24px"}>
+                {user1Name === item.userName ? item.msg : ""}
+              </Text>
+              <VStack>
+                <Avatar
+                  src={user1Name === item.userName ? photoURL : user2PhotoURL}
+                />
+                <HStack>
+                  <Box>{formatMD(item.createdAt)}</Box>
+                  <Box>{formatHHMM(item.createdAt)}</Box>
+                </HStack>
+              </VStack>
+              <Text fontSize={"24px"}>
+                {user1Name === item.userName ? "" : item.msg}
+              </Text>
+            </>
           </HStack>
         ))}
       </Box>
@@ -220,7 +219,7 @@ const FriendChat = () => {
         bg="gray.200"
         position={"fixed"}
         bottom={"0"}
-        height="100px"
+        // height="100px"
         w="100%"
       >
         <form onSubmit={handleSendMessage}>
@@ -229,6 +228,7 @@ const FriendChat = () => {
               <Input
                 type="text"
                 value={inputMsg}
+                placeholder="メッセージ"
                 onChange={(e) => setInputMsg(e.target.value)}
                 bg="whiteAlpha.900"
               />
