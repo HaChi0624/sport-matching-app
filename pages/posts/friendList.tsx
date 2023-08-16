@@ -112,7 +112,6 @@ const friendList = () => {
     console.log(`friendIdData: ${friendIdData}`);
   }, [friendIdData, users]);
 
-
   // searchUsersの初期値を設定
   useEffect(() => {
     setSearchedList(friendList);

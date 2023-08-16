@@ -10,7 +10,7 @@ const Top = () => {
   return (
     <Box pt="60px">
       <Box className={styles.title}>
-        <Text fontSize={["35px", "42px", "56px", "56px"]} pointer-events="none">
+        <Text fontSize={["35px", "42px", "56px", "56px"]} pointerEvents="none">
           スポッチで一緒に
         </Text>
         <Text fontSize={["35px", "42px", "56px", "56px"]} ml="64px">

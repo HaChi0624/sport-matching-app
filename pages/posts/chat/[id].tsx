@@ -10,6 +10,7 @@ import {
   HStack,
   Heading,
   Input,
+  Link,
   Text,
   Textarea,
   VStack,
@@ -199,9 +200,11 @@ const FriendChat = () => {
                 {user1Name === item.userName ? item.msg : ""}
               </Text>
               <VStack>
-                <Avatar
-                  src={user1Name === item.userName ? photoURL : user2PhotoURL}
-                />
+                <Link href={`/posts/friendProfilePage/${user2Id}`}>
+                  <Avatar
+                    src={user1Name === item.userName ? photoURL : user2PhotoURL}
+                  />
+                </Link>
                 <HStack>
                   <Box>{formatMD(item.createdAt)}</Box>
                   <Box>{formatHHMM(item.createdAt)}</Box>
