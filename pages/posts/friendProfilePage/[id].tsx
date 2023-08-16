@@ -93,10 +93,10 @@ const FriendProfilePage = () => {
   ];
 
   return (
-    <Container>
+    <Container pt='60px'>
       <Link href="/posts/friendList">戻る</Link>
       <Text className={styles.title} py={3}>
-        Friend Profile
+        Profile
       </Text>
       <VStack className={styles.box1}>
         <Center>

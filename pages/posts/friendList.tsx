@@ -137,8 +137,8 @@ const friendList = () => {
           <Input placeholder="検索" />
           <Box mt="8px">
             {friendList.map((user) => (
-              <>
-                <HStack h="20" key={user.uid}>
+              <Box key={user.uid}>
+                <HStack h="20">
                   <Avatar src={user.photoURL} w="64px" h="64px" />
                   <Link
                     href={`/posts/friendProfilePage/${user.uid}`}
@@ -156,7 +156,7 @@ const friendList = () => {
                   </Link>
                 </HStack>
                 <Divider />
-              </>
+              </Box>
             ))}
           </Box>
         </Box>

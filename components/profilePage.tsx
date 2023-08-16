@@ -73,8 +73,8 @@ const ProfilePage = (props: {
 
           {/* プロフィール情報 */}
           {profileData.map((item, index) => (
-            <Box  p='4px'>
-              <HStack key={index}>
+            <Box key={index} p="4px">
+              <HStack>
                 <Box>
                   <Text>{item.label}</Text>
                   <Text fontWeight={"bold"}>{item.value}</Text>
@@ -82,7 +82,7 @@ const ProfilePage = (props: {
                 <Spacer />
                 {item.updateComponent}
               </HStack>
-              <Divider p='4px'/>
+              <Divider p="4px" />
             </Box>
           ))}
         </>
