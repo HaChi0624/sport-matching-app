@@ -93,7 +93,7 @@ const FriendProfilePage = () => {
   ];
 
   return (
-    <Container pt='60px'>
+    <Container pt="60px">
       <Link href="/posts/friendList">戻る</Link>
       <Text className={styles.title} py={3}>
         Profile
@@ -135,8 +135,8 @@ const FriendProfilePage = () => {
 
       {/* プロフィール情報 */}
       {profileData.map((item, index) => (
-        <Box p="4px">
-          <HStack key={index}>
+        <Box key={index} p="4px">
+          <HStack>
             <Box>
               <Text>{item.label}</Text>
               <Text fontWeight={"bold"}>{item.value}</Text>
