@@ -20,6 +20,7 @@ import { useUsers } from "@/hooks/useUsers";
 import { useAuth } from "@/firebase/authFunctions";
 import { db } from "@/firebase/firebase";
 import { ChatIcon } from "@chakra-ui/icons";
+import SearchedList from "@/components/search/searchedList";
 
 type User = {
   uid: string;
@@ -34,6 +35,8 @@ const friendList = () => {
   const [friendIdData, setFriendIdData] = useState<string[]>([]);
   const [requestList, setRequestList] = useState<User[]>([]);
   const [friendList, setFriendList] = useState<User[]>([]);
+  const [searchedList, setSearchedList] = useState<User[]>(friendList);
+  const [inputValue, setInputValue] = useState("");
 
   //　requestされているidを取得
   useEffect(() => {
@@ -109,7 +112,26 @@ const friendList = () => {
     console.log(`friendIdData: ${friendIdData}`);
   }, [friendIdData, users]);
 
-  // likeのstateがtrueの場合に表示されるようにしたい
+
+  // searchUsersの初期値を設定
+  useEffect(() => {
+    setSearchedList(friendList);
+    // console.log(`searchUsers: ${searchUsers}`);
+  }, [friendList]);
+
+  // 検索欄への入力値をハンドリング
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+    search(e.target.value);
+  };
+
+  const search = (value: string) => {
+    const serchedFriends = friendList.filter(
+      (user) => user.userName.toUpperCase().indexOf(value.toUpperCase()) > -1
+    );
+    setSearchedList(serchedFriends);
+  };
+
   return (
     <>
       <Container pt="60px" maxW={["90%", "90%", "80%", "600px"]}>
@@ -134,9 +156,13 @@ const friendList = () => {
         {/* friend */}
         <Box>
           <Text fontSize="4xl">友達一覧</Text>
-          <Input placeholder="検索" />
+          <Input
+            placeholder="検索"
+            value={inputValue}
+            onChange={handleInputChange}
+          />
           <Box mt="8px">
-            {friendList.map((user) => (
+            {searchedList.map((user) => (
               <Box key={user.uid}>
                 <HStack h="20">
                   <Avatar src={user.photoURL} w="64px" h="64px" />
