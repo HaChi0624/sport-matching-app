@@ -48,7 +48,7 @@ const friendList = () => {
         const collectionRef = collection(db, "users", user.uid, "friends");
         if (collectionRef) {
           const querySnapshot = await getDocs(
-            query(collectionRef, where("requested", "==", true))
+            query(collectionRef, where("friendStatus", "==", "requested"))
           );
           const newIdData: string[] = [];
           querySnapshot.forEach((doc) => {
@@ -73,7 +73,7 @@ const friendList = () => {
         const collectionRef = collection(db, "users", user.uid, "friends");
         if (collectionRef) {
           const querySnapshot = await getDocs(
-            query(collectionRef, where("friend", "==", true))
+            query(collectionRef, where("friendStatus", "==", "friend"))
           );
           const newIdData: string[] = [];
           querySnapshot.forEach((doc) => {

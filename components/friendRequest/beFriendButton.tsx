@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button } from "@chakra-ui/react";
+import { Button, useToast } from "@chakra-ui/react";
 import {
   addDoc,
   collection,
@@ -15,6 +15,7 @@ import { db } from "@/firebase/firebase";
 import { useAuth } from "@/firebase/authFunctions";
 
 const BeFriendButton = (props: { user2Id: string; user2Name: string }) => {
+  const toast = useToast();
   const { user, status } = useAuth();
   const user1Id = user.uid;
   const { user2Id, user2Name } = props;
@@ -33,14 +34,13 @@ const BeFriendButton = (props: { user2Id: string; user2Name: string }) => {
       // user1のrequested falseにする
       const roomId = docSnap.data().roomId;
       await updateDoc(user1DocRef, {
-        requested: false,
-        friend: true,
+        // requested: false,
+        friendStatus: "friend",
       });
       // user2のrequest falseにする
       const user2DocRef = doc(db, "users", user2Id, "friends", roomId);
       await updateDoc(user2DocRef, {
-        request: false,
-        friend: true,
+        friendStatus: "friend",
       });
        // chatコレクションにroomIdに基づいたChatLogを作成
        await setDoc(doc(db, 'chat', roomId), {
@@ -48,6 +48,13 @@ const BeFriendButton = (props: { user2Id: string; user2Name: string }) => {
         member: {user1Id, user2Id},
       })
     }
+    toast({
+      title: "通知",
+      description: "友達になりました！",
+      status: "success",
+      duration: 9000,
+      isClosable: true,
+    });
   };
 
   return (
@@ -58,3 +65,5 @@ const BeFriendButton = (props: { user2Id: string; user2Name: string }) => {
 };
 
 export default BeFriendButton;
+
+
