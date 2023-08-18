@@ -119,10 +119,6 @@ const FriendProfilePage = () => {
                 <PopoverArrow />
                 <PopoverBody>
                   <VStack>
-                    {/* 申請するとき */}
-                    <RequestButton user2Id={uid} user2Name={userName} />
-                    {/* 申請を受けたとき　 user2のrequest=trueの時 */}
-                    <BeFriendButton user2Id={uid} user2Name={userName} />
                     {/* 友達解除 */}
                     <Button>友達解除</Button>
                   </VStack>

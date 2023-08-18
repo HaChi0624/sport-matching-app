@@ -21,6 +21,7 @@ const Header = () => {
       w='100%'
       h="60px"
       position={"fixed"}
+      top='0'
       zIndex={20}
     >
       <Link
