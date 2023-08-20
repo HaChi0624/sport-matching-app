@@ -1,4 +1,4 @@
-import { Container, Heading, Input, InputGroup } from "@chakra-ui/react";
+import { Button, Container, Heading, Input, InputGroup, useToast } from "@chakra-ui/react";
 
 import { useEffect, useState } from "react";
 import { useUsers } from "@/hooks/useUsers";
@@ -45,12 +45,15 @@ const myProfilePage = () => {
 
   // console.log(users);
 
+  
+
   return (
     <>
       <Container py="16px" maxW={["90%", "90%", "80%", "70%"]}>
         <Heading fontWeight={"light"} pb="16px">
           相手を探す
         </Heading>
+
 
         {/* 名前検索 */}
         <InputGroup size="md">
