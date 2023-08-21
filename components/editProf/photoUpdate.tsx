@@ -36,7 +36,7 @@ const PhotoUpdate = () => {
 
   return (
     <>
-      <Button onClick={onOpen} ml="320px">
+      <Button onClick={onOpen} mr="0">
         <Icon as={SlCamera} boxSize={"24px"} />
       </Button>
 

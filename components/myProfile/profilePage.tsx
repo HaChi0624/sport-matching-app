@@ -1,15 +1,4 @@
-import {
-  Box,
-  Text,
-  Image,
-  Center,
-  HStack,
-  Spacer,
-  Button,
-  Avatar,
-  Divider,
-} from "@chakra-ui/react";
-import { ChevronRightIcon } from "@chakra-ui/icons";
+import { Box, Text, HStack, Spacer, Avatar, Divider } from "@chakra-ui/react";
 import styles from "@/styles/myProfilePage.module.css";
 
 import PhotoUpdate from "@/components/editProf/photoUpdate";
@@ -27,7 +16,7 @@ const ProfilePage = (props: {
   comment: string;
 }) => {
   const { photoURL, userName, favTeam, favPlayers, comment } = props;
-  const { user, status } = useAuth();
+  const { status } = useAuth();
 
   const profileData = [
     {
@@ -59,32 +48,32 @@ const ProfilePage = (props: {
       ) : (
         <>
           {/* 写真 */}
-          <Box textAlign="center">
+          <Box>
             <Avatar
               src={photoURL}
-              w="240px"
-              h="240px"
-              border="1px"
-              borderRadius={"full"}
+              w={["340px", "340px", "440px", "540px"]}
+              h={["340px", "340px", "440px", "540px"]}
             />
             <Spacer />
             <PhotoUpdate />
           </Box>
 
           {/* プロフィール情報 */}
-          {profileData.map((item, index) => (
-            <Box key={index} p="4px">
-              <HStack>
-                <Box>
-                  <Text>{item.label}</Text>
-                  <Text fontWeight={"bold"}>{item.value}</Text>
-                </Box>
-                <Spacer />
-                {item.updateComponent}
-              </HStack>
-              <Divider p="4px" />
-            </Box>
-          ))}
+          <Box className={styles.profileData}>
+            {profileData.map((item, index) => (
+              <Box key={index} p="4px">
+                <HStack>
+                  <Box>
+                    <Text>{item.label}</Text>
+                    <Text fontWeight={"bold"}>{item.value}</Text>
+                  </Box>
+                  <Spacer />
+                  {item.updateComponent}
+                </HStack>
+                <Divider p="4px" />
+              </Box>
+            ))}
+          </Box>
         </>
       )}
     </>
