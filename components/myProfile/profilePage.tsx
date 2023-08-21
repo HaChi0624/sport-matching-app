@@ -13,10 +13,10 @@ import { ChevronRightIcon } from "@chakra-ui/icons";
 import styles from "@/styles/myProfilePage.module.css";
 
 import PhotoUpdate from "@/components/editProf/photoUpdate";
-import NameUpdate from "./editProf/nameUpdate";
-import FavTeamUpdate from "./editProf/favTeamUpdate";
-import FavPlayersUpdate from "./editProf/favPlayersUpdate";
-import CommentUpdate from "./editProf/commentUpdate";
+import NameUpdate from "../editProf/nameUpdate";
+import FavTeamUpdate from "../editProf/favTeamUpdate";
+import FavPlayersUpdate from "../editProf/favPlayersUpdate";
+import CommentUpdate from "../editProf/commentUpdate";
 import { useAuth } from "@/firebase/authFunctions";
 
 const ProfilePage = (props: {

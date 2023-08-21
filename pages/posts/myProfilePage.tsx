@@ -6,7 +6,7 @@ import { doc, onSnapshot } from "firebase/firestore";
 
 import { db } from "@/firebase/firebase";
 import { useAuth } from "@/firebase/authFunctions";
-import ProfilePage from "@/components/profilePage";
+import ProfilePage from "@/components/myProfile/profilePage";
 
 type Profile = {
   userName: string;
@@ -23,7 +23,7 @@ const myProfilePage = () => {
   const [favPlayers, setFavPlayers] = useState("");
   const [comment, setComment] = useState("");
   const [photoURL, setPhotoURL] = useState("");
-  
+
   // onSnapshotで取得
   useEffect(() => {
     const fetchProfile = async () => {
@@ -46,7 +46,7 @@ const myProfilePage = () => {
   }, [user]);
 
   return (
-    <Box width='360px' m='0 auto' pt="60px">
+    <Box width="360px" m="0 auto" pt="60px">
       <Heading className={styles.title} py={3}>
         My Profile
       </Heading>
