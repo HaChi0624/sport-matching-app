@@ -1,73 +1,20 @@
 import {
-  Button,
-  ButtonGroup,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  Container,
-  Divider,
-  Heading,
   Input,
-  SimpleGrid,
   Box,
-  Spacer,
   Accordion,
   AccordionButton,
-  AccordionIcon,
   AccordionItem,
   AccordionPanel,
-  InputGroup,
-  RadioGroup,
-  Stack,
-  Radio,
-  Text,
+  Select,
 } from "@chakra-ui/react";
 import { MinusIcon, AddIcon } from "@chakra-ui/icons";
 
-import { useEffect, useState } from "react";
-import { useUsers } from "@/hooks/useUsers";
-import ProfileCards from "@/components/profileCards";
+const DetailedSearch = (props: {
+  inputFavTeam: string;
+  handleInputFavteamChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+}) => {
+  const { inputFavTeam, handleInputFavteamChange } = props;
 
-type User = {
-    uid: string;
-    userName: string;
-    photoURL: string;
-  };
-
-const DetailedSearch = () => {
-  const { users } = useUsers();
-
-  const [searchUsers, setSearchUsers] = useState<User[]>(users);
-  const [inputValue, setInputValue] = useState("");
-
-  const [value, setValue] = useState("1");
-
-  // searchUsersの初期値を設定
-  useEffect(() => {
-    setSearchUsers(users);
-    // console.log(`searchUsers: ${searchUsers}`);
-  }, [users]);
-
-  // // 検索欄への入力値をハンドリング
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-    search(e.target.value);
-  };
-
-  // 名前検索
-  const search = (value: string) => {
-    if (value === "") {
-      setSearchUsers(users);
-      return;
-    }
-    const serchedUsers = users.filter(
-      (user) => user.userName.toUpperCase().indexOf(value.toUpperCase()) > -1
-    );
-    setSearchUsers(serchedUsers);
-  };
-
-  // console.log(users);
   return (
     <>
       <Accordion allowMultiple>
@@ -90,40 +37,41 @@ const DetailedSearch = () => {
                 <Box fontSize={"20px"} pt={"6px"}>
                   好きな球団
                 </Box>
-                <RadioGroup onChange={setValue} value={value}>
-                  <Stack direction="row">
-                    <Radio value="1">ヤクルト</Radio>
-                    <Radio value="2">Dena</Radio>
-                    <Radio value="3">阪神</Radio>
-                    <Radio value="4">巨人</Radio>
-                    <Radio value="5">広島</Radio>
-                    <Radio value="6">中日</Radio>
-                  </Stack>
-                  <Stack direction="row">
-                    <Radio value="7">オリックス</Radio>
-                    <Radio value="8">ソフトバンク</Radio>
-                    <Radio value="9">西武</Radio>
-                    <Radio value="10">楽天</Radio>
-                    <Radio value="11">ロッテ</Radio>
-                    <Radio value="12">日本ハム</Radio>
-                  </Stack>
-                  <Radio value="13">その他</Radio>
-                </RadioGroup>
+                <Select
+                  onChange={handleInputFavteamChange}
+                  value={inputFavTeam}
+                >
+                  <option value="未選択">未選択</option>
+                  <option value="ヤクルト">ヤクルト</option>
+                  <option value="Dena">Dena</option>
+                  <option value="阪神">阪神</option>
+                  <option value="巨人">巨人</option>
+                  <option value="広島">広島</option>
+                  <option value="中日">中日</option>
+                  <option value="オリックス">オリックス</option>
+                  <option value="ソフトバンク">ソフトバンク</option>
+                  <option value="西武">西武</option>
+                  <option value="楽天">楽天</option>
+                  <option value="ロッテ">ロッテ</option>
+                  <option value="日本ハム">日本ハム</option>
+                  <option value="その他">その他</option>
+                </Select>
+
                 <Box fontSize={"20px"} pt={"6px"}>
                   好きな選手
                 </Box>
                 <Input
                   placeholder="検索"
-                  value={inputValue}
-                  onChange={handleInputChange}
+                  // value={inputFavPlayer}
+                  // onChange={handleInputChange}
                 />
                 <Box fontSize={"20px"} pt={"6px"}>
-                  タグ
+                  タグ ※未実装
                 </Box>
                 <Input
                   placeholder="検索"
-                  value={inputValue}
-                  onChange={handleInputChange}
+                  // value={inputValue}
+                  // onChange={handleInputChange}
                 />
               </AccordionPanel>
             </>

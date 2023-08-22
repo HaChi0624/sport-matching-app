@@ -9,6 +9,8 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Select,
+  VStack,
   useDisclosure,
 } from "@chakra-ui/react";
 import { ChevronRightIcon } from "@chakra-ui/icons";
@@ -21,7 +23,7 @@ import { useAuth } from "@/firebase/authFunctions";
 
 //プロフィール写真の更新
 const FavTeamUpdate = () => {
-  const {user} = useAuth();
+  const { user } = useAuth();
   const [favTeam, setFavTeam] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -47,14 +49,33 @@ const FavTeamUpdate = () => {
           <ModalHeader>好きな球団</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <HStack>
-              <input
+            <VStack>
+              {/* <input
                 type="text"
                 value={favTeam}
                 onChange={(e) => setFavTeam(e.target.value)}
                 placeholder="好きな球団"
-              />
-            </HStack>
+              /> */}
+              <Select
+                value={favTeam}
+                onChange={(e) => setFavTeam(e.target.value)}
+              >
+                <option value="未選択">未選択</option>
+                <option value="ヤクルト">ヤクルト</option>
+                <option value="Dena">Dena</option>
+                <option value="阪神">阪神</option>
+                <option value="巨人">巨人</option>
+                <option value="広島">広島</option>
+                <option value="中日">中日</option>
+                <option value="オリックス">オリックス</option>
+                <option value="ソフトバンク">ソフトバンク</option>
+                <option value="西武">西武</option>
+                <option value="楽天">楽天</option>
+                <option value="ロッテ">ロッテ</option>
+                <option value="日本ハム">日本ハム</option>
+                <option value="その他">その他</option>
+              </Select>
+            </VStack>
           </ModalBody>
 
           <ModalFooter>
