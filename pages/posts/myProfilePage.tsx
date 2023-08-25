@@ -6,7 +6,7 @@ import { doc, onSnapshot } from "firebase/firestore";
 
 import { db } from "@/firebase/firebase";
 import { useAuth } from "@/firebase/authFunctions";
-import ProfilePage from "@/components/myProfile/profilePage";
+import ProfileList from "@/components/myProfile/profileList";
 
 type Profile = {
   userName: string;
@@ -15,7 +15,7 @@ type Profile = {
   comment: string;
   photoURL: string;
 };
-const myProfilePage = () => {
+const MyProfilePage = () => {
   const { user, status } = useAuth();
 
   const [userName, setUserName] = useState("");
@@ -43,14 +43,14 @@ const myProfilePage = () => {
       });
     };
     fetchProfile();
-  }, [user]);
+  }, [user, status]);
 
   return (
-    <Box width="360px" m="0 auto" pt="60px">
+    <Box width={["360px", "360px", "500px", "600px"]} m="0 auto" pt="60px">
       <Heading className={styles.title} py={3}>
         My Profile
       </Heading>
-      <ProfilePage
+      <ProfileList
         photoURL={photoURL}
         userName={userName}
         favTeam={favTeam}
@@ -61,4 +61,4 @@ const myProfilePage = () => {
   );
 };
 
-export default myProfilePage;
+export default MyProfilePage;

@@ -1,14 +1,14 @@
 import { Box, Text, HStack, Spacer, Avatar, Divider } from "@chakra-ui/react";
 import styles from "@/styles/myProfilePage.module.css";
 
-import PhotoUpdate from "@/components/editProf/photoUpdate";
-import NameUpdate from "../editProf/nameUpdate";
-import FavTeamUpdate from "../editProf/favTeamUpdate";
-import FavPlayersUpdate from "../editProf/favPlayersUpdate";
-import CommentUpdate from "../editProf/commentUpdate";
+import PhotoUpdate from "@/components/myProfile/editProf/photoUpdate";
+import NameUpdate from "./editProf/nameUpdate";
+import FavTeamUpdate from "./editProf/favTeamUpdate";
+import FavPlayersUpdate from "./editProf/favPlayersUpdate";
+import CommentUpdate from "./editProf/commentUpdate";
 import { useAuth } from "@/firebase/authFunctions";
 
-const ProfilePage = (props: {
+const ProfileList = (props: {
   photoURL: string;
   userName: string;
   favTeam: string;
@@ -80,4 +80,4 @@ const ProfilePage = (props: {
   );
 };
 
-export default ProfilePage;
+export default ProfileList;
