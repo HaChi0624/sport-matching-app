@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, useToast } from "@chakra-ui/react";
 import {
   addDoc,
@@ -63,9 +63,13 @@ const RequestButton = (props: { user2Id: string; user2Name: string }) => {
 
   return (
     <>
-      <Button onClick={onClickRequest} bg="gray.200">
-        友達申請
-      </Button>
+      {friendStatus !== "request" ? (
+        <Button onClick={onClickRequest} bg="gray.200">
+          友達申請
+        </Button>
+      ) : (
+        <Button>申請済み</Button>
+      )}
     </>
   );
 };
