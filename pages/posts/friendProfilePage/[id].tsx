@@ -94,7 +94,6 @@ const FriendProfilePage = () => {
 
   return (
     <Container pt="60px">
-      <Link href="/posts/friendList">戻る</Link>
       <Text className={styles.title} py={3}>
         Profile
       </Text>
@@ -121,6 +120,7 @@ const FriendProfilePage = () => {
                   <VStack>
                     {/* 友達解除 */}
                     <Button>友達解除</Button>
+                    <BeFriendButton user2Id={uid} user2Name={userName} />
                   </VStack>
                 </PopoverBody>
               </PopoverContent>
