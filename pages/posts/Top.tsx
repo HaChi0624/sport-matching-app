@@ -1,11 +1,29 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Button, Heading, Text } from "@chakra-ui/react";
 import styles from "@/styles/top.module.css";
 
-import StepperComponent from "@/components/stepperComponent";
-
+// import StepperComponent from "@/components/stepperComponent";
+import { Image } from "@chakra-ui/react";
 const Top = () => {
-  // 押すとindexの値が１つ進む
-  //
+  const steps = [
+    {
+      title: "プロフィールを作ろう",
+      text: "好きなチームや選手を書こう！",
+      button: "作ってみる",
+      src: "/top1.jpg",
+    },
+    {
+      title: "相手を探そう",
+      text: "気になる相手を探そう！チーム名や選手名で検索するといい人が見つかるかも！",
+      button: "探してみる",
+      src: "/top2.jpg",
+    },
+    {
+      title: "チャットで話そう",
+      text: "相手が見つかればチャットで日程を決めたり、好きな選手のことを話そう！",
+      button: "チャットをする",
+      src: "/top3.jpg",
+    },
+  ];
 
   return (
     <Box pt="60px">
@@ -25,14 +43,29 @@ const Top = () => {
       >
         <Box
           textAlign={"center"}
-          fontSize={["36px", "36px", "36px", "36px"]}
+          fontSize={["28px", "36px", "36px", "36px"]}
           mb="30px"
         >
           ―３つのステップ―
         </Box>
-        <StepperComponent />
+        {/* <StepperComponent /> */}
       </Box>
+
+      {/* <Box className={styles.container}> */}
+      {steps.map((step, index) => (
+        <Box key={index} className={styles.wrapper}>
+          <Box className={styles.img}>
+            <Image src={step.src} alt="img" className={styles.imgItem} />
+          </Box>
+          <Box className={styles.wrapperItem}>
+            <Heading className={styles.heading}>{step.title}</Heading>
+            <Text>{step.text}</Text>
+            <Button bg="blue.200">{step.button}</Button>
+          </Box>
+        </Box>
+      ))}
     </Box>
+    // </Box>
   );
 };
 

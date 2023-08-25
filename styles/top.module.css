@@ -7,7 +7,6 @@
   /* background: aqua; */
 }
 
-
 .button {
   /* position: relative; */
   /* top: -30px; */
@@ -28,3 +27,81 @@
   /* box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1); */
 }
 
+.wrapper {
+  margin: 0 auto;
+}
+.wrapperItem {
+  height: 200px;
+  padding:0 20px 0;
+}
+.heading {
+  padding: 20px 0;
+}
+.imgItem {
+  margin: 0 auto;
+}
+
+/* 480px以上 */
+@media screen and (min-width: 30em) {
+  .wrapper {
+    margin: 0 auto;
+  }
+  .wrapperItem {
+    height: 200px;
+    width: 440px;
+    margin: 0 auto;
+  }
+  .wrapperItem * {
+    padding-bottom:10px ;
+  }
+  .heading {
+    /* padding: 20px 0 0 0; */
+  }
+  .imgItem {
+    margin: 0 auto;
+  }
+}
+
+/* 768px以上 */
+@media screen and (min-width: 48em) {
+  .wrapper {
+    display: flex;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .wrapperItem {
+    height: 300px;
+    width: 400px;
+  }
+  .heading {
+    padding: 20px 0;
+  }
+  .img {
+    width: 350px;
+    margin: 0 auto;
+  }
+}
+
+/* 992px以上 */
+@media screen and (min-width: 62em) {
+  .container {
+    /* margin-left: 100px; */
+  }
+  .wrapper {
+    display: flex;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .wrapperItem {
+    height: 300px;
+    width: 400px;
+  }
+  .heading {
+    padding: 20px 0;
+  }
+  .imgItem {
+    max-width: 400px; 
+    width: 350px;
+    margin: 0 auto;
+  }
+}
