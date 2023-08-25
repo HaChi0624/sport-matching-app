@@ -4,13 +4,13 @@ import DetailedSearch from "@/components/search/detailedSearch";
 import SearchedList from "@/components/search/searchedList";
 import { useSearchPage } from "@/hooks/useSearchPage";
 
-const myProfilePage = () => {
+const Search = () => {
   const {
     searchUsers,
     inputName,
     inputFavTeam,
     handleInputChange,
-    handleInputFavteamChange,
+    handleInputFavTeamChange,
   } = useSearchPage();
 
   return (
@@ -32,7 +32,7 @@ const myProfilePage = () => {
         {/* 詳細検索 */}
         <DetailedSearch
           inputFavTeam={inputFavTeam}
-          handleInputFavteamChange={handleInputFavteamChange}
+          handleInputFavTeamChange={handleInputFavTeamChange}
         />
 
         {/* 一覧 */}
@@ -42,4 +42,4 @@ const myProfilePage = () => {
   );
 };
 
-export default myProfilePage;
+export default Search;

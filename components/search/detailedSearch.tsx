@@ -11,9 +11,9 @@ import { MinusIcon, AddIcon } from "@chakra-ui/icons";
 
 const DetailedSearch = (props: {
   inputFavTeam: string;
-  handleInputFavteamChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  handleInputFavTeamChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 }) => {
-  const { inputFavTeam, handleInputFavteamChange } = props;
+  const { inputFavTeam, handleInputFavTeamChange } = props;
 
   return (
     <>
@@ -38,7 +38,7 @@ const DetailedSearch = (props: {
                   好きな球団
                 </Box>
                 <Select
-                  onChange={handleInputFavteamChange}
+                  onChange={handleInputFavTeamChange}
                   value={inputFavTeam}
                 >
                   <option value="未選択">未選択</option>

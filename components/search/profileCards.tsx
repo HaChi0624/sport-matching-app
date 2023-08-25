@@ -9,8 +9,7 @@ import {
   VStack,
   Link,
 } from "@chakra-ui/react";
-// import styles from "@/styles/myProfilePage.module.css";
-import RequestButton from "./friendRequest/requestButton";
+import RequestButton from "../friendRequest/requestButton";
 
 const ProfileCard = (props: {
   uid: string;
@@ -18,7 +17,6 @@ const ProfileCard = (props: {
   photoURL: string;
 }) => {
   const { photoURL, uid, userName } = props;
-  const request = "2";
 
   return (
     <>
@@ -33,10 +31,7 @@ const ProfileCard = (props: {
       {/* name & button */}
       <CardFooter>
         <VStack m={"0 auto"}>
-          <HStack
-            // mt="6" spacing="3"
-            m={"0 auto"}
-          >
+          <HStack m={"0 auto"}>
             <Heading size="md">名前</Heading>
             <Text fontSize="3xl">{userName}</Text>
           </HStack>

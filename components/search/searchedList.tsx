@@ -1,6 +1,6 @@
 import { Card, SimpleGrid } from "@chakra-ui/react";
 
-import ProfileCards from "@/components/profileCards";
+import ProfileCards from "@/components/search/profileCards";
 
 type User = {
   uid: string;

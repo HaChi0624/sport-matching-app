@@ -26,31 +26,31 @@ export const useSearchPage = () => {
     searchName(e.target.value);
   };
 
-  const handleInputFavteamChange = (
+  const handleInputFavTeamChange = (
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
     setInputFavTeam(e.target.value);
-    searchFavteam(e.target.value);
+    searchFavTeam(e.target.value);
   };
 
  
 
   // 検索
   const searchName = (value: string) => {
-    const serchedUsers = users.filter(
+    const searchedUsers = users.filter(
       (user) => user.userName.toUpperCase().indexOf(value.toUpperCase()) > -1
     );
-    setSearchUsers(serchedUsers);
+    setSearchUsers(searchedUsers);
   };
 
-  const searchFavteam = (value: string) => {
+  const searchFavTeam = (value: string) => {
     if (value === "未選択") {
       setSearchUsers(users);
     } else {
-      const serchedUsers = users.filter((user) => value === user.favTeam);
-      setSearchUsers(serchedUsers);
+      const searchedUsers = users.filter((user) => value === user.favTeam);
+      setSearchUsers(searchedUsers);
     }
-    // console.log(serchedUsers)
+    // console.log(searchedUsers)
   };
 
   return {
@@ -65,6 +65,6 @@ export const useSearchPage = () => {
     // onChangeの値
     handleInputChange,
     // handleInputFavPlayerChange,
-    handleInputFavteamChange,
+    handleInputFavTeamChange,
   };
 };
