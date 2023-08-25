@@ -4,13 +4,10 @@ import {
   Container,
   Divider,
   HStack,
-  Image,
   Input,
   Link,
   Spacer,
-  Stack,
   Text,
-  VStack,
 } from "@chakra-ui/react";
 
 import { useEffect, useState } from "react";
@@ -28,7 +25,7 @@ type User = {
   photoURL: string;
 };
 
-const friendList = () => {
+const FriendListPage = () => {
   const { user, status } = useAuth();
   const { users } = useUsers();
   const [requestedIdData, setRequestedIdData] = useState<string[]>([]);
@@ -61,7 +58,7 @@ const friendList = () => {
       }
     };
     fetchIdData();
-  }, [user.uid]);
+  }, [user.uid, status]);
 
   // friends = trueを取得
   useEffect(() => {
@@ -86,7 +83,7 @@ const friendList = () => {
       }
     };
     fetchIdData();
-  }, [user.uid]);
+  }, [user.uid, status]);
 
   // 友達申請されているIDを取得
   useEffect(() => {
@@ -98,7 +95,7 @@ const friendList = () => {
     );
     setRequestList(newRequestData);
     // console.log(`requestedIdData: ${requestedIdData}`)
-  }, [requestedIdData, users]);
+  }, [requestedIdData, users, status]);
 
   // friend取得
   useEffect(() => {
@@ -110,7 +107,7 @@ const friendList = () => {
     );
     setFriendList(newFriendsData);
     console.log(`friendIdData: ${friendIdData}`);
-  }, [friendIdData, users]);
+  }, [friendIdData, users, status]);
 
   // searchUsersの初期値を設定
   useEffect(() => {
@@ -125,10 +122,10 @@ const friendList = () => {
   };
 
   const search = (value: string) => {
-    const serchedFriends = friendList.filter(
+    const searchedFriends = friendList.filter(
       (user) => user.userName.toUpperCase().indexOf(value.toUpperCase()) > -1
     );
-    setSearchedList(serchedFriends);
+    setSearchedList(searchedFriends);
   };
 
   return (
@@ -152,7 +149,7 @@ const friendList = () => {
           </HStack>
         </Box>
 
-        {/* friend */}
+        {/* friendList */}
         <Box>
           <Text fontSize="4xl">友達一覧</Text>
           <Input
@@ -190,4 +187,4 @@ const friendList = () => {
   );
 };
 
-export default friendList;
+export default FriendListPage;

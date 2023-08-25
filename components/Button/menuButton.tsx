@@ -17,13 +17,12 @@ import { signOut, useAuth } from "@/firebase/authFunctions";
 
 const MenuButton = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { user } = useAuth();
 
   const navigationLinks = [
     { href: "/posts/Top", text: "ホーム" },
     { href: "/posts/myProfilePage", text: "プロフィール" },
-    { href: "/posts/search", text: "探す" },
-    { href: "/posts/friendList", text: "友達" },
+    { href: "/posts/searchPage", text: "探す" },
+    { href: "/posts/friendListPage", text: "友達" },
     { href: "/posts/columns", text: "コラム" },
     { href: "/posts/settings", text: "設定" },
   ];

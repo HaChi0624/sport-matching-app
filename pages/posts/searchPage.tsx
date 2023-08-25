@@ -4,7 +4,7 @@ import DetailedSearch from "@/components/search/detailedSearch";
 import SearchedList from "@/components/search/searchedList";
 import { useSearchPage } from "@/hooks/useSearchPage";
 
-const Search = () => {
+const SearchPage = () => {
   const {
     searchUsers,
     inputName,
@@ -42,4 +42,4 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default SearchPage;
