@@ -11,7 +11,7 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "@/firebase/firebase";
-import { useAuth } from "@/firebase/authFunctions";
+import { useAuth } from "@/hooks/useAuth";
 
 const RequestButton = (props: { user2Id: string; user2Name: string }) => {
   const toast = useToast();

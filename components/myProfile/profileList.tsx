@@ -6,7 +6,7 @@ import NameUpdate from "./editProf/nameUpdate";
 import FavTeamUpdate from "./editProf/favTeamUpdate";
 import FavPlayersUpdate from "./editProf/favPlayersUpdate";
 import CommentUpdate from "./editProf/commentUpdate";
-import { useAuth } from "@/firebase/authFunctions";
+import { useAuth } from "@/hooks/useAuth";
 
 const ProfileList = (props: {
   photoURL: string;

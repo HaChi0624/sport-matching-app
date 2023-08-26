@@ -17,7 +17,7 @@ import { useRecoilValue } from "recoil";
 import { doc, updateDoc } from "firebase/firestore";
 
 import { db } from "@/firebase/firebase";
-import { useAuth } from "@/firebase/authFunctions";
+import { useAuth } from "@/hooks/useAuth";
 
 //プロフィール写真の更新
 const CommentUpdate = () => {

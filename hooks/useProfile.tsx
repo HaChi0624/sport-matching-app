@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { getDoc, doc } from "firebase/firestore";
 
-import { useAuth } from "@/firebase/authFunctions";
 import { db } from "@/firebase/firebase";
+import { useAuth } from "./useAuth";
 
 // 一人分のプロフィール
 export const useProfile = () => {

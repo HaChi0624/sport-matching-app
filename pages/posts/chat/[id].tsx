@@ -34,9 +34,9 @@ import {
   Timestamp,
 } from "firebase/firestore";
 
-import { useAuth } from "@/firebase/authFunctions";
 import { db } from "@/firebase/firebase";
 import { useProfile } from "@/hooks/useProfile";
+import { useAuth } from "@/hooks/useAuth";
 
 type ChatLog = {
   key: string;

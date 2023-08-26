@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 import { doc, onSnapshot } from "firebase/firestore";
 
 import { db } from "@/firebase/firebase";
-import { useAuth } from "@/firebase/authFunctions";
 import ProfileList from "@/components/myProfile/profileList";
+import { useAuth } from "@/hooks/useAuth";
 
 type Profile = {
   userName: string;

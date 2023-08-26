@@ -13,7 +13,7 @@ import {
   Divider,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
-import { signOut, useAuth } from "@/firebase/authFunctions";
+import { signOut } from "@/firebase/authFunctions";
 
 const MenuButton = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();

@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
 
 import { useUsers } from "@/hooks/useUsers";
-import { useAuth } from "@/firebase/authFunctions";
 import { db } from "@/firebase/firebase";
+import { useAuth } from "@/hooks/useAuth";
 
 type User = {
   uid: string;
