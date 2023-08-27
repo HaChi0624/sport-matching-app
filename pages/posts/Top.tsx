@@ -1,4 +1,4 @@
-import { Box, Button, Heading, Text } from "@chakra-ui/react";
+import { Box, Button, Heading, Link, Text } from "@chakra-ui/react";
 import styles from "@/styles/top.module.css";
 
 // import StepperComponent from "@/components/stepperComponent";
@@ -10,18 +10,21 @@ const Top = () => {
       text: "好きなチームや選手を書こう！",
       button: "作ってみる",
       src: "/top1.jpg",
+      link: "/posts/myProfilePage",
     },
     {
       title: "相手を探そう",
       text: "気になる相手を探そう！チーム名や選手名で検索するといい人が見つかるかも！",
       button: "探してみる",
       src: "/top2.jpg",
+      link: "/posts/searchPage",
     },
     {
       title: "チャットで話そう",
       text: "相手が見つかればチャットで日程を決めたり、好きな選手のことを話そう！",
       button: "チャットをする",
       src: "/top3.jpg",
+      link: "/posts/friendListPage",
     },
   ];
 
@@ -60,7 +63,7 @@ const Top = () => {
           <Box className={styles.wrapperItem}>
             <Heading className={styles.heading}>{step.title}</Heading>
             <Text>{step.text}</Text>
-            <Button bg="blue.200">{step.button}</Button>
+            <Link href={step.link}>{step.button}</Link>
           </Box>
         </Box>
       ))}

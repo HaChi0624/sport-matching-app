@@ -1,14 +1,11 @@
 import { Box, HStack, Spacer, Link, Avatar } from "@chakra-ui/react";
 import { BellIcon } from "@chakra-ui/icons";
 import styles from "@/styles/header.module.css";
-import { useAuthContext } from "@/firebase/auth/authProvider";
-import { useRecoilState, useRecoilValue } from "recoil";
+
 
 import MenuButton from "./Button/menuButton";
 import { useProfile } from "@/hooks/useProfile";
-import { userProfState } from "@/store/prof";
-import { useEffect } from "react";
-import { useAuth } from "@/firebase/authFunctions";
+import { useAuth } from "@/hooks/useAuth";
 
 const Header = () => {
   const { user, status } = useAuth();
@@ -31,7 +28,7 @@ const Header = () => {
         ml={["8px", "8px", "16px", "24px"]}
         fontSize={["20px", "24px", "24px", "24px"]}
       >
-        Sport Matching App
+        supotch
       </Link>
       <Spacer />
       <HStack>
