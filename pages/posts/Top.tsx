@@ -3,6 +3,7 @@ import styles from "@/styles/top.module.css";
 
 // import StepperComponent from "@/components/stepperComponent";
 import { Image } from "@chakra-ui/react";
+import router from "next/router";
 const Top = () => {
   const steps = [
     {
@@ -63,7 +64,13 @@ const Top = () => {
           <Box className={styles.wrapperItem}>
             <Heading className={styles.heading}>{step.title}</Heading>
             <Text>{step.text}</Text>
-            <Link href={step.link}>{step.button}</Link>
+            <Button
+              onClick={() => router.push(step.link)}
+              className={styles.button}
+              bg='#fff100'
+            >
+              {step.button}
+            </Button>
           </Box>
         </Box>
       ))}
