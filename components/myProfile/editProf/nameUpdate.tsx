@@ -1,27 +1,16 @@
-import {
-  Button,
-  HStack,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Button, useDisclosure } from "@chakra-ui/react";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 
 import { useState } from "react";
-import { updateProfile } from "firebase/auth";
 import { doc, updateDoc } from "firebase/firestore";
 
-import { auth, db } from "@/firebase/firebase";
+import { db } from "@/firebase/firebase";
 import { useAuth } from "@/hooks/useAuth";
+import UpdateModal from "./updateModal";
 
 //プロフィール写真の更新
 const NameUpdate = () => {
-  const {user} = useAuth();
+  const { user } = useAuth();
   const [userName, setUserName] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -31,36 +20,22 @@ const NameUpdate = () => {
         userName: userName,
       });
     }
-    onClose()
+    onClose();
   };
 
   return (
     <>
-      <Button onClick={onOpen} ml="320px">
+      <Button onClick={onOpen}>
         <ChevronRightIcon />
       </Button>
-
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>名前の変更</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <HStack>
-              <input
-                type="text"
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
-                placeholder="名前"
-              />
-            </HStack>
-          </ModalBody>
-
-          <ModalFooter>
-              <Button onClick={handleUpdateProfile}>更新</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      <UpdateModal
+        handleUpdateProfile={handleUpdateProfile}
+        value={userName}
+        onChange={(e) => setUserName(e.target.value)}
+        isOpen={isOpen}
+        onClose={onClose}
+        placeholder="名前"
+      />
     </>
   );
 };

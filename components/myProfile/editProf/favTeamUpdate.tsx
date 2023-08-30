@@ -1,7 +1,5 @@
 import {
   Button,
-  HStack,
-  Icon,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -28,7 +26,6 @@ const FavTeamUpdate = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleUpdateProfile = () => {
-    // const user = auth.currentUser;
     if (user) {
       updateDoc(doc(db, "users", user.uid), {
         favTeam: favTeam,
@@ -39,7 +36,7 @@ const FavTeamUpdate = () => {
 
   return (
     <>
-      <Button onClick={onOpen} ml="320px">
+      <Button onClick={onOpen}>
         <ChevronRightIcon />
       </Button>
 
@@ -50,12 +47,6 @@ const FavTeamUpdate = () => {
           <ModalCloseButton />
           <ModalBody>
             <VStack>
-              {/* <input
-                type="text"
-                value={favTeam}
-                onChange={(e) => setFavTeam(e.target.value)}
-                placeholder="好きな球団"
-              /> */}
               <Select
                 value={favTeam}
                 onChange={(e) => setFavTeam(e.target.value)}

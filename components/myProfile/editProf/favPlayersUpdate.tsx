@@ -1,15 +1,4 @@
-import {
-  Button,
-  HStack,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Button, useDisclosure } from "@chakra-ui/react";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 
 import { useState } from "react";
@@ -17,10 +6,11 @@ import { doc, updateDoc } from "firebase/firestore";
 
 import { db } from "@/firebase/firebase";
 import { useAuth } from "@/hooks/useAuth";
+import UpdateModal from "./updateModal";
 
 //プロフィール写真の更新
 const FavPlayersUpdate = () => {
-  const {user} = useAuth();
+  const { user } = useAuth();
   const [favPlayers, setFavPlayers] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -36,31 +26,18 @@ const FavPlayersUpdate = () => {
 
   return (
     <>
-      <Button onClick={onOpen} ml="320px">
+      <Button onClick={onOpen}>
         <ChevronRightIcon />
       </Button>
 
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>好きな選手</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <HStack>
-              <input
-                type="text"
-                value={favPlayers}
-                onChange={(e) => setFavPlayers(e.target.value)}
-                placeholder="好きな選手"
-              />
-            </HStack>
-          </ModalBody>
-
-          <ModalFooter>
-            <Button onClick={handleUpdateProfile}>更新</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      <UpdateModal
+        handleUpdateProfile={handleUpdateProfile}
+        value={favPlayers}
+        onChange={(e) => setFavPlayers(e.target.value)}
+        isOpen={isOpen}
+        onClose={onClose}
+        placeholder="好きな選手"
+      />
     </>
   );
 };
