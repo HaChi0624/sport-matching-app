@@ -22,7 +22,7 @@ const ProfileCard = (props: {
     <>
       {/* img */}
       <CardBody m={"0 auto"}>
-        <Link href={`/posts/friendProfilePage/${uid}`}>
+        <Link href={`/posts/searchProfilePage/${uid}`}>
           <Avatar src={photoURL} w="240px" h="240px" />
         </Link>
       </CardBody>
