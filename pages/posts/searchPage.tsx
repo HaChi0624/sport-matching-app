@@ -1,4 +1,12 @@
-import { Container, Heading, Input, InputGroup } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  HStack,
+  Heading,
+  Input,
+  InputGroup,
+  Text,
+} from "@chakra-ui/react";
 
 import DetailedSearch from "@/components/search/detailedSearch";
 import SearchedList from "@/components/search/searchedList";
@@ -15,15 +23,20 @@ const SearchPage = () => {
 
   return (
     <>
-      <Container mt='60px' py="16px" maxW={["90%", "90%", "80%", "70%"]}>
-        <Heading fontWeight={"light"} pb="16px">
-          相手を探す
-        </Heading>
+      <Container mt="60px" py="16px" maxW={["90%", "90%", "80%", "70%"]}>
+        <Box>
+          <Heading fontWeight={"light"} pb="16px">
+            相手を探す
+          </Heading>
+          <Text>
+            名前、好きな球団、好きな選手、タグを用いて検索することが出来ます。
+          </Text>
+        </Box>
 
         {/* 名前検索 */}
         <InputGroup size="md">
           <Input
-            placeholder="検索"
+            placeholder="名前で検索"
             value={inputName}
             onChange={handleInputChange}
           />

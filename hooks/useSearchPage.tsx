@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useUsers } from "@/hooks/useUsers";
+import { useAuth } from "./useAuth";
+import { useFriendList } from "./useFriendList";
 
 type User = {
   uid: string;
@@ -8,17 +10,20 @@ type User = {
 };
 
 export const useSearchPage = () => {
+  const { user } = useAuth();
   const { users } = useUsers();
+  const { searchedList } = useFriendList();
   const [searchUsers, setSearchUsers] = useState<User[]>(users);
   const [inputName, setInputName] = useState("");
   const [inputFavTeam, setInputFavTeam] = useState("");
   // const [inputFavPlayer, setInputFavPlayer] = useState("");
 
-  // searchUsersの初期値を設定
+  // searchUsersの初期値を設定(ホストユーザーと既にフレンドの人を除いて)
   useEffect(() => {
-    setSearchUsers(users);
+    const newUsers = users.filter((item) => item.uid !== user.uid);
+    setSearchUsers(newUsers.filter((item) => !searchedList.some(searchedItem => searchedItem.uid === item.uid)));
     // console.log(`searchUsers: ${searchUsers}`);
-  }, [users]);
+  }, [users, user.uid, searchedList]);
 
   // 検索欄への入力値をハンドリング
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,8 +37,6 @@ export const useSearchPage = () => {
     setInputFavTeam(e.target.value);
     searchFavTeam(e.target.value);
   };
-
- 
 
   // 検索
   const searchName = (value: string) => {
