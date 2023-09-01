@@ -1,9 +1,17 @@
-import { Box, Button, Heading, Link, Text } from "@chakra-ui/react";
+import { Box, Button, Heading, Link, Image, Text } from "@chakra-ui/react";
 import styles from "@/styles/top.module.css";
 
 // import StepperComponent from "@/components/stepperComponent";
-import { Image } from "@chakra-ui/react";
 import router from "next/router";
+
+const colorParet = {
+  color1: "#005DF5",
+  color2: "#05FF4D",
+  color3: "#E6D00B",
+  color4: "#E6D00B",
+  color5: "#CE01F5",
+};
+
 const Top = () => {
   const steps = [
     {
@@ -31,24 +39,19 @@ const Top = () => {
 
   return (
     <Box pt="60px">
-      <Box className={styles.title}>
-        <Text fontSize={["35px", "42px", "56px", "56px"]} pointerEvents="none">
-          スポッチで一緒に
-        </Text>
-        <Text fontSize={["35px", "42px", "56px", "56px"]} ml="64px">
-          野球を楽しもう！
-        </Text>
+      {/* メインビジュアル */}
+      <Box>
+        <Image src="/main-visual-1000-600.png" alt="main-visual" w="100%" />
       </Box>
 
       <Box
-        // mb="40px"
+        py="40px"
         m="0 auto"
         maxWidth={["90%", "70%", "70%", "50%"]}
       >
         <Box
           textAlign={"center"}
           fontSize={["28px", "36px", "36px", "36px"]}
-          mb="30px"
         >
           ―３つのステップ―
         </Box>
@@ -67,7 +70,7 @@ const Top = () => {
             <Button
               onClick={() => router.push(step.link)}
               className={styles.button}
-              bg='#fff100'
+              bg="#fff100"
             >
               {step.button}
             </Button>
