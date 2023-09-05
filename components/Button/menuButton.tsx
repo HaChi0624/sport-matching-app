@@ -13,7 +13,7 @@ import {
   Divider,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
-import { signOut } from "@/firebase/authFunctions";
+import { signOut } from "@/hooks/authFunctions";
 
 const MenuButton = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -41,9 +41,9 @@ const MenuButton = () => {
           <DrawerBody>
             <Stack>
               {navigationLinks.map((item, index) => (
-                <Box key={index} textAlign={'center'}>
+                <Box key={index} textAlign={"center"}>
                   <Link href={item.href}>{item.text}</Link>
-                  <Divider pt='4px' />
+                  <Divider pt="4px" />
                 </Box>
               ))}
               <Button onClick={signOut}>ログアウト</Button>

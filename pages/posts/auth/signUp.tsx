@@ -11,9 +11,8 @@ import {
   Box,
   Text,
 } from "@chakra-ui/react";
-import { signUp } from "@/firebase/authFunctions";
+import { signUp } from "@/hooks/authFunctions";
 import { useSetRecoilState } from "recoil";
-
 
 const SignUp = () => {
   const [userName, setUserName] = useState<string>("");
@@ -23,7 +22,7 @@ const SignUp = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await signUp(userName, email, password); 
+    await signUp(userName, email, password);
     router.push("/posts/Top");
   };
 

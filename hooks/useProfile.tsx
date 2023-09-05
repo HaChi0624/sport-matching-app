@@ -15,22 +15,21 @@ export const useProfile = () => {
   const [photoURL, setPhotoURL] = useState("");
 
   useEffect(() => {
-    if (status === "LOADING") {
-      return;
+    if (status !== "LOADING" && user.uid) {
+      const fetchUserName = async () => {
+        const userSnapshot = await getDoc(doc(db, "users", user.uid));
+        const userData = userSnapshot.data();
+        if (userData) {
+          setUserName(userData.userName);
+          setFavTeam(userData.favTeam);
+          setFavPlayers(userData.favPlayers);
+          setComment(userData.comment);
+          setPhotoURL(userData.photoURL);
+        }
+      };
+      fetchUserName();
     }
-    const fetchUserName = async () => {
-      const userSnapshot = await getDoc(doc(db, "users", user.uid));
-      const userData = userSnapshot.data();
-      if (userData) {
-        setUserName(userData.userName);
-        setFavTeam(userData.favTeam);
-        setFavPlayers(userData.favPlayers);
-        setComment(userData.comment);
-        setPhotoURL(userData.photoURL);
-      }
-    };
-    fetchUserName();
-  }, [user]);
+  }, [status, user]);
 
   return {
     userName,
