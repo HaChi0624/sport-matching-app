@@ -1,0 +1,6 @@
+.avatar {
+  border: 2px solid white;
+}
+.avatar:hover {
+  border: 2px solid #ddf883;
+}

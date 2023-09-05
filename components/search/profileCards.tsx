@@ -10,6 +10,8 @@ import {
   Link,
 } from "@chakra-ui/react";
 import RequestButton from "../friendRequest/requestButton";
+import styles from '@/styles/searchPage.module.css'
+
 
 const ProfileCard = (props: {
   uid: string;
@@ -23,7 +25,12 @@ const ProfileCard = (props: {
       {/* img */}
       <CardBody m={"0 auto"}>
         <Link href={`/posts/searchProfilePage/${uid}`}>
-          <Avatar src={photoURL} w="240px" h="240px" />
+          <Avatar
+            src={photoURL}
+            w="240px"
+            h="240px"
+            className={styles.avatar}
+          />
         </Link>
       </CardBody>
       <Divider width="80%" m="0 auto" />

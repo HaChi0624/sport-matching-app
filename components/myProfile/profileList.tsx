@@ -1,4 +1,13 @@
-import { Box, Text, HStack, Spacer, Avatar, Divider } from "@chakra-ui/react";
+import {
+  Box,
+  Text,
+  HStack,
+  Spacer,
+  Avatar,
+  Divider,
+  VStack,
+  Container,
+} from "@chakra-ui/react";
 import styles from "@/styles/myProfilePage.module.css";
 
 import PhotoUpdate from "@/components/myProfile/editProf/photoUpdate";
@@ -51,25 +60,26 @@ const ProfileList = (props: {
           <Box>
             <Avatar
               src={photoURL}
-              w={["340px", "340px", "440px", "540px"]}
-              h={["340px", "340px", "440px", "540px"]}
+              w={["360px", "360px", "500px", "600px"]}
+              h={["360px", "360px", "500px", "600px"]}
             />
-            <Spacer />
-            <PhotoUpdate />
+            <Box textAlign={'right'}>
+              <PhotoUpdate />
+            </Box>
           </Box>
 
           {/* プロフィール情報 */}
           <Box className={styles.profileData}>
             {profileData.map((item, index) => (
               <Box key={index} p="4px">
-                <HStack>
+                <Box display={"flex"}>
                   <Box>
                     <Text>{item.label}</Text>
                     <Text fontWeight={"bold"}>{item.value}</Text>
                   </Box>
                   <Spacer />
-                  {item.updateComponent}
-                </HStack>
+                  <Box>{item.updateComponent}</Box>
+                </Box>
                 <Divider p="4px" />
               </Box>
             ))}
