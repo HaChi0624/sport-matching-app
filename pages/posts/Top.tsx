@@ -1,8 +1,18 @@
-import { Box, Button, Heading, Link, Image, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Heading,
+  Link,
+  Image,
+  Text,
+  Center,
+} from "@chakra-ui/react";
 import styles from "@/styles/top.module.css";
 
 // import StepperComponent from "@/components/stepperComponent";
 import router from "next/router";
+import Footer from "@/components/footer";
+import Header from "@/components/header";
 
 const colorParet = {
   color1: "#005DF5",
@@ -38,46 +48,57 @@ const Top = () => {
   ];
 
   return (
-    <Box pt="60px">
-      {/* メインビジュアル */}
-      <Box>
-        <Image src="/main-visual-1000-600.png" alt="main-visual" w="100%" />
-      </Box>
-
-      <Box
-        py="40px"
-        m="0 auto"
-        maxWidth={["90%", "70%", "70%", "50%"]}
-      >
-        <Box
-          textAlign={"center"}
-          fontSize={["28px", "36px", "36px", "36px"]}
-        >
-          ―３つのステップ―
-        </Box>
-        {/* <StepperComponent /> */}
-      </Box>
-
-      {/* <Box className={styles.container}> */}
-      {steps.map((step, index) => (
-        <Box key={index} className={styles.wrapper}>
-          <Box className={styles.img}>
-            <Image src={step.src} alt="img" className={styles.imgItem} />
-          </Box>
-          <Box className={styles.wrapperItem}>
-            <Heading className={styles.heading}>{step.title}</Heading>
-            <Text>{step.text}</Text>
-            <Button
-              onClick={() => router.push(step.link)}
-              className={styles.button}
-              bg="#fff100"
-            >
-              {step.button}
-            </Button>
+    <>
+      <Header />
+      <Box mt="-70px">
+        {/* メインビジュアル */}
+        <Box>
+          <Box
+            bgImage={"/main-visual-1000-600.png"}
+            bgSize={"cover"}
+            bgPosition={"center center"}
+          >
+            <Box h="700px"></Box>
           </Box>
         </Box>
-      ))}
-    </Box>
+        {/* <Box>
+      <Image src="/main-visual-1000-600.png" alt="main-visual" w={["100%"]} />
+    </Box> */}
+
+        <Box py="40px" m="0 auto" maxWidth={["90%", "70%", "70%", "50%"]}>
+          <Box textAlign={"center"} fontSize={["28px", "36px", "36px", "36px"]}>
+            ―３つのステップ―
+          </Box>
+          {/* <StepperComponent /> */}
+        </Box>
+
+        {/* <Box className={styles.container}> */}
+        {steps.map((step, index) => (
+          <Box key={index} className={styles.wrapper}>
+            <Box className={styles.img}>
+              <Image
+                src={step.src}
+                alt="img"
+                className={styles.imgItem}
+                borderRadius={"10px"}
+              />
+            </Box>
+            <Box className={styles.wrapperItem}>
+              <Heading className={styles.heading}>{step.title}</Heading>
+              <Text>{step.text}</Text>
+              <Button
+                onClick={() => router.push(step.link)}
+                className={styles.button}
+                bg="#fff100"
+              >
+                {step.button}
+              </Button>
+            </Box>
+          </Box>
+        ))}
+        <Footer />
+      </Box>
+    </>
     // </Box>
   );
 };
