@@ -7,6 +7,7 @@ import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "@/firebase/firebase";
 import ProfileList from "@/components/myProfile/profileList";
 import { useAuth } from "@/hooks/useAuth";
+import Header from "@/components/header";
 
 type Profile = {
   userName: string;
@@ -46,18 +47,21 @@ const MyProfilePage = () => {
   }, [user, status]);
 
   return (
-    <Box width={["360px", "360px", "500px", "600px"]} m="0 auto" pt="60px">
-      <Heading className={styles.title} py={3}>
-        My Profile
-      </Heading>
-      <ProfileList
-        photoURL={photoURL}
-        userName={userName}
-        favTeam={favTeam}
-        favPlayers={favPlayers}
-        comment={comment}
-      />
-    </Box>
+    <>
+      <Header />
+      <Box width={["360px", "360px", "500px", "600px"]} m="0 auto" pt="60px">
+        <Heading className={styles.title} py={3}>
+          My Profile
+        </Heading>
+        <ProfileList
+          photoURL={photoURL}
+          userName={userName}
+          favTeam={favTeam}
+          favPlayers={favPlayers}
+          comment={comment}
+        />
+      </Box>
+    </>
   );
 };
 

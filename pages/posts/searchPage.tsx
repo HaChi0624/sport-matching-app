@@ -11,6 +11,7 @@ import {
 import DetailedSearch from "@/components/search/detailedSearch";
 import SearchedList from "@/components/search/searchedList";
 import { useSearchPage } from "@/hooks/useSearchPage";
+import Header from "@/components/header";
 
 const SearchPage = () => {
   const {
@@ -23,6 +24,7 @@ const SearchPage = () => {
 
   return (
     <>
+      <Header />
       <Container mt="60px" py="16px" maxW={["90%", "90%", "80%", "70%"]}>
         <Box>
           <Heading fontWeight={"light"} pb="16px">

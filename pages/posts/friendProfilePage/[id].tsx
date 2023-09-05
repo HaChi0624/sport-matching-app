@@ -29,6 +29,7 @@ import { useProfile } from "@/hooks/useProfile";
 import BeFriendButton from "@/components/friendRequest/beFriendButton";
 import { ChatIcon, SettingsIcon } from "@chakra-ui/icons";
 import UserFriendProfileInfo from "@/components/friendList/userFriendProfileInfo";
+import Header from "@/components/header";
 
 type User = {
   id: string;
@@ -88,53 +89,60 @@ const FriendProfilePage = () => {
   ];
 
   return (
-    <Container pt="60px">
-      <Text className={styles.title} py={3}>
-        Profile
-      </Text>
+    <>
+      <Header />
+      <Container pt="60px">
+        <Text className={styles.title} py={3}>
+          Profile
+        </Text>
 
-      <Box>
-        <Avatar
-          src={photoURL}
-          w={["340px", "340px", "440px", "540px"]}
-          h={["340px", "340px", "440px", "540px"]}
-        />
-        <Spacer />
-      </Box>
+        <Box>
+          <Avatar
+            src={photoURL}
+            w={["340px", "340px", "440px", "540px"]}
+            h={["340px", "340px", "440px", "540px"]}
+          />
+          <Spacer />
+        </Box>
 
-      <HStack style={{ display: "flex", justifyContent: "flex-end" }}>
-        {/* チャット */}
-        <Link href={`/posts/chat/${uid}`}>
-          <ChatIcon />
-        </Link>
+        <HStack style={{ display: "flex", justifyContent: "flex-end" }}>
+          {/* チャット */}
+          <Link href={`/posts/chat/${uid}`}>
+            <ChatIcon />
+          </Link>
 
-        {/* 申請など */}
-        <Popover>
-          <PopoverTrigger>
-            <SettingsIcon />
-          </PopoverTrigger>
-          <Portal>
-            <PopoverContent>
-              <PopoverArrow />
-              <PopoverBody>
-                <VStack>
-                  {/* 友達解除 */}
-                  <Button>友達解除</Button>
-                  <BeFriendButton user2Id={uid} user2Name={userName} />
-                </VStack>
-              </PopoverBody>
-            </PopoverContent>
-          </Portal>
-        </Popover>
-      </HStack>
+          {/* 申請など */}
+          <Popover>
+            <PopoverTrigger>
+              <SettingsIcon />
+            </PopoverTrigger>
+            <Portal>
+              <PopoverContent>
+                <PopoverArrow />
+                <PopoverBody>
+                  <VStack>
+                    {/* 友達解除 */}
+                    <Button>友達解除</Button>
+                    <BeFriendButton user2Id={uid} user2Name={userName} />
+                  </VStack>
+                </PopoverBody>
+              </PopoverContent>
+            </Portal>
+          </Popover>
+        </HStack>
 
-      {/* プロフィール情報 */}
-      <Box className={styles.profileData}>
-        {profileData.map((item, index) => (
-          <UserFriendProfileInfo key={index} label={item.label} value={item.value} />
-        ))}
-      </Box>
-    </Container>
+        {/* プロフィール情報 */}
+        <Box className={styles.profileData}>
+          {profileData.map((item, index) => (
+            <UserFriendProfileInfo
+              key={index}
+              label={item.label}
+              value={item.value}
+            />
+          ))}
+        </Box>
+      </Container>
+    </>
   );
 };
 

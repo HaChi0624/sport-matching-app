@@ -29,6 +29,7 @@ import { useProfile } from "@/hooks/useProfile";
 import BeFriendButton from "@/components/friendRequest/beFriendButton";
 import { ChatIcon, SettingsIcon } from "@chakra-ui/icons";
 import UserProfileInfo from "@/components/search/userProfileInfo";
+import Header from "@/components/header";
 
 type User = {
   id: string;
@@ -88,30 +89,39 @@ const SearchProfilePage = () => {
   ];
 
   return (
-    <Container pt="60px">
-      <Text className={styles.title} py={3}>
-        Profile
-      </Text>
+    <>
+      <Header />
+      <Container pt="60px">
+        <Text className={styles.title} py={3}>
+          Profile
+        </Text>
 
-      <Box>
-        <Avatar
-          src={photoURL}
-          w={["340px", "340px", "440px", "540px"]}
-          h={["340px", "340px", "440px", "540px"]}
-        />
-        <Spacer />
-      </Box>
+        <Box>
+          <Avatar
+            src={photoURL}
+            w={["340px", "340px", "440px", "540px"]}
+            h={["340px", "340px", "440px", "540px"]}
+          />
+          <Spacer />
+        </Box>
 
-      <Button onClick={() => router.push('/posts/searchPage')}>探すページに戻る</Button>
-      <BeFriendButton user2Id={uid} user2Name={userName} />
+        <Button onClick={() => router.push("/posts/searchPage")}>
+          探すページに戻る
+        </Button>
+        <BeFriendButton user2Id={uid} user2Name={userName} />
 
-      {/* プロフィール情報 */}
-      <Box className={styles.profileData}>
-        {profileData.map((item, index) => (
-          <UserProfileInfo key={index} label={item.label} value={item.value} />
-        ))}
-      </Box>
-    </Container>
+        {/* プロフィール情報 */}
+        <Box className={styles.profileData}>
+          {profileData.map((item, index) => (
+            <UserProfileInfo
+              key={index}
+              label={item.label}
+              value={item.value}
+            />
+          ))}
+        </Box>
+      </Container>
+    </>
   );
 };
 
