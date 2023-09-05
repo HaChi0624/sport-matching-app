@@ -2,3 +2,26 @@
   width: 50px;
   height: 40px;
 }
+
+.name {
+  /* text-decoration-line: none; */
+  display: inline-block;
+  transition: all 0.3s ease 0s;
+  text-decoration: none;
+}
+
+.name:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+.icon {
+  display: inline-block;
+  transition: all 0.3s ease 0s;
+  text-decoration: none;
+}
+
+.icon:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}

@@ -9,6 +9,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { ChatIcon } from "@chakra-ui/icons";
+import styles from '@/styles/friendList.module.css'
 
 import { useFriendList } from "@/hooks/useFriendList";
 
@@ -27,11 +28,12 @@ const FriendList = () => {
         {searchedList.map((user) => (
           <Box key={user.uid}>
             <HStack h="20">
-              <Avatar src={user.photoURL} w="64px" h="64px" />
+              <Avatar src={user.photoURL} w="64px" h="64px"/>
               <Link
                 href={`/posts/friendProfilePage/${user.uid}`}
                 pl="16px"
                 fontSize={"18px"}
+                className={styles.name}
               >
                 {user.userName}
               </Link>
@@ -39,7 +41,7 @@ const FriendList = () => {
               <Text>最新ログイン：２日前</Text>
               <Spacer />
 
-              <Link href={`/posts/chat/${user.uid}`}>
+              <Link href={`/posts/chat/${user.uid}`} className={styles.icon}>
                 <ChatIcon />
               </Link>
             </HStack>
