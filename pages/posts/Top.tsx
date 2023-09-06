@@ -28,21 +28,21 @@ const Top = () => {
       title: "プロフィールを作ろう",
       text: "好きなチームや選手を書こう！",
       button: "作ってみる",
-      src: "/top1.jpg",
+      src: "/top/top1.jpg",
       link: "/posts/myProfilePage",
     },
     {
       title: "相手を探そう",
       text: "気になる相手を探そう！チーム名や選手名で検索するといい人が見つかるかも！",
       button: "探してみる",
-      src: "/top2.jpg",
+      src: "/top/top2.jpg",
       link: "/posts/searchPage",
     },
     {
       title: "チャットで話そう",
       text: "相手が見つかればチャットで日程を決めたり、好きな選手のことを話そう！",
       button: "チャットをする",
-      src: "/top3.jpg",
+      src: "/top/top3.jpg",
       link: "/posts/friendListPage",
     },
   ];
@@ -54,7 +54,7 @@ const Top = () => {
         {/* メインビジュアル */}
         <Box>
           <Box
-            bgImage={"/main-visual-1000-600.png"}
+            bgImage={"/top/main-visual-1000-600.png"}
             bgSize={"cover"}
             bgPosition={"center center"}
           >
