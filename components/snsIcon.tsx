@@ -3,10 +3,12 @@ import { FC, ReactNode } from "react";
 
 type Props = {
   bg: string;
+  color: string;
+  fontSize: string;
   children: ReactNode;
 };
 
-const SnsIcon: FC<Props> = ({ bg, children }) => {
+const SnsIcon: FC<Props> = ({ bg, color, fontSize, children }) => {
   return (
     <Box
       h="72px"
@@ -14,8 +16,8 @@ const SnsIcon: FC<Props> = ({ bg, children }) => {
       border="1px"
       borderRadius="full"
       bg={bg}
-      color="white"
-      fontSize={"16px"}
+      color={color}
+      fontSize={fontSize}
       display="flex"
       justifyContent="center"
       alignItems="center"

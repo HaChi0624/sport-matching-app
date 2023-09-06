@@ -9,7 +9,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { ChatIcon } from "@chakra-ui/icons";
-import styles from '@/styles/friendList.module.css'
+import styles from "@/styles/friendList.module.css";
 
 import { useFriendList } from "@/hooks/useFriendList";
 
@@ -25,29 +25,42 @@ const FriendList = () => {
         onChange={handleInputChange}
       />
       <Box mt="8px">
-        {searchedList.map((user) => (
-          <Box key={user.uid}>
-            <HStack h="20">
-              <Avatar src={user.photoURL} w="64px" h="64px"/>
-              <Link
-                href={`/posts/friendProfilePage/${user.uid}`}
-                pl="16px"
-                fontSize={"18px"}
-                className={styles.name}
-              >
-                {user.userName}
-              </Link>
-              <Spacer />
-              <Text>最新ログイン：２日前</Text>
-              <Spacer />
+        {searchedList.length === 0 ? (
+          <>
+            <Box>
+              <Text>現在フレンドはいません</Text>
+            </Box>
+          </>
+        ) : (
+          <>
+            {searchedList.map((user) => (
+              <Box key={user.uid}>
+                <HStack h="20">
+                  <Avatar src={user.photoURL} w="64px" h="64px" />
+                  <Link
+                    href={`/posts/friendProfilePage/${user.uid}`}
+                    pl="16px"
+                    fontSize={"18px"}
+                    className={styles.name}
+                  >
+                    {user.userName}
+                  </Link>
+                  <Spacer />
+                  <Text>最新ログイン：２日前</Text>
+                  <Spacer />
 
-              <Link href={`/posts/chat/${user.uid}`} className={styles.icon}>
-                <ChatIcon />
-              </Link>
-            </HStack>
-            <Divider />
-          </Box>
-        ))}
+                  <Link
+                    href={`/posts/chat/${user.uid}`}
+                    className={styles.icon}
+                  >
+                    <ChatIcon />
+                  </Link>
+                </HStack>
+                <Divider />
+              </Box>
+            ))}
+          </>
+        )}
       </Box>
     </Box>
   );
