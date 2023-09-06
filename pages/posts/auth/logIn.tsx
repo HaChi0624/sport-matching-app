@@ -1,4 +1,3 @@
-import { ChangeEvent, useState } from "react";
 import {
   Box,
   Text,
@@ -21,6 +20,7 @@ const LogIn = () => {
     handleLogin,
     handleChangeEmail,
     handleChangePassword,
+    error,
     loginWithGoogle,
   } = useAuthFunction();
 
@@ -70,6 +70,7 @@ const LogIn = () => {
               onChange={handleChangePassword}
             />
           </FormControl>
+          {error && <p style={{ color: "red" }}>{error}</p>}
           <Checkbox>ログイン状態を保持する</Checkbox>
           <Box marginTop="3">
             <Button type="submit" m="0 auto">

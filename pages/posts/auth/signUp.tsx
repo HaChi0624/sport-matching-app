@@ -1,8 +1,3 @@
-import { FormEvent, useState } from "react";
-import { auth } from "@/firebase/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import router from "next/router";
-import Link from "next/link";
 import {
   FormControl,
   FormLabel,
@@ -10,33 +5,37 @@ import {
   Button,
   Box,
   Text,
+  HStack,
 } from "@chakra-ui/react";
-import { signUp } from "@/hooks/authFunctions";
-import { useSetRecoilState } from "recoil";
+import { useAuthFunction } from "@/hooks/authFunctions";
 
 const SignUp = () => {
-  const [userName, setUserName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  // const setMyUid = useSetRecoilState(myUidState);
+  const {
+    handleSubmit,
+    handleChangeName,
+    handleChangeEmail,
+    handleChangePassword,
+    error,
+  } = useAuthFunction();
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    await signUp(userName, email, password);
-    router.push("/posts/Top");
-  };
-
-  const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserName(e.currentTarget.value);
-  };
-  const handleChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.currentTarget.value);
-  };
-  const handleChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.currentTarget.value);
-  };
   return (
     <>
+      <HStack
+        bg="none"
+        w="100%"
+        h="60px"
+        position={"fixed"}
+        top="0"
+        zIndex={100}
+      >
+        <Box
+          fontWeight={"bold"}
+          ml={["8px", "8px", "16px", "24px"]}
+          fontSize={["20px", "24px", "24px", "24px"]}
+        >
+          supotch
+        </Box>
+      </HStack>
       <Box width="40%" margin="0 auto" paddingTop="100">
         <Text fontSize="3xl" marginBottom="3">
           ユーザ登録
@@ -69,6 +68,7 @@ const SignUp = () => {
               onChange={handleChangePassword}
             />
           </FormControl>
+          {error && <p style={{ color: "red" }}>{error}</p>}
           <Box marginTop="3">
             <Button type="submit">登録(ホーム画面へ)</Button>
           </Box>
