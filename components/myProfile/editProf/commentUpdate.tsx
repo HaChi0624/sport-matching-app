@@ -1,4 +1,4 @@
-import { Button, useDisclosure } from "@chakra-ui/react";
+import { Button, Input, useDisclosure } from "@chakra-ui/react";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 
 import { useState } from "react";
@@ -34,12 +34,17 @@ const CommentUpdate = () => {
 
       <UpdateModal
         handleUpdateProfile={handleUpdateProfile}
-        value={comment}
-        onChange={(e) => setComment(e.target.value)}
         isOpen={isOpen}
         onClose={onClose}
-        placeholder="コメント"
-      />
+      >
+        <Input
+            type="text"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            placeholder={"コメント"}
+            top="50px"
+          />
+      </UpdateModal>
     </>
   );
 };

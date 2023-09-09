@@ -1,7 +1,5 @@
 import {
   Button,
-  HStack,
-  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -13,14 +11,16 @@ import {
 
 const UpdateModal = (props: {
   handleUpdateProfile: () => void;
-  value: string;
-  onChange: (e: any) => void;
-  placeholder: string;
   isOpen: boolean;
   onClose: () => void;
+  children: any;
 }) => {
-  const { handleUpdateProfile, value, onChange, placeholder, isOpen, onClose } =
-    props;
+  const {
+    handleUpdateProfile,
+    isOpen,
+    onClose,
+    children,
+  } = props;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -32,17 +32,11 @@ const UpdateModal = (props: {
         <ModalHeader>編集</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Input
-            type="text"
-            value={value}
-            onChange={onChange}
-            placeholder={placeholder}
-            top="50px"
-          />
+          {children}
         </ModalBody>
 
         <ModalFooter>
-          <Button type="submit" onClick={handleUpdateProfile} w='100%'>
+          <Button type="submit" onClick={handleUpdateProfile} w="100%">
             更新
           </Button>
         </ModalFooter>

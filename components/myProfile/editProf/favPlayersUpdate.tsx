@@ -1,4 +1,4 @@
-import { Button, useDisclosure } from "@chakra-ui/react";
+import { Button, Input, useDisclosure } from "@chakra-ui/react";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 
 import { useState } from "react";
@@ -32,12 +32,17 @@ const FavPlayersUpdate = () => {
 
       <UpdateModal
         handleUpdateProfile={handleUpdateProfile}
-        value={favPlayers}
-        onChange={(e) => setFavPlayers(e.target.value)}
         isOpen={isOpen}
         onClose={onClose}
-        placeholder="好きな選手"
-      />
+      >
+        <Input
+            type="text"
+            value={favPlayers}
+            onChange={(e) => setFavPlayers(e.target.value)}
+            placeholder={"好きな選手"}
+            top="50px"
+          />
+      </UpdateModal>
     </>
   );
 };
