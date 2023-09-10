@@ -1,92 +1,104 @@
-import CreateProfModal from "@/components/createProfModal";
-import Footer from "@/components/footer";
-import SnsIcon from "@/components/snsIcon";
 import {
   Box,
   Button,
-  Center,
-  Container,
-  HStack,
-  Stack,
+  Heading,
+  Link,
+  Image,
   Text,
+  Center,
 } from "@chakra-ui/react";
-import Link from "next/link";
-import IMG_1014 from "@/src/IMG_1014.png";
-import { useRouter } from "next/router";
-import Slider from "@/components/slider";
+import styles from "@/styles/top.module.css";
+
+// import StepperComponent from "@/components/stepperComponent";
+import router from "next/router";
+import Footer from "@/components/footer";
+import Header from "@/components/header";
+
+const colorParet = {
+  color1: "#005DF5",
+  color2: "#05FF4D",
+  color3: "#E6D00B",
+  color4: "#E6D00B",
+  color5: "#CE01F5",
+};
 
 const Top = () => {
-  const router = useRouter();
-  const mainbgcolor = "rgb(0, 75, 149)";
-  const items = [
-    { id: 1, content: "Slide 1" },
-    { id: 2, content: "Slide 2" },
-    { id: 3, content: "Slide 3" },
+  const steps = [
+    {
+      title: "プロフィールを作ろう",
+      text: "好きなチームや選手を書こう！",
+      button: "作ってみる",
+      src: "/top/top1.jpg",
+      link: "/posts/myProfilePage",
+    },
+    {
+      title: "相手を探そう",
+      text: "気になる相手を探そう！チーム名や選手名で検索するといい人が見つかるかも！",
+      button: "探してみる",
+      src: "/top/top2.jpg",
+      link: "/posts/searchPage",
+    },
+    {
+      title: "チャットで話そう",
+      text: "相手が見つかればチャットで日程を決めたり、好きな選手のことを話そう！",
+      button: "チャットをする",
+      src: "/top/top3.jpg",
+      link: "/posts/friendListPage",
+    },
   ];
+
   return (
-    <Box bg={mainbgcolor}>
-      <Center
-        w="100%"
-        h={["300px", "300px", "300px", "400px"]}
-        bg={"white"}
-        overflow={"hidden"}
-      >
-        <img
-          src={IMG_1014.src}
-          width="100%"
-          height="300px"
-          object-fit="cover"
-        />
-      </Center>
-      <Container maxW={["90%", "90%", "80%", "60%"]} bg={"white"}>
-        <Stack mt="8px" mb="20px">
-          <Text fontSize="24px">―新着情報</Text>
-          {/* <Box
-            h="300px"
-            border="1px"
-            borderRadius={"10px"}
-            white-space="nowrap"
-            overflow="scroll"
-            overflowX="hidden"
-            overflowY="scroll"
+    <>
+      <Header />
+      <Box mt={["-70px","-70px","-70px","-30px"]} bg={'blackAlpha.300'}>
+        {/* メインビジュアル */}
+        <Box>
+          <Box
+            bgImage={"/top/main-visual-1000-600.png"}
+            bgSize={"cover"}
+            bgPosition={"center center"}
           >
-            アップデート、コラムとか
-          </Box> */}
-          <Slider />
-        </Stack>
-        <Stack mb="20px">
-          <Box fontSize="24px">―このサイトの使い方</Box>
-          <Button mr="1" w={"300px"}>
-            チュートリアル
-          </Button>
-        </Stack>
-        <Stack mb="20px">
-          <Text fontSize="24px">―プロフィールを作ってみよう！</Text>
-          {/* <CreateProfModal /> */}
-          <Button
-            onClick={() => router.push("/posts/myProfilePage")}
-            w={"300px"}
-          >
-            作ってみよう！
-          </Button>
-        </Stack>
-        <Stack mb="20px">
-          <Text fontSize="24px">―SNS</Text>
-          <HStack h="100px">
-            <SnsIcon bg="blue.400">Facebook</SnsIcon>
-            <SnsIcon bg="blue.300">twitter</SnsIcon>
-            <SnsIcon bg="red.500">Youtube</SnsIcon>
-          </HStack>
-        </Stack>
-        <HStack bgColor="gray.200" borderRadius="10px">
-          <Link href="/posts/myProfilePage">プロフィール</Link>
-          <Link href="/posts/search">探す</Link>
-          <Link href="/posts/friendsList">友達</Link>
-          <Link href="/posts/chat">チャット</Link>
-        </HStack>
-      </Container>
-      <Footer />
-    </Box>
+            <Box h="700px"></Box>
+          </Box>
+        </Box>
+
+        <Box bg="white" borderRadius={"20px"} className={styles.container}>
+          <Box py="40px" m="0 auto">
+            <Box
+              textAlign={"center"}
+              fontSize={["28px", "36px", "36px", "36px"]}
+            >
+              ―３つのステップ―
+            </Box>
+          </Box>
+
+          {steps.map((step, index) => (
+            <Box key={index} className={styles.wrapper}>
+              <Box className={styles.img}>
+                <Image
+                  src={step.src}
+                  alt="img"
+                  className={styles.imgItem}
+                  borderRadius={"10px"}
+                />
+              </Box>
+              <Box className={styles.wrapperItem}>
+                <Heading className={styles.heading}>{step.title}</Heading>
+                <Text>{step.text}</Text>
+                <Button
+                  onClick={() => router.push(step.link)}
+                  className={styles.button}
+                  bg="#fff100"
+                >
+                  {step.button}
+                </Button>
+              </Box>
+            </Box>
+          ))}
+        </Box>
+        <Footer />
+      </Box>
+    </>
   );
 };
 

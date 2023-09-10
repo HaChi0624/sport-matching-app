@@ -1,7 +1,5 @@
 import {
   Button,
-  HStack,
-  Icon,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -9,27 +7,27 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Select,
+  VStack,
   useDisclosure,
 } from "@chakra-ui/react";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 
 import { useState } from "react";
-import { updateProfile } from "firebase/auth";
 import { doc, updateDoc } from "firebase/firestore";
 
-import { auth, db } from "@/firebase/firebase";
-import { useAuth } from "@/firebase/authFunctions";
+import { db } from "@/firebase/firebase";
+import { useAuth } from "@/hooks/useAuth";
 
 //プロフィール写真の更新
 const FavTeamUpdate = () => {
-  const currentUser = useAuth();
+  const { user } = useAuth();
   const [favTeam, setFavTeam] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleUpdateProfile = () => {
-    const user = auth.currentUser;
     if (user) {
-      updateDoc(doc(db, "users", currentUser.uid), {
+      updateDoc(doc(db, "users", user.uid), {
         favTeam: favTeam,
       });
     }
@@ -38,7 +36,7 @@ const FavTeamUpdate = () => {
 
   return (
     <>
-      <Button onClick={onOpen} ml="320px">
+      <Button onClick={onOpen}>
         <ChevronRightIcon />
       </Button>
 
@@ -48,14 +46,27 @@ const FavTeamUpdate = () => {
           <ModalHeader>好きな球団</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <HStack>
-              <input
-                type="text"
+            <VStack>
+              <Select
                 value={favTeam}
                 onChange={(e) => setFavTeam(e.target.value)}
-                placeholder="好きな球団"
-              />
-            </HStack>
+              >
+                <option value="未選択">未選択</option>
+                <option value="ヤクルト">ヤクルト</option>
+                <option value="Dena">Dena</option>
+                <option value="阪神">阪神</option>
+                <option value="巨人">巨人</option>
+                <option value="広島">広島</option>
+                <option value="中日">中日</option>
+                <option value="オリックス">オリックス</option>
+                <option value="ソフトバンク">ソフトバンク</option>
+                <option value="西武">西武</option>
+                <option value="楽天">楽天</option>
+                <option value="ロッテ">ロッテ</option>
+                <option value="日本ハム">日本ハム</option>
+                <option value="その他">その他</option>
+              </Select>
+            </VStack>
           </ModalBody>
 
           <ModalFooter>

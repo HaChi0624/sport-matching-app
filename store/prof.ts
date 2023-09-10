@@ -1,31 +1,24 @@
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
 
-// export const userNameState = atom({
-//   key: "username",
-//   default: "",
-// });
-// export const favTeamState = atom({
-//   key: "favteam",
-//   default: "",
-// });
-// export const favPlayersState = atom({
-//   key: "favplaysers",
-//   default: "",
-// });
-// export const commentState = atom({
-//   key: "comment",
-//   default: "",
-// });
+type prof = {
+  uid: "";
+  userName: "";
+  favTeam: "";
+  favPlayers: "";
+  comment: "";
+  photoURL: "";
+};
 
-export const profState = atom({
-  key: "prof",
-  default: [
-    {
-      uid: "",
-      username: "",
-      favTeam: "",
-      favplaysers: "",
-      comment: "",
-    },
-  ],
+export const userProfState = atom({
+  key: "userProfState",
+  default: {
+    uid: "",
+    userName: "",
+    favTeam: "",
+    favPlayers: "",
+    comment: "",
+    photoURL: "",
+  },
 });
+
+// https://zenn.dev/tera_ny/articles/e478fce56db413

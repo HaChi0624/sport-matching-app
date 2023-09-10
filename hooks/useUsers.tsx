@@ -3,11 +3,13 @@ import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 type User = {
+  favTeam: any;
   uid: string;
   userName: string;
   photoURL: string;
 };
 
+// 使用箇所：相手を探す、友達一覧
 export const useUsers = () => {
   const [users, setUsers] = useState<User[]>([]);
   useEffect(() => {
@@ -21,11 +23,12 @@ export const useUsers = () => {
               uid: doc.id,
               userName: doc.data().userName,
               photoURL: doc.data().photoURL,
+              favTeam: doc.data().favTeam,
             };
             if (!newUsers.some((u) => u.uid === user.uid)) {
               newUsers.push(user);
             }
-            console.log(doc.id, " => ", doc.data());
+            // console.log(doc.data());
           });
           setUsers(newUsers);
         }
@@ -35,5 +38,5 @@ export const useUsers = () => {
     };
     fetchUsers();
   }, []);
-  return { users };
+  return { users };//uid,userName,photoURLが入っている
 };

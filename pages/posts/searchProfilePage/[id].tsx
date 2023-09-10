@@ -28,7 +28,7 @@ import RequestButton from "@/components/friendRequest/requestButton";
 import { useProfile } from "@/hooks/useProfile";
 import BeFriendButton from "@/components/friendRequest/beFriendButton";
 import { ChatIcon, SettingsIcon } from "@chakra-ui/icons";
-import UserFriendProfileInfo from "@/components/friendList/userFriendProfileInfo";
+import UserProfileInfo from "@/components/search/userProfileInfo";
 import Header from "@/components/header";
 
 type User = {
@@ -39,7 +39,7 @@ type User = {
   comment: string;
 };
 
-const FriendProfilePage = () => {
+const SearchProfilePage = () => {
   const [photoURL, setPhotoURL] = useState("");
   const [userName, setUserName] = useState("");
   const [favTeam, setFavTeam] = useState("");
@@ -51,7 +51,7 @@ const FriendProfilePage = () => {
   const uid: string = router.query.id as string;
 
   useEffect(() => {
-    const fetchUserName = async () => {
+    const fetchUserData = async () => {
       if (uid) {
         const userSnapshot = await getDoc(doc(db, "users", uid));
         if (userSnapshot.exists()) {
@@ -64,7 +64,7 @@ const FriendProfilePage = () => {
         }
       }
     };
-    fetchUserName();
+    fetchUserData();
   }, [uid]);
 
   // console.log(router.query.id)
@@ -105,36 +105,15 @@ const FriendProfilePage = () => {
           <Spacer />
         </Box>
 
-        <HStack style={{ display: "flex", justifyContent: "flex-end" }}>
-          {/* チャット */}
-          <Link href={`/posts/chat/${uid}`}>
-            <ChatIcon />
-          </Link>
-
-          {/* 申請など */}
-          <Popover>
-            <PopoverTrigger>
-              <SettingsIcon />
-            </PopoverTrigger>
-            <Portal>
-              <PopoverContent>
-                <PopoverArrow />
-                <PopoverBody>
-                  <VStack>
-                    {/* 友達解除 */}
-                    <Button>友達解除</Button>
-                    <BeFriendButton user2Id={uid} user2Name={userName} />
-                  </VStack>
-                </PopoverBody>
-              </PopoverContent>
-            </Portal>
-          </Popover>
-        </HStack>
+        <Button onClick={() => router.push("/posts/searchPage")}>
+          探すページに戻る
+        </Button>
+        <BeFriendButton user2Id={uid} user2Name={userName} />
 
         {/* プロフィール情報 */}
         <Box className={styles.profileData}>
           {profileData.map((item, index) => (
-            <UserFriendProfileInfo
+            <UserProfileInfo
               key={index}
               label={item.label}
               value={item.value}
@@ -146,4 +125,4 @@ const FriendProfilePage = () => {
   );
 };
 
-export default FriendProfilePage;
+export default SearchProfilePage;

@@ -1,0 +1,101 @@
+.title {
+  text-align: center;
+  /* margin: 70px 0px ; */
+  /* padding: 60px; */
+  border: black;
+  /* height: 260px; */
+  /* background: aqua; */
+}
+
+.button {
+  top: 10px;
+  color: #000;
+  background: #fff100;
+  border-bottom: 5px solid #ccc100;
+}
+
+.button:hover {
+  margin-top: 3px;
+  color: #000;
+  background: #fff20a;
+  border-bottom: 2px solid #ccc100;
+}
+
+.container {
+  margin: 0 auto;
+  margin-top: 40px;
+}
+
+.wrapper {
+  margin: 0 auto;
+}
+.wrapperItem {
+  height: 200px;
+  padding: 0 20px 0;
+}
+.heading {
+  padding: 20px 0;
+}
+.imgItem {
+  margin: 0 auto;
+}
+
+/* 480px以上 */
+@media screen and (min-width: 30em) {
+  .container {
+    width: 95%;
+    margin: 0 auto;
+    margin-top: 50px;
+  }
+  .wrapper {
+    margin: 0 auto;
+  }
+  .wrapperItem {
+    height: 200px;
+    width: 440px;
+    margin: 0 auto;
+  }
+  .wrapperItem * {
+    padding-bottom: 10px;
+  }
+}
+
+/* 768px以上 */
+@media screen and (min-width: 48em) {
+  .wrapper {
+    display: flex;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .wrapperItem {
+    height: 300px;
+    width: 400px;
+  }
+  .img {
+    width: 350px;
+    margin: 0 auto;
+  }
+}
+
+/* 992px以上 */
+@media screen and (min-width: 62em) {
+  .container {
+    width: 1000px;
+    margin: 0 auto;
+    margin-top: 50px;
+  }
+  .wrapper {
+    display: flex;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .wrapperItem {
+    height: 300px;
+    width: 400px;
+  }
+  .imgItem {
+    max-width: 400px;
+    width: 350px;
+    margin: 0 auto;
+  }
+}
