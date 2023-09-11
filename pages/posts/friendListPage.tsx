@@ -1,7 +1,7 @@
 import { Container } from "@chakra-ui/react";
 import RequestedList from "@/components/friendList/requestedList";
 import FriendList from "@/components/friendList/friendList";
-import Header from "@/components/header";
+import Header from "@/components/header/header";
 
 const FriendListPage = () => {
   return (
