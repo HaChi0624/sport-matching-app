@@ -15,7 +15,6 @@ const Header = () => {
   const { photoURL } = useProfile();
 
   return (
-    // 'rgb(0, 75, 149)'
     <>
       <HStack
         // bg={'whitesmoke'}
