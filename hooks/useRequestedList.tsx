@@ -20,9 +20,8 @@ export const useRequestedList = () => {
   //　requestされているidを取得
   useEffect(() => {
     const fetchIdData = async () => {
-      if (status === "LOADING") {
-        return;
-      }
+      if (status === "LOADING") return;
+      if (!user.uid) return;
       try {
         const collectionRef = collection(db, "users", user.uid, "friends");
         if (collectionRef) {
