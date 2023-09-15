@@ -4,7 +4,7 @@ import styles from "@/styles/chatPage.module.css";
 import { useChatPage } from "@/hooks/useChatPage";
 import ChatForm from "@/components/chat/chatForm";
 import ChatLogs from "@/components/chat/chatLogs";
-import Header from "@/components/header";
+import Header from "@/components/header/header";
 
 const FriendChat = () => {
   const { user2Name } = useChatPage();

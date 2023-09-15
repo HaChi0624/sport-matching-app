@@ -2,17 +2,15 @@ import {
   Box,
   Button,
   Heading,
-  Link,
   Image,
   Text,
-  Center,
 } from "@chakra-ui/react";
 import styles from "@/styles/top.module.css";
 
 // import StepperComponent from "@/components/stepperComponent";
 import router from "next/router";
 import Footer from "@/components/footer";
-import Header from "@/components/header";
+import Header from "@/components/header/header";
 
 const colorParet = {
   color1: "#005DF5",
@@ -50,7 +48,7 @@ const Top = () => {
   return (
     <>
       <Header />
-      <Box mt={["-70px","-70px","-70px","-30px"]} bg={'blackAlpha.300'}>
+      <Box mt={["-70px", "-70px", "-70px", "-30px"]} bg={"blackAlpha.300"}>
         {/* メインビジュアル */}
         <Box>
           <Box

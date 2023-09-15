@@ -11,7 +11,7 @@ import {
 import DetailedSearch from "@/components/search/detailedSearch";
 import SearchedList from "@/components/search/searchedList";
 import { useSearchPage } from "@/hooks/useSearchPage";
-import Header from "@/components/header";
+import Header from "@/components/header/header";
 
 const SearchPage = () => {
   const {

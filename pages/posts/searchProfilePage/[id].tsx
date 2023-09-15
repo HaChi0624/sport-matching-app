@@ -3,33 +3,19 @@ import {
   Container,
   Text,
   Avatar,
-  HStack,
   Spacer,
-  Divider,
-  Link,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverBody,
-  PopoverArrow,
   Button,
-  Portal,
-  VStack,
 } from "@chakra-ui/react";
 import styles from "@/styles/myProfilePage.module.css";
-import goya from "src/goya.png";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/firebase/firebase";
 
-import RequestButton from "@/components/friendRequest/requestButton";
-import { useProfile } from "@/hooks/useProfile";
 import BeFriendButton from "@/components/friendRequest/beFriendButton";
-import { ChatIcon, SettingsIcon } from "@chakra-ui/icons";
 import UserProfileInfo from "@/components/search/userProfileInfo";
-import Header from "@/components/header";
+import Header from "@/components/header/header";
 
 type User = {
   id: string;

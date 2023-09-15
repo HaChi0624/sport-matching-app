@@ -1,4 +1,4 @@
-import { Box, Center, Container, Heading } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 import styles from "@/styles/myProfilePage.module.css";
 
 import { useEffect, useState } from "react";
@@ -7,7 +7,7 @@ import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "@/firebase/firebase";
 import ProfileList from "@/components/myProfile/profileList";
 import { useAuth } from "@/hooks/useAuth";
-import Header from "@/components/header";
+import Header from "@/components/header/header";
 
 type Profile = {
   userName: string;

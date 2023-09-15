@@ -46,7 +46,20 @@ export const useAuthFunction = () => {
   // グーグルログイン
   const loginWithGoogle = async () => {
     try {
-      await signInWithPopup(auth, provider);
+      await signInWithPopup(auth, provider).then(
+        (result) => {
+          const user = result.user;
+          // usersに追加
+          if (user) {
+            const uid = user.uid;
+            setDoc(doc(db, "users", uid), {
+              uid: uid,
+              email: 'google',
+              userName: '',
+            });
+          }
+        }
+      )
       router.push("/posts/Top");
     } catch (error) {
       console.error("ユーザー作成エラー:", error);
@@ -67,6 +80,8 @@ export const useAuthFunction = () => {
               email: email,
               userName: userName,
             });
+          } else {
+            alert('ユーザー情報が取得できませんでした。')
           }
         }
       );
