@@ -72,15 +72,15 @@ const Top = () => {
 
           {steps.map((step, index) => (
             <Box key={index} className={styles.wrapper}>
-              <Box className={styles.img}>
+              <Box className={styles.wrapperItem1}>
                 <Image
                   src={step.src}
                   alt="img"
-                  className={styles.imgItem}
+                  className={styles.img}
                   borderRadius={"10px"}
                 />
               </Box>
-              <Box className={styles.wrapperItem}>
+              <Box className={styles.wrapperItem2}>
                 <Heading className={styles.heading}>{step.title}</Heading>
                 <Text>{step.text}</Text>
                 <Button
