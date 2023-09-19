@@ -24,10 +24,13 @@
 .container {
   margin: 0 auto;
   margin-top: 40px;
+  max-width: 95%;
 }
-
 .wrapper {
   margin: 0 auto;
+}
+.wrapperItem1 {
+  padding: 0 8px;
 }
 .img {
   margin: 0 auto;
@@ -43,12 +46,8 @@
 /* 480px以上 */
 @media screen and (min-width: 30em) {
   .container {
-    width: 95%;
     margin: 0 auto;
     margin-top: 50px;
-  }
-  .wrapper {
-    margin: 0 auto;
   }
   .wrapperItem2 {
     height: 200px;
@@ -84,18 +83,8 @@
     margin: 0 auto;
     margin-top: 50px;
   }
-  .wrapper {
-    display: flex;
-    max-width: 800px;
-    margin: 0 auto;
-  }
   .img {
     max-width: 400px;
     width: 350px;
-    margin: 0 auto;
-  }
-  .wrapperItem2 {
-    height: 300px;
-    width: 400px;
   }
 }

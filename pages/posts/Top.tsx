@@ -1,24 +1,9 @@
-import {
-  Box,
-  Button,
-  Heading,
-  Image,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Button, Heading, Image, Text } from "@chakra-ui/react";
 import styles from "@/styles/top.module.css";
 
-// import StepperComponent from "@/components/stepperComponent";
 import router from "next/router";
 import Footer from "@/components/footer";
 import Header from "@/components/header/header";
-
-const colorParet = {
-  color1: "#005DF5",
-  color2: "#05FF4D",
-  color3: "#E6D00B",
-  color4: "#E6D00B",
-  color5: "#CE01F5",
-};
 
 const Top = () => {
   const steps = [
@@ -60,6 +45,7 @@ const Top = () => {
           </Box>
         </Box>
 
+        {/* カード */}
         <Box bg="white" borderRadius={"20px"} className={styles.container}>
           <Box py="40px" m="0 auto">
             <Box
