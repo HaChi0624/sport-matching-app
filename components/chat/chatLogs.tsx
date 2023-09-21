@@ -13,105 +13,69 @@ const ChatLogs = () => {
     formatMD,
     formatHHMM,
   } = useChatPage();
+ 
 
   return (
-    <Box
-      w="80%"
-      m="0 auto"
-      //   mb="100px"
-      // overflowY={"scroll"}
-      zIndex={10}
-      className={styles.sbBox}
-    >
+    <Box m="0 auto" zIndex={10} className={styles.chatBox}>
       {chatLogs.map((item) => (
-        <HStack
+        <Box
           key={item.key}
           style={{
+            display: "flex",
             marginLeft: user1Name === item.userName ? "3px" : "auto",
             justifyContent:
               user1Name === item.userName ? "flex-end" : "flex-start",
           }}
-        //   className={styles.sbBox}
         >
-          <>
-            {user1Name === item.userName ? (
-              <HStack>
-                <Box>{formatMD(item.createdAt)}</Box>
-                <Box>{formatHHMM(item.createdAt)}</Box>
-              </HStack>
-            ) : (
-              <Link href={`/posts/friendProfilePage/${user2Id}`}>
-                <Avatar
-                  src={user1Name === item.userName ? photoURL : user2PhotoURL}
-                  size={["sm", "sm", "md"]}
-                />
-              </Link>
-            )}
+          {user1Name === item.userName ? (
+            <Box display={'flex'} alignItems={'flex-end'} paddingBottom={'32px'}>
+              <Box paddingRight={'4px'}>{formatMD(item.createdAt)}</Box>
+              <Box>{formatHHMM(item.createdAt)}</Box>
+            </Box>
+          ) : (
+            <Link href={`/posts/friendProfilePage/${user2Id}`}>
+              <Avatar
+                src={user1Name === item.userName ? photoURL : user2PhotoURL}
+                mt='24px'
+              />
+            </Link>
+          )}
 
-            <Box
+          <Box
+            className={
+              user1Name === item.userName
+                ? `${styles.chatSide} ${styles.chatSideRight}`
+                : `${styles.chatSide} ${styles.chatSideLeft}`
+            }
+          >
+            <Text textAlign={user1Name === item.userName ? "right" : "left"}>{user2Name}</Text>
+            <Text
               className={
                 user1Name === item.userName
-                  ? `${styles.sbSide} ${styles.sbSideRight}`
-                  : `${styles.sbSide} ${styles.sbSideLeft}`
+                  ? `${styles.chatTxt} ${styles.chatTxtRight}`
+                  : `${styles.chatTxt} ${styles.chatTxtLeft}`
               }
             >
-              <Text
-                className={
-                  user1Name === item.userName
-                    ? `${styles.sbTxt} ${styles.sbTxtRight}`
-                    : `${styles.sbTxt} ${styles.sbTxtLeft}`
-                }
-              >
-                {item.msg}
-              </Text>
-            </Box>
+              {item.msg}
+            </Text>
+          </Box>
 
-            {user1Name === item.userName ? (
-              <Link href={`/posts/friendProfilePage/${user2Id}`}>
-                <Avatar
-                  src={user1Name === item.userName ? photoURL : user2PhotoURL}
-                  //   size={["sm", "sm", "md"]}
-                />
-              </Link>
-            ) : (
-              <HStack>
-                <Box>{formatMD(item.createdAt)}</Box>
-                <Box>{formatHHMM(item.createdAt)}</Box>
-              </HStack>
-            )}
-          </>
-        </HStack>
+          {user1Name === item.userName ? (
+            <Link href={`/posts/friendProfilePage/${user2Id}`}>
+              <Avatar
+                src={user1Name === item.userName ? photoURL : user2PhotoURL}
+                mt='24px'
+              />
+            </Link>
+          ) : (
+            <Box display={'flex'} alignItems={'flex-end'} paddingBottom={'32px'}>
+              <Box paddingRight={'4px'}>{formatMD(item.createdAt)}</Box>
+              <Box>{formatHHMM(item.createdAt)}</Box>
+            </Box>
+          )}
+        </Box>
       ))}
     </Box>
-    // <>
-    //   <div className={styles.sbBox}>
-    //     <div className={`${styles.iconImg} ${styles.iconImgLeft}`}>
-    //       <Avatar src={photoURL} size={["sm", "sm", "md"]} />
-    //     </div>
-    //     <div className={`${styles.iconName} ${styles.iconNameLeft}`}>
-    //       アイコンネーム（左）
-    //     </div>
-    //     <div className={`${styles.sbSide} ${styles.sbSideLeft}`}>
-    //       <div className={`${styles.sbTxt} ${styles.sbTxtLeft}`}>
-    //         ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。
-    //       </div>
-    //     </div>
-    //   </div>
-
-    //   <div className={styles.sbBox}>
-    //     <div className={`${styles.iconImg} ${styles.iconImgRight}`}>
-    //       ←ココにカーソルをあてて『メディア（画像）を追加』する
-    //     </div>
-    //     <div className={`${styles.iconName} ${styles.iconNameRight}`}>
-    //       アイコンネーム（右）
-    //     </div>
-    //     <div className={`${styles.sbSide} ${styles.sbSideRight}`}>
-    //       <div className={`${styles.sbTxt} ${styles.sbTxtRight}`}>
-    //         ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります。ここにテキストが入ります
-    //       </div>
-    //     </div>
-    //   </div>
-    // </>
   );
 };
 

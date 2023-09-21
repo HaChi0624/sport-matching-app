@@ -9,7 +9,6 @@ const ChatForm = () => {
       bg="gray.200"
       position={"fixed"}
       bottom={"0"}
-      // height="100px"
       w="100%"
       zIndex={20}
     >
