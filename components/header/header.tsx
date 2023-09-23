@@ -5,7 +5,7 @@ import {
   Avatar,
 } from "@chakra-ui/react";
 
-import MenuButton from "../Button/menuButton";
+import MenuButton from "./menuButton";
 import { useProfile } from "@/hooks/useProfile";
 import { useAuth } from "@/hooks/useAuth";
 import Notification from "./notification";
