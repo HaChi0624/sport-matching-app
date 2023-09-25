@@ -1,33 +1,21 @@
-import {
-  HStack,
-  Spacer,
-  Link,
-  Avatar,
-} from "@chakra-ui/react";
+import { HStack, Spacer, Link, Avatar, Box, Flex } from "@chakra-ui/react";
 
-import MenuButton from "../Button/menuButton";
 import { useProfile } from "@/hooks/useProfile";
 import { useAuth } from "@/hooks/useAuth";
+import MenuButton from "./menuButton";
 import Notification from "./notification";
 
 const Header = () => {
-  const { user, status } = useAuth();
+  const { status } = useAuth();
   const { photoURL } = useProfile();
 
   return (
-    <>
-      <HStack
-        // bg={'whitesmoke'}
-        bg="none"
-        w="100%"
-        h="60px"
-        position={"fixed"}
-        top="0"
-        zIndex={100}
+    <Box position={"fixed"} w="100%" h="60px" top='0' zIndex={100}>
+      <Flex
+        bg={"whitesmoke"}
       >
         <Link
           href="/posts/Top"
-          // color="white"
           fontWeight={"bold"}
           ml={["8px", "8px", "16px", "24px"]}
           fontSize={["20px", "24px", "24px", "24px"]}
@@ -45,8 +33,8 @@ const Header = () => {
           {/* メニュー */}
           <MenuButton />
         </HStack>
-      </HStack>
-    </>
+      </Flex>
+    </Box>
   );
 };
 

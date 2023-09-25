@@ -48,7 +48,7 @@ const Top = () => {
   return (
     <>
       <Header />
-      <Box mt={["-70px", "-70px", "-70px", "-30px"]} bg={"blackAlpha.300"}>
+      <Box  mt={["-70px", "-70px", "-70px", "40px"]}  bg={"blackAlpha.300"}>
         {/* メインビジュアル */}
         <Box>
           <Box

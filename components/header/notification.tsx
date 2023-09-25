@@ -1,5 +1,3 @@
-import { useRequestedList } from "@/hooks/useRequestedList";
-import { BellIcon } from "@chakra-ui/icons";
 import {
   Popover,
   PopoverTrigger,
@@ -14,11 +12,13 @@ import {
   Divider,
   Box,
 } from "@chakra-ui/react";
+import { BellIcon } from "@chakra-ui/icons";
+
 import Link from "next/link";
+import { useRequestedList } from "@/hooks/useRequestedList";
 
 const Notification = () => {
   const { requestList } = useRequestedList();
-  // console.log(requestList);
   return (
     <Popover>
       <PopoverTrigger>
