@@ -92,12 +92,12 @@ const LogIn = () => {
               G
             </SnsIcon>
           </Box>
-          <SnsIcon bg={"black"} color={"white"} fontSize="40px">
+          {/* <SnsIcon bg={"black"} color={"white"} fontSize="40px">
             X
           </SnsIcon>
           <SnsIcon bg={"#3b5998"} color={"white"} fontSize="40px">
             f
-          </SnsIcon>
+          </SnsIcon> */}
         </HStack>
 
         <Box mt="32px">
