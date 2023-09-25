@@ -1,10 +1,7 @@
 import Head from "next/head";
-import LogIn from "./posts/auth/logIn";
 import Top from "@/pages/posts/Top";
-import { useAuth } from "@/hooks/useAuth";
 
 export default function Home() {
-  const currentUser = useAuth();
   return (
     <>
       <Head>
@@ -13,7 +10,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {currentUser !== null ? <LogIn /> : <Top />}
+      <Top />
     </>
   );
 }

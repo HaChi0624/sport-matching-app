@@ -5,7 +5,6 @@ import {
   Button,
   Box,
   Text,
-  HStack,
 } from "@chakra-ui/react";
 import { useAuthFunction } from "@/hooks/authFunctions";
 
@@ -20,23 +19,8 @@ const SignUp = () => {
 
   return (
     <>
-      <HStack
-        bg="none"
-        w="100%"
-        h="60px"
-        position={"fixed"}
-        top="0"
-        zIndex={100}
-      >
-        <Box
-          fontWeight={"bold"}
-          ml={["8px", "8px", "16px", "24px"]}
-          fontSize={["20px", "24px", "24px", "24px"]}
-        >
-          supotch
-        </Box>
-      </HStack>
-      <Box width="40%" margin="0 auto" paddingTop="100">
+
+      <Box margin="0 auto" paddingTop="100">
         <Text fontSize="3xl" marginBottom="3">
           ユーザ登録
         </Text>
@@ -70,7 +54,7 @@ const SignUp = () => {
           </FormControl>
           {error && <p style={{ color: "red" }}>{error}</p>}
           <Box marginTop="3">
-            <Button type="submit">登録(ホーム画面へ)</Button>
+            <Button type="submit">登録</Button>
           </Box>
         </form>
       </Box>
