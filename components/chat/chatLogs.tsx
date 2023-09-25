@@ -1,6 +1,6 @@
-import { Avatar, Box, HStack, Link, Text } from "@chakra-ui/react";
-import { useChatPage } from "@/hooks/useChatPage";
+import { Avatar, Box, Link, Text } from "@chakra-ui/react";
 import styles from "@/styles/chatPage.module.css";
+import { useChatPage } from "@/hooks/useChatPage";
 
 const ChatLogs = () => {
   const {

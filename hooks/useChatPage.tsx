@@ -55,12 +55,12 @@ export const useChatPage = () => {
   }, [user2Id]);
 
   // roomId
-
   useEffect(() => {
     const fetchRoomId = async () => {
       if (status === "LOADING") {
         return;
       }
+      if (!user1Id) return;
       const collectionRef = collection(db, "users", user1Id, "friends");
       const querySnapshot = await getDocs(
         query(collectionRef, where("uid", "==", user2Id))
@@ -98,9 +98,6 @@ export const useChatPage = () => {
   };
 
   // チャット取得
-  // 10件取得
-  // 第二引数何入れるか　chatLogsはだめ
-  // onSnapshotを検討
   useEffect(() => {
     const fetchChatLog = async () => {
       if (!roomId) {
