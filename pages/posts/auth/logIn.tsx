@@ -6,14 +6,13 @@ import {
   Input,
   Button,
   HStack,
-  Link,
   AbsoluteCenter,
   Divider,
-  Checkbox,
 } from "@chakra-ui/react";
 
 import SnsIcon from "@/components/snsIcon";
 import { useAuthFunction } from "@/hooks/authFunctions";
+import SignupButton from "@/components/header/signupButton";
 
 const LogIn = () => {
   const {
@@ -26,31 +25,8 @@ const LogIn = () => {
 
   return (
     <>
-      <HStack
-        bg="none"
-        w="100%"
-        h="60px"
-        position={"fixed"}
-        top="0"
-        zIndex={100}
-      >
-        <Box
-          fontWeight={"bold"}
-          ml={["8px", "8px", "16px", "24px"]}
-          fontSize={["20px", "24px", "24px", "24px"]}
-        >
-          supotch
-        </Box>
-      </HStack>
-
-      <Box
-        width="300px"
-        margin="0 auto"
-        paddingTop={["80px", "160px", "160px", "160px"]}
-      >
-        <Text fontSize="3xl" marginBottom="32px">
-          ログインページ
-        </Text>
+      <Box  margin="0 auto" paddingTop={["80px"]}>
+        <Text fontSize="3xl" marginBottom="32px"></Text>
         <form onSubmit={handleLogin}>
           <FormControl>
             <FormLabel>メールアドレス</FormLabel>
@@ -61,7 +37,7 @@ const LogIn = () => {
               onChange={handleChangeEmail}
             />
           </FormControl>
-          <FormControl>
+          <FormControl mt="3">
             <FormLabel>パスワード</FormLabel>
             <Input
               name="password"
@@ -71,8 +47,7 @@ const LogIn = () => {
             />
           </FormControl>
           {error && <p style={{ color: "red" }}>{error}</p>}
-          <Checkbox>ログイン状態を保持する</Checkbox>
-          <Box marginTop="3">
+          <Box mt="3">
             <Button type="submit" m="0 auto">
               ログイン
             </Button>
@@ -100,8 +75,9 @@ const LogIn = () => {
           </SnsIcon>
         </HStack>
 
-        <Box mt="32px">
-          <Link href="/posts/auth/signUp">新規登録はこちらへ</Link>
+        {/* 新規登録 */}
+        <Box mt='16px'>
+          <SignupButton />
         </Box>
       </Box>
     </>

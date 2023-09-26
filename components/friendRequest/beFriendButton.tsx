@@ -1,16 +1,5 @@
-import { useEffect, useState } from "react";
 import { Button, useToast } from "@chakra-ui/react";
-import {
-  addDoc,
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  query,
-  setDoc,
-  updateDoc,
-  where,
-} from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/firebase/firebase";
 import { useAuth } from "@/hooks/useAuth";
 
@@ -42,11 +31,11 @@ const BeFriendButton = (props: { user2Id: string; user2Name: string }) => {
       await updateDoc(user2DocRef, {
         friendStatus: "friend",
       });
-       // chatコレクションにroomIdに基づいたChatLogを作成
-       await setDoc(doc(db, 'chat', roomId), {
+      // chatコレクションにroomIdに基づいたChatLogを作成
+      await setDoc(doc(db, "chat", roomId), {
         roomId: roomId,
-        member: {user1Id, user2Id},
-      })
+        member: { user1Id, user2Id },
+      });
     }
     toast({
       title: "通知",
@@ -65,5 +54,3 @@ const BeFriendButton = (props: { user2Id: string; user2Name: string }) => {
 };
 
 export default BeFriendButton;
-
-

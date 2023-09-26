@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button, useToast } from "@chakra-ui/react";
 import {
-  addDoc,
   collection,
   doc,
   getDocs,

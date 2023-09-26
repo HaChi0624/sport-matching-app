@@ -1,7 +1,6 @@
 import {
   Box,
   Container,
-  HStack,
   Heading,
   Input,
   InputGroup,

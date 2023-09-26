@@ -1,26 +1,14 @@
-import {
-  Box,
-  Button,
-  Heading,
-  Image,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Button, Heading, Image, Text } from "@chakra-ui/react";
 import styles from "@/styles/top.module.css";
 
-// import StepperComponent from "@/components/stepperComponent";
 import router from "next/router";
 import Footer from "@/components/footer";
 import Header from "@/components/header/header";
-
-const colorParet = {
-  color1: "#005DF5",
-  color2: "#05FF4D",
-  color3: "#E6D00B",
-  color4: "#E6D00B",
-  color5: "#CE01F5",
-};
+import { useAuth } from "@/hooks/useAuth";
+import LoginButton from "@/components/header/loginButton";
 
 const Top = () => {
+  const { status } = useAuth();
   const steps = [
     {
       title: "プロフィールを作ろう",
@@ -48,7 +36,7 @@ const Top = () => {
   return (
     <>
       <Header />
-      <Box  mt={["-70px", "-70px", "-70px", "40px"]}  bg={"blackAlpha.300"}>
+      <Box mt={["-70px", "-70px", "-70px", "40px"]} bg={"blackAlpha.300"}>
         {/* メインビジュアル */}
         <Box>
           <Box
@@ -83,13 +71,17 @@ const Top = () => {
               <Box className={styles.wrapperItem}>
                 <Heading className={styles.heading}>{step.title}</Heading>
                 <Text>{step.text}</Text>
-                <Button
-                  onClick={() => router.push(step.link)}
-                  className={styles.button}
-                  bg="#fff100"
-                >
-                  {step.button}
-                </Button>
+                {status === 'NOT_LOGGED_IN' ? (
+                  <LoginButton buttonTitle={step.button} bg='#fff100' className={styles.button} />
+                ) : (
+                  <Button
+                    onClick={() => router.push(step.link)}
+                    className={styles.button}
+                    bg="#fff100"
+                  >
+                    {step.button}
+                  </Button>
+                )}
               </Box>
             </Box>
           ))}

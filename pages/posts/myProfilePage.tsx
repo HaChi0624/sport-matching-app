@@ -9,13 +9,7 @@ import ProfileList from "@/components/myProfile/profileList";
 import { useAuth } from "@/hooks/useAuth";
 import Header from "@/components/header/header";
 
-type Profile = {
-  userName: string;
-  favTeam: string;
-  favPlayers: string;
-  comment: string;
-  photoURL: string;
-};
+
 const MyProfilePage = () => {
   const { user, status } = useAuth();
 
