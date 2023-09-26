@@ -8,7 +8,6 @@ import { useAuth } from "./useAuth";
 const usePhotoFile = () => {
   const [progress, setProgress] = useState<number>();
   const [avatarImage, setAvatarImage] = useState("");
-  // const user = auth.currentUser;
   const { user } = useAuth();
 
   const hiddenFileInput = useRef<HTMLInputElement>(null);

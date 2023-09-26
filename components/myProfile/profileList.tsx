@@ -1,13 +1,4 @@
-import {
-  Box,
-  Text,
-  HStack,
-  Spacer,
-  Avatar,
-  Divider,
-  VStack,
-  Container,
-} from "@chakra-ui/react";
+import { Box, Text, Spacer, Avatar, Divider } from "@chakra-ui/react";
 import styles from "@/styles/myProfilePage.module.css";
 
 import PhotoUpdate from "@/components/myProfile/editProf/photoUpdate";
@@ -63,7 +54,7 @@ const ProfileList = (props: {
               w={["360px", "360px", "500px", "600px"]}
               h={["360px", "360px", "500px", "600px"]}
             />
-            <Box textAlign={'right'}>
+            <Box textAlign={"right"}>
               <PhotoUpdate />
             </Box>
           </Box>
