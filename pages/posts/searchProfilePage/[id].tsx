@@ -1,11 +1,4 @@
-import {
-  Box,
-  Container,
-  Text,
-  Avatar,
-  Spacer,
-  Button,
-} from "@chakra-ui/react";
+import { Box, Container, Text, Avatar, Spacer, Button } from "@chakra-ui/react";
 import styles from "@/styles/myProfilePage.module.css";
 
 import { useEffect, useState } from "react";
@@ -13,17 +6,9 @@ import { useRouter } from "next/router";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/firebase/firebase";
 
-import BeFriendButton from "@/components/friendRequest/beFriendButton";
 import UserProfileInfo from "@/components/search/userProfileInfo";
 import Header from "@/components/header/header";
-
-type User = {
-  id: string;
-  userName: string;
-  favTeam: string;
-  favPlayers: string;
-  comment: string;
-};
+import RequestButton from "@/components/friendRequest/requestButton";
 
 const SearchProfilePage = () => {
   const [photoURL, setPhotoURL] = useState("");
@@ -94,7 +79,7 @@ const SearchProfilePage = () => {
         <Button onClick={() => router.push("/posts/searchPage")}>
           探すページに戻る
         </Button>
-        <BeFriendButton user2Id={uid} user2Name={userName} />
+        <RequestButton user2Id={uid} user2Name={userName} />
 
         {/* プロフィール情報 */}
         <Box className={styles.profileData}>
