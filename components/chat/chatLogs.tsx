@@ -8,7 +8,7 @@ const ChatLogs = () => {
     user2Name,
     user2Id,
     chatLogs,
-    photoURL,
+    user1PhotoURL,
     user2PhotoURL,
     formatMD,
     formatHHMM,
@@ -28,15 +28,19 @@ const ChatLogs = () => {
           }}
         >
           {user1Name === item.userName ? (
-            <Box display={'flex'} alignItems={'flex-end'} paddingBottom={'32px'}>
-              <Box paddingRight={'4px'}>{formatMD(item.createdAt)}</Box>
+            <Box
+              display={"flex"}
+              alignItems={"flex-end"}
+              paddingBottom={"32px"}
+            >
+              <Box paddingRight={"4px"}>{formatMD(item.createdAt)}</Box>
               <Box>{formatHHMM(item.createdAt)}</Box>
             </Box>
           ) : (
             <Link href={`/posts/friendProfilePage/${user2Id}`}>
               <Avatar
-                src={user1Name === item.userName ? photoURL : user2PhotoURL}
-                mt='24px'
+                src={user1Name === item.userName ? user1PhotoURL : user2PhotoURL}
+                mt="24px"
               />
             </Link>
           )}
@@ -48,7 +52,9 @@ const ChatLogs = () => {
                 : `${styles.chatSide} ${styles.chatSideLeft}`
             }
           >
-            <Text textAlign={user1Name === item.userName ? "right" : "left"}>{user2Name}</Text>
+            <Text textAlign={user1Name === item.userName ? "right" : "left"}>
+              {user1Name === item.userName ? user1Name : user2Name}
+            </Text>
             <Text
               className={
                 user1Name === item.userName
@@ -63,13 +69,17 @@ const ChatLogs = () => {
           {user1Name === item.userName ? (
             <Link href={`/posts/friendProfilePage/${user2Id}`}>
               <Avatar
-                src={user1Name === item.userName ? photoURL : user2PhotoURL}
-                mt='24px'
+                src={user1Name === item.userName ? user1PhotoURL : user2PhotoURL}
+                mt="24px"
               />
             </Link>
           ) : (
-            <Box display={'flex'} alignItems={'flex-end'} paddingBottom={'32px'}>
-              <Box paddingRight={'4px'}>{formatMD(item.createdAt)}</Box>
+            <Box
+              display={"flex"}
+              alignItems={"flex-end"}
+              paddingBottom={"32px"}
+            >
+              <Box paddingRight={"4px"}>{formatMD(item.createdAt)}</Box>
               <Box>{formatHHMM(item.createdAt)}</Box>
             </Box>
           )}
