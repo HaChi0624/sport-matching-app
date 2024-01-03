@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, useToast } from "@chakra-ui/react";
 import {
   collection,
@@ -11,15 +11,34 @@ import {
 } from "firebase/firestore";
 import { db } from "@/firebase/firebase";
 import { useAuth } from "@/hooks/useAuth";
+import { FriendStatus } from "@/types/searchUser";
 
 const RequestButton = (props: { user2Id: string; user2Name: string }) => {
   const toast = useToast();
-  const { user } = useAuth();
+  const { user, status } = useAuth();
   const user1Id = user.uid;
   const { user2Id, user2Name } = props;
-  // const [roomId, setRoomId] = useState("");
-  // const [request, setRequest] = useState(false);
-  const [friendStatus, setFriendStatus] = useState<string | null>(null); //request,requested,friend,null
+  const [friendStatus, setFriendStatus] = useState<FriendStatus>(null);
+
+  useEffect(() => {
+    const fetchFriendStatus = async () => {
+      if (status === "LOADING") return;
+      if (!user1Id) return;
+      try {
+        const q = query(
+          collection(db, "users", user1Id, "friends"),
+          where("uid", "==", user2Id)
+        );
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+          setFriendStatus(doc.data().friendStatus);
+        });
+      } catch (error) {
+        console.error("Error fetching friendStatus:", error);
+      }
+    };
+    fetchFriendStatus();
+  }, [status, user1Id, user2Id]);
 
   // user2への通知処理を追加したい
   const onClickRequest = async () => {
@@ -53,7 +72,7 @@ const RequestButton = (props: { user2Id: string; user2Name: string }) => {
     setFriendStatus("request");
     toast({
       title: "通知",
-      description: "友達申請をしました！",
+      description: `${user2Name}さんへ友達申請しました！`,
       status: "success",
       duration: 9000,
       isClosable: true,
@@ -62,12 +81,18 @@ const RequestButton = (props: { user2Id: string; user2Name: string }) => {
 
   return (
     <>
-      {friendStatus !== "request" ? (
-        <Button onClick={onClickRequest} bg="gray.200">
+      {friendStatus === null && (
+        <Button
+          onClick={onClickRequest}
+          bg="red.200"
+          _hover={{ bg: "red.100" }}
+        >
           友達申請
         </Button>
-      ) : (
-        <Button>申請済み</Button>
+      )}
+      {friendStatus === "request" && <Button bg="gray.200">申請済み</Button>}
+      {friendStatus === "requested" && (
+        <Button bg="gray.200">申請されています</Button>
       )}
     </>
   );

@@ -2,26 +2,27 @@ import { useEffect, useState } from "react";
 import { useUsers } from "@/hooks/useUsers";
 import { useAuth } from "./useAuth";
 import { useFriendList } from "./useFriendList";
-
-type User = {
-  uid: string;
-  userName: string;
-  photoURL: string;
-};
+import { searchUser } from "@/types/searchUser";
 
 export const useSearchPage = () => {
   const { user } = useAuth();
   const { users } = useUsers();
   const { searchedList } = useFriendList();
-  const [searchUsers, setSearchUsers] = useState<User[]>(users);
+  const [searchUsers, setSearchUsers] = useState<searchUser[]>(users);
   const [inputName, setInputName] = useState("");
   const [inputFavTeam, setInputFavTeam] = useState("");
   // const [inputFavPlayer, setInputFavPlayer] = useState("");
 
   // searchUsersの初期値を設定(ホストユーザーと既にフレンドの人を除いて)
+  // friendStatusの値を持っておきたい
   useEffect(() => {
-    const newUsers = users.filter((item) => item.uid !== user.uid);
-    setSearchUsers(newUsers.filter((item) => !searchedList.some(searchedItem => searchedItem.uid === item.uid)));
+    const others = users.filter((item) => item.uid !== user.uid);
+    setSearchUsers(
+      others.filter(
+        (other) =>
+          !searchedList.some((searchedUser) => searchedUser.uid === other.uid)
+      )
+    );
     // console.log(`searchUsers: ${searchUsers}`);
   }, [users, user.uid, searchedList]);
 
