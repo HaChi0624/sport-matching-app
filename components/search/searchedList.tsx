@@ -1,9 +1,9 @@
-import { Card, SimpleGrid } from "@chakra-ui/react";
+import { Box, Card, SimpleGrid } from "@chakra-ui/react";
 
 import ProfileCards from "@/components/search/profileCards";
-import { searchUser } from "@/types/searchUser";
+import { User } from "@/types/user";
 
-const SearchedList = (props: { searchUsers: searchUser[] }) => {
+const SearchedList = (props: { searchUsers: User[] }) => {
   const { searchUsers } = props;
 
   return (
@@ -13,14 +13,20 @@ const SearchedList = (props: { searchUsers: searchUser[] }) => {
         spacing={4}
         templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
       >
-        {searchUsers.map((user: searchUser) => (
-          <Card key={user.uid}>
-            <ProfileCards
-              uid={user.uid}
-              userName={user.userName}
-              photoURL={user.photoURL}
-            />
-          </Card>
+        {searchUsers.map((user: User) => (
+          <>
+            {user ? (
+              <Card key={user.uid}>
+                <ProfileCards
+                  uid={user.uid}
+                  userName={user.userName}
+                  photoURL={user.photoURL}
+                />
+              </Card>
+            ) : (
+              <Box>該当するユーザーがいません。</Box>
+            )}
+          </>
         ))}
       </SimpleGrid>
     </>
