@@ -1,15 +1,7 @@
-import { atom, selector } from "recoil";
+import { atom } from "recoil";
+import { userProf } from "@/types/user";
 
-type prof = {
-  uid: "";
-  userName: "";
-  favTeam: "";
-  favPlayers: "";
-  comment: "";
-  photoURL: "";
-};
-
-export const userProfState = atom({
+export const userProfState = atom<userProf>({
   key: "userProfState",
   default: {
     uid: "",

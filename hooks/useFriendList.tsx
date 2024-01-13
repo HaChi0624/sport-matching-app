@@ -5,11 +5,7 @@ import { useUsers } from "@/hooks/useUsers";
 
 import { db } from "@/firebase/firebase";
 import { useAuth } from "./useAuth";
-type User = {
-  uid: string;
-  userName: string;
-  photoURL: string;
-};
+import { User } from "@/types/user";
 
 export const useFriendList = () => {
   const { user, status } = useAuth();

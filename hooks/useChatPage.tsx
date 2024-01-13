@@ -2,8 +2,6 @@ import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { FirebaseError } from "firebase/app";
 import {
-  getDoc,
-  doc,
   getDocs,
   collection,
   query,
@@ -28,31 +26,15 @@ type ChatLog = {
 export const useChatPage = () => {
   const router = useRouter();
   const { user, status } = useAuth();
-  const { userName, photoURL } = useProfile(); //user1のデータ
 
   const user1Id: string = user.uid;
   const user2Id: string = router.query.id as string;
-  const user1Name = userName;
+  const { userName: user1Name, photoURL: user1PhotoURL } = useProfile(user1Id);
+  const { userName: user2Name, photoURL: user2PhotoURL } = useProfile(user2Id);
+
   const [roomId, setRoomId] = useState("");
-  const [user2Name, setUser2Name] = useState("");
-  const [user2PhotoURL, setUser2PhotoURL] = useState("");
   const [inputMsg, setInputMsg] = useState("");
   const [chatLogs, setChatLogs] = useState<ChatLog[]>([]);
-
-  //  get user2name and photoURL
-  useEffect(() => {
-    const fetchUser2Name = async () => {
-      if (user2Id) {
-        const userSnapshot = await getDoc(doc(db, "users", user2Id));
-        if (userSnapshot.exists()) {
-          const userData = userSnapshot.data();
-          setUser2Name(userData.userName);
-          setUser2PhotoURL(userData.photoURL);
-        }
-      }
-    };
-    fetchUser2Name();
-  }, [user2Id]);
 
   // roomId
   useEffect(() => {
@@ -151,7 +133,7 @@ export const useChatPage = () => {
     user1Name,
     user2Name,
     user2Id,
-    photoURL,
+    user1PhotoURL,
     user2PhotoURL,
     chatLogs,
     handleSendMessage,

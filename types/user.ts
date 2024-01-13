@@ -1,22 +1,16 @@
+// 各userのプロフィールページに割り当てられる情報
+export type userProf = {
+  uid: string;
+  userName: string;
+  favTeam: string;
+  favPlayers: string;
+  comment: string;
+  photoURL: string;
+};
+
+// 検索対象の最低限のuser情報
 export type User = {
-  id: string;
-  username: string;
-  email: string;
-  address: {
-    street: string;
-    suite: string;
-    city: string;
-    zipcode: string;
-    geo: {
-      lat: string;
-      lng: string;
-    };
-  };
-  phone: string;
-  website: string;
-  company: {
-    name: string;
-    catchPhrase: string;
-    bs: string;
-  };
+  uid: string;
+  userName: string;
+  photoURL: string;
 };

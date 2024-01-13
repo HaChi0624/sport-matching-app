@@ -7,8 +7,8 @@ import Notification from "./notification";
 import LoginButton from "./loginButton";
 
 const Header = () => {
-  const { status } = useAuth();
-  const { photoURL } = useProfile();
+  const { user, status } = useAuth();
+  const { photoURL } = useProfile(user.uid);
 
   return (
     <Box position={"fixed"} w="100%" h="60px" top="0" zIndex={100}>

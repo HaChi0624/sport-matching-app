@@ -4,12 +4,7 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { useUsers } from "@/hooks/useUsers";
 import { db } from "@/firebase/firebase";
 import { useAuth } from "@/hooks/useAuth";
-
-type User = {
-  uid: string;
-  userName: string;
-  photoURL: string;
-};
+import { User } from "@/types/user";
 
 export const useRequestedList = () => {
   const { user, status } = useAuth();

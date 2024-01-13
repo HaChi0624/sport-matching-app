@@ -5,7 +5,7 @@ import { db } from "@/firebase/firebase";
 import { useAuth } from "./useAuth";
 
 // 一人分のプロフィール
-export const useProfile = () => {
+export const useProfile = (id: string) => {
   const { user, status } = useAuth();
 
   const [userName, setUserName] = useState("");
@@ -15,9 +15,9 @@ export const useProfile = () => {
   const [photoURL, setPhotoURL] = useState("");
 
   useEffect(() => {
-    if (status !== "LOADING" && user.uid) {
+    if (status !== "LOADING" && id) {
       const fetchUserName = async () => {
-        const userSnapshot = await getDoc(doc(db, "users", user.uid));
+        const userSnapshot = await getDoc(doc(db, "users", id));
         const userData = userSnapshot.data();
         if (userData) {
           setUserName(userData.userName);
@@ -29,7 +29,7 @@ export const useProfile = () => {
       };
       fetchUserName();
     }
-  }, [status, user]);
+  }, [status, id]);
 
   return {
     userName,
